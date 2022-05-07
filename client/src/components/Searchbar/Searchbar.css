@@ -24,7 +24,7 @@
     background-color: rgb(224, 227, 44);
     border: 5px solid rgb(187, 189, 37);
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .btn-searchbar:hover {

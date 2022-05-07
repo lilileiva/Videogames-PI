@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import spaceinvaders from '../../img/spaceinvaders.png'
 import './Navbar.css';
 
@@ -15,22 +15,22 @@ export default function Navbar() {
                     </Link>
                 <div className='buttons'>
                     <div className='btn'>
-                        <Link to='/'>
+                        <NavLink exact to='/'>
                             <img src={spaceinvaders} alt="image" />
-                            <a>Home</a>
-                        </Link>
+                            Home
+                        </NavLink>
                     </div>
                     <div className='btn'>
-                        <Link to='/creategame'>
+                        <NavLink to='/creategame'>
                             <img src={spaceinvaders} alt="image" />
-                            <a>Create videogame</a>
-                        </Link>
+                            Create videogame
+                        </NavLink>
                     </div>
                     <div className='btn'>
-                        <Link to='/about'>
+                        <NavLink to='/about'>
                             <img src={spaceinvaders} alt="image" />
-                            <a>About</a>
-                        </Link>
+                            About
+                        </NavLink>
                     </div>
                 </div>
             </div>

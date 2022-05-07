@@ -6,7 +6,6 @@
     margin: 0 30px 0 30px;
     color: aliceblue;
 }
-
 .nav-container a {
     color: aliceblue;
 }
@@ -16,7 +15,6 @@
     font-size: 70px;  
     margin: 0;
 }
-
 .title:hover {
     color: rgb(224, 227, 44);
 }
@@ -38,7 +36,8 @@
 .btn:hover img {
     display: block;
 }
-.btn:hover a {
+.btn:hover a,
+.btn a.active {
     display: flex;
     color: rgb(224, 227, 44);
 }
