@@ -1,0 +1,35 @@
+.searchbar {
+    color: white;
+}
+
+.search {
+
+    font-size: 50px;
+}
+
+.search h1 {
+    margin-bottom: 0;
+}
+
+.search input {
+    font-size: 43px;
+    border-radius: 5px;
+}
+.search button {
+    font-family: 'VT323';
+    font-size: 42px;
+    color: rgb(48, 48, 48);
+    background-color: rgb(224, 227, 44);
+    border: 5px solid rgb(187, 189, 37);
+    border-radius: 5px;
+    cursor:pointer;
+}
+.create {
+    font-size: 30px;
+}
+
+.create a {
+    color: aliceblue;
+    border: 2px solid white;
+    padding: 5px;
+}
