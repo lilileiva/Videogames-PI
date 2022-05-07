@@ -1,4 +1,4 @@
-.nav {
+.nav-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -7,26 +7,38 @@
     color: aliceblue;
 }
 
-.nav button {
-    margin-left: 30px;
-}
-
-.nav a {
+.nav-container a {
     color: aliceblue;
 }
 
-.nav h1 {
+.title {
     font-family: 'VT323';
     font-size: 70px;  
     margin: 0;
 }
 
-.btn {
+.title:hover {
+    color: rgb(224, 227, 44);
+}
+
+.buttons {
     display: flex;
     flex-direction: row;
     font-size: 40px;
 }
 
-.btn a {
-        margin: 0 20px 0 20px;
+.btn {
+    display: inline-block;
+    margin: 0 20px 0 20px;
+}
+.btn img {
+    display: none;
+    width: 41px;
+}
+.btn:hover img {
+    display: block;
+}
+.btn:hover a {
+    display: flex;
+    color: rgb(224, 227, 44);
 }

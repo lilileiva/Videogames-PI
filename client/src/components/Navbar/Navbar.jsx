@@ -1,24 +1,37 @@
 import { Link } from 'react-router-dom';
+import spaceinvaders from '../../img/spaceinvaders.png'
 import './Navbar.css';
 
 export default function Navbar() {
     return (
         <nav>
-            <div className='nav'>
+            <div className='nav-container'>
                     <Link to='/'>
-                        <h1>VIDEO</h1>
-                        <h1>GAMES</h1>
+                        <h1 className='title'>
+                            VIDEO
+                            <br/>
+                            GAMES
+                        </h1>
                     </Link>
-                <div className='btn'>
-                    <Link to='/'>
-                        <a>Home</a>
-                    </Link>
-                    <Link to='/creategame'>
-                        <a>Create videogame</a>
-                    </Link>
-                    <Link to='/about'>
-                        <a>About</a>
-                    </Link>
+                <div className='buttons'>
+                    <div className='btn'>
+                        <Link to='/'>
+                            <img src={spaceinvaders} alt="image" />
+                            <a>Home</a>
+                        </Link>
+                    </div>
+                    <div className='btn'>
+                        <Link to='/creategame'>
+                            <img src={spaceinvaders} alt="image" />
+                            <a>Create videogame</a>
+                        </Link>
+                    </div>
+                    <div className='btn'>
+                        <Link to='/about'>
+                            <img src={spaceinvaders} alt="image" />
+                            <a>About</a>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>

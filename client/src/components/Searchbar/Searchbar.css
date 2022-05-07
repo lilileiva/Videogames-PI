@@ -1,35 +1,51 @@
-.searchbar {
+.search-container {
+    display: flex;
+    flex-direction: column;
     color: white;
 }
 
-.search {
-
+.searchbar {
     font-size: 50px;
 }
 
-.search h1 {
+.searchbar h1 {
     margin-bottom: 0;
 }
 
-.search input {
-    font-size: 43px;
+.searchbar input {
+    font-family: 'VT323';
+    font-size: 60px;
     border-radius: 5px;
 }
-.search button {
+.btn-searchbar {
     font-family: 'VT323';
-    font-size: 42px;
+    font-size: 55px;
     color: rgb(48, 48, 48);
     background-color: rgb(224, 227, 44);
     border: 5px solid rgb(187, 189, 37);
     border-radius: 5px;
     cursor:pointer;
 }
-.create {
+
+.btn-searchbar:hover {
+    color: black;
+    background-color: rgb(187, 189, 37);
+    border: 5px solid rgb(159, 161, 31);
+}
+
+.creategame {
     font-size: 30px;
 }
 
-.create a {
-    color: aliceblue;
-    border: 2px solid white;
+.a-creategame {
+    font-weight: bold;
+    color: rgb(48, 48, 48);
+    background-color: rgb(200, 44, 227);
+    border-radius: 5px;
     padding: 5px;
+}
+
+.a-creategame:hover {
+    color: black;
+    background-color: rgb(155, 32, 176);
 }

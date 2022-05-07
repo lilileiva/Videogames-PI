@@ -3,23 +3,23 @@ import './Searchbar.css';
 
 export default function Searchbar() {
     return (
-        <div className='searchbar'>
-            <div className='search'>
+        <div className='search-container'>
+            <div className='searchbar'>
                 <h1>SEARCH FOR A GAME</h1>
                 <form>
                     <input
                         type='text'
                         placeholder='Type here...'
                     />
-                    <button>
+                    <button className='btn-searchbar'>
                         search
                     </button>
                 </form>
             </div>
-            <div className='create'>
+            <div className='creategame'>
                 <p>Or create a new one:</p>
                 <Link to='/creategame'>
-                    <a>CREATE</a>
+                    <a className='a-creategame'>CREATE</a>
                 </Link>
             </div>
         </div>

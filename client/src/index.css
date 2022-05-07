@@ -6,6 +6,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url(./img/bg-videogame.png);
+  background-size: 100%;
+  background-position: 0% 20%;
+  background-repeat: no-repeat;
 }
 
 code {
