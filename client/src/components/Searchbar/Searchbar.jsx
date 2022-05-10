@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import './Searchbar.css';
+import styles from './Searchbar.module.css';
 
 export default function Searchbar() {
     return (
-        <div className='sb-container'>
-            <div className='searchbar'>
+        <div className={styles.container}>
+            <div className={styles.searchbar}>
                 <form>
                     <input
                         type='text'
                         placeholder='Type here...'
                     />
-                    <button className='btn-searchbar'>
+                    <button className={styles.btn}>
                         search
                     </button>
                 </form>

@@ -1,4 +1,4 @@
-.sb-container {
+.container {
     display: flex;
     flex-direction: column;
     color: white;
@@ -14,7 +14,7 @@
     font-size: 1.2em;
     border-radius: 0.15em;
 }
-.btn-searchbar {
+.btn {
     font-family: 'VT323';
     font-size: 1em;
     color: rgb(48, 48, 48);
@@ -23,7 +23,7 @@
     border-radius: 0.15em;
     cursor: pointer;
 }
-.btn-searchbar:hover {
+.btn:hover {
     color: black;
     background-color: rgb(187, 189, 37);
     border: 0.15em solid rgb(159, 161, 31);

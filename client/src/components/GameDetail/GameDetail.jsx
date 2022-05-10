@@ -1,4 +1,4 @@
-import './GameDetail.css';
+import styles from './GameDetail.module.css';
 
 export default function GameDetail() {
     return (

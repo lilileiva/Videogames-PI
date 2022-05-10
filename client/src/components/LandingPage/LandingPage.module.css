@@ -1,4 +1,4 @@
-.lp-container {
+.container {
     display: flex;
     flex-direction: column;
     color: white;
@@ -18,14 +18,14 @@
 .home {
     font-size: 2em;
 }
-.a-home {
+.btn {
     font-weight: bold;
     color: rgb(48, 48, 48);
     background-color: rgb(200, 44, 227);
     border-radius: 0.15em;
     padding: 0.15em;
 }
-.a-home:hover {
+.btn:hover {
     color: black;
     background-color: rgb(155, 32, 176);
 }

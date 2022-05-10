@@ -1,26 +1,26 @@
 import { Link, NavLink } from 'react-router-dom';
 import spaceinvaders from '../../img/spaceinvaders.png'
-import './Navbar.css';
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
     return (
         <nav>
-            <div className='nav-container'>
+            <div className={styles.container}>
                     <Link to='/videogames'>
-                        <h1 className='title'>
+                        <h1 className={styles.title}>
                             VIDEO
                             <br/>
                             GAMES
                         </h1>
                     </Link>
-                <div className='buttons'>
-                    <div className='btn'>
+                <div className={styles.buttons}>
+                    <div className={styles.btn}>
                         <NavLink to='/videogames'>
                             <img src={spaceinvaders} alt="image" />
                             Home
                         </NavLink>
                     </div>
-                    <div className='btn'>
+                    <div className={styles.btn}>
                         <NavLink to='/about'>
                             <img src={spaceinvaders} alt="image" />
                             About
