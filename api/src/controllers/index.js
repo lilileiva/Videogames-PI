@@ -10,6 +10,38 @@ const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 
 const getVideogames = async (req, res) => {
 
+    let json = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+    let gamesApi = json.data.results.map(game => {
+        return {
+            id: game.id,
+            name: game.name,
+            genre: game.genres.map(genre => genre.name),
+            rating: game.rating,
+            img: game.background_image
+        }
+    });
+    let gamesBd = await Videogame.findAll({
+        include: {
+            model: Genre
+        }
+    });
+    gamesBd = gamesBd.map(game => {
+        return {
+            id: game.id,
+            name: game.name,
+            genre: game.genres.map(genre => genre.name),
+            rating: game.rating,
+            img: game.img
+        }
+    })
+
+    let gamesList = [];
+    gamesList = gamesList.concat(gamesApi, gamesBd).slice(0, 15);
+    return res.json(gamesList);
+};
+
+
+const getVideogamesByName = async (req, res) => {
     const { name } = req.query;
 
     if (name) {
@@ -53,57 +85,99 @@ const getVideogames = async (req, res) => {
             return res.json("Game not found")
         }
     }
-    let json = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-    let gamesApi = json.data.results.map(game => {
-        return {
-            id: game.id,
-            name: game.name,
-            genre: game.genres.map(genre => genre.name),
-            rating: game.rating,
-            img: game.background_image
-        }
-    });
-    let gamesBd = await Videogame.findAll({
-        include: {
-            model: Genre
-        }
-    });
-    gamesBd = gamesBd.map(game => {
-        return {
-            id: game.id,
-            name: game.name,
-            genre: game.genres.map(genre => genre.name),
-            rating: game.rating,
-            img: game.img
-        }
-    })
+}
 
-    let gamesList = [];
-    gamesList = gamesList.concat(gamesApi, gamesBd).slice(0, 15);
-    return res.json(gamesList);
-};
+const getVideogameById = async (req, res) => {
 
+    const { id } = req.query;
+
+    try {
+        let json = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+        let gameApi = json.data.results.map(game => {
+            return {
+                id: game.id,
+                name: game.name,
+                genre: game.genres.map(genre => genre.name),
+                rating: game.rating,
+                img: game.background_image
+            }
+        });
+
+        let gameBd = await Videogame.findByPk(
+            id,
+            {
+                include: {
+                    model: Genre,
+                }
+            }
+        );
+        gameBd = gameBd.map(game => {
+            return {
+                id: game.id,
+                name: game.name,
+                genre: game.genres.map(genre => genre.name),
+                rating: game.rating,
+                img: game.img
+            }
+        })
+
+        if (gameApi.length) return res.json(gameApi);
+        if (gameBd.length) return res.json(gameBd);
+        else return res.json("Game not found");
+
+    } catch (err) {
+        return res.json("Game not found. Invalid ID")
+    }
+}
 
 const createVideogame = async (req, res) => {
 
+    const { name, description, released, rating, platforms, genre, img } = req.body;
+
+    if (!img) {
+        img = 'https://creazilla-store.fra1.digitaloceanspaces.com/emojis/45317/video-game-emoji-clipart-md.png';
+    }
+
+    let genres = await Promise.all(genre.map(async genre => (
+        await Genre.findAll({
+            where: {
+                name: genre.name
+            }
+        })
+    )))
+
+    let newGame = await Videogame.create({
+        name,
+        description,
+        released,
+        rating,
+        platforms,
+        img
+    })
+    await newGame.setGenres(genres.flat());
+    return res.json(newGame);
 }
 
-const getVideogamesByName = async (req, res) => {
 
-}
+const getGenres = async (req, res) => {
 
-const getVideogamesById = async (req, res) => {
+    let json = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
+    let genresApi = json.data.results.map(genre => genre.name);
 
-}
-
-const getGenre = async (req, res) => {
-
+    let genres = await Promise.all(genresApi.map(async genre => {
+        return await Genre.findOrCreate({
+            where: {
+                name: genre.name
+            }
+        })
+    }))
+    return res.json(genres);
 }
 
 module.exports = {
     getVideogames,
     createVideogame,
     getVideogamesByName,
-    getVideogamesById,
-    getGenre
+    getVideogameById,
+    getGenres
 }

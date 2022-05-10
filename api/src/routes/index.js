@@ -5,7 +5,7 @@ const {
     getVideogames,
     createVideogame,
     getVideogamesByName,
-    getVideogamesById,
+    getVideogameById,
     getGenres
 } = require('../controllers');
 
@@ -16,8 +16,8 @@ const router = Router();
 
 router.get('/videogames', getVideogames);
 router.post('/videogame', createVideogame);
-router.get('/videogames/name', getVideogamesByName); //name por query GET /videogames?name="...":
-router.get('/videogames/:idVideogame', getVideogamesById); //name por params GET /videogame/{idVideogame}:
+router.get('/videogames/:name', getVideogamesByName); //name por query GET /videogames?name="...":
+router.get('/videogame/:id', getVideogamesById); //name por params GET /videogame/{idVideogame}:
 router.get('/genres', getGenres); //traerlos de api y luego guardar en db
 
 
