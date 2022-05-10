@@ -1,0 +1,41 @@
+
+.videogame-container {
+    color: aliceblue;
+    font-size: 15px;
+}
+.videogame-container a {
+    color: aliceblue;
+}
+
+.sidebar-form {
+    display: flex;
+    justify-content: center;
+
+}
+
+.inputs {
+    width: 80%;
+}
+
+.inputs input {
+    display: flex;
+    flex-direction: column;
+    font-family: 'VT323';
+    font-size: 2em;
+    border-radius: 0.2em;
+    margin-bottom: 0.5em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.create-btn {
+    font-weight: bold;
+    color: rgb(48, 48, 48);
+    background-color: rgb(200, 44, 227);
+    border-radius: 0.15em;
+    padding: 0.15em;
+}
+.create-btn:hover {
+    color: black;
+    background-color: rgb(155, 32, 176);
+}

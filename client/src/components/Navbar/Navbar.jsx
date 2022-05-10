@@ -6,7 +6,7 @@ export default function Navbar() {
     return (
         <nav>
             <div className='nav-container'>
-                    <Link to='/'>
+                    <Link to='/videogames'>
                         <h1 className='title'>
                             VIDEO
                             <br/>
@@ -15,15 +15,9 @@ export default function Navbar() {
                     </Link>
                 <div className='buttons'>
                     <div className='btn'>
-                        <NavLink exact to='/'>
+                        <NavLink to='/videogames'>
                             <img src={spaceinvaders} alt="image" />
                             Home
-                        </NavLink>
-                    </div>
-                    <div className='btn'>
-                        <NavLink to='/creategame'>
-                            <img src={spaceinvaders} alt="image" />
-                            Create videogame
                         </NavLink>
                     </div>
                     <div className='btn'>

@@ -1,0 +1,31 @@
+.lp-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 15px;
+    margin-top: 5%;
+    justify-content: center;
+}
+
+.searchbar {
+    font-size: 3.2em;
+}
+.searchbar h1 {
+    font-size: 2em;
+    margin-bottom: 0;
+}
+
+.home {
+    font-size: 2em;
+}
+.a-home {
+    font-weight: bold;
+    color: rgb(48, 48, 48);
+    background-color: rgb(200, 44, 227);
+    border-radius: 0.15em;
+    padding: 0.15em;
+}
+.a-home:hover {
+    color: black;
+    background-color: rgb(155, 32, 176);
+}

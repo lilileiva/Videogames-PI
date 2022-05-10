@@ -1,10 +1,9 @@
 .App {
   display: flex;
   flex-direction: column;
-  font-family: 'VT323';
+  font-family: 'VT323', 'Arial';
   text-align: center;
   text-decoration: none;
-
 }
 
 .App a {

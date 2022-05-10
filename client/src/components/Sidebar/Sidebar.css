@@ -1,0 +1,36 @@
+
+.sidebar-container {
+    color: aliceblue;
+    background-color: black;
+    font-size: 15px;
+    width: 22em;
+    border-radius: 0.5em;
+}
+.sidebar-container a {
+    color: aliceblue;
+}
+
+.buttons-sidebar {
+    display: flex;
+    flex-direction: column;
+    font-size: 2.5em;
+    margin-left: 0.6em;
+}
+
+.btn-sidebar {
+    display: flex;
+    flex-direction: row;
+}
+.btn-sidebar img {
+    display: none;
+    width: 1.1em;
+}
+.btn-sidebar:hover img {
+    display: flex;
+    flex-direction: row;
+}
+.btn-sidebar:hover a,
+.btn-sidebar a.active {
+    display: flex;
+    color: rgb(224, 227, 44);
+}

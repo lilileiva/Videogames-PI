@@ -1,51 +1,30 @@
-.search-container {
+.sb-container {
     display: flex;
     flex-direction: column;
     color: white;
+    font-size: 15px;
+    justify-content: center;
 }
 
 .searchbar {
-    font-size: 50px;
+    font-size: 3.2em;
 }
-
-.searchbar h1 {
-    margin-bottom: 0;
-}
-
 .searchbar input {
     font-family: 'VT323';
-    font-size: 60px;
-    border-radius: 5px;
+    font-size: 1.2em;
+    border-radius: 0.15em;
 }
 .btn-searchbar {
     font-family: 'VT323';
-    font-size: 55px;
+    font-size: 1em;
     color: rgb(48, 48, 48);
     background-color: rgb(224, 227, 44);
-    border: 5px solid rgb(187, 189, 37);
-    border-radius: 5px;
+    border: 0.15em solid rgb(187, 189, 37);
+    border-radius: 0.15em;
     cursor: pointer;
 }
-
 .btn-searchbar:hover {
     color: black;
     background-color: rgb(187, 189, 37);
-    border: 5px solid rgb(159, 161, 31);
-}
-
-.creategame {
-    font-size: 30px;
-}
-
-.a-creategame {
-    font-weight: bold;
-    color: rgb(48, 48, 48);
-    background-color: rgb(200, 44, 227);
-    border-radius: 5px;
-    padding: 5px;
-}
-
-.a-creategame:hover {
-    color: black;
-    background-color: rgb(155, 32, 176);
+    border: 0.15em solid rgb(159, 161, 31);
 }
