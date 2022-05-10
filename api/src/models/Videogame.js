@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     id: { //controlar
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -15,19 +15,22 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.TEXT,
-      unique: true,
       allowNull: false
     },
     released: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE
     },
     rating: {
-      type: DataTypes.INTEGER //controlar
+      type: DataTypes.INTEGER
     },
     platform: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
+    },
+    img: {
+      type: DataTypes.STRING
     }
+
   },
   {
     timestamps: false
