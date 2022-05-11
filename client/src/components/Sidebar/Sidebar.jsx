@@ -30,11 +30,7 @@ export default function Sidebar() {
                         <img src={spaceinvaders} alt="image" />
                     </Link>
                 </div>
-                <br/>
-
-                <div>-------------------------------------------------</div>
-
-                <br/>
+                <div className={styles.division}>-------------------------------------------------</div>
                 <div className={styles.btn}>
                     {/* <NavLink to='/genres' activeStyle={{color: 'yellow'}} > */}
                         <a>Order by alphabet</a>

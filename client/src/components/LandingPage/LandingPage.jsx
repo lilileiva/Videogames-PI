@@ -15,6 +15,15 @@ export default function LandingPage() {
                     <a className={styles.btn}>HOME</a>
                 </Link>
             </div>
+            <div className={styles.square}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
     )
 }

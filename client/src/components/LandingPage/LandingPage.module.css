@@ -6,6 +6,57 @@ body {
     background-attachment: fixed;
 }
 
+.square div {
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    z-index: 1;
+}
+.square div:nth-child(1) {
+    top: 0%;
+    left: 35%;
+    background: rgb(200, 44, 227);
+    animation: animate 20s linear infinite;
+}
+.square div:nth-child(2) {
+    top: 0%;
+    left: 60%;
+    background: #4c96e6;
+    animation: animate 10s linear infinite;
+}
+.square div:nth-child(3) {
+    top: 0%;
+    left: 15%;
+    background: #4c96e6;
+    animation: animate 10s linear infinite;
+}
+.square div:nth-child(4) {
+    top: 0%;
+    left: 50%;
+    background: rgb(255, 21, 60);
+    animation: animate 15s linear infinite;
+}
+.square div:nth-child(5) {
+    top: 0%;
+    left: 80%;
+    background: rgb(200, 44, 227);
+    animation: animate 20s linear infinite;
+}
+.square div:nth-child(6) {
+    top: 0%;
+    left: 70%;
+    background: rgb(255, 21, 60);
+    animation: animate 15s linear infinite;
+}
+@keyframes animate {
+    0% {
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        transform: scale(1) translateY(50em);
+    }
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -17,6 +68,7 @@ body {
 
 .searchbar {
     font-size: 3.2em;
+    z-index: 2;
 }
 .searchbar h1 {
     font-size: 2em;
@@ -32,6 +84,7 @@ body {
 
 .home {
     font-size: 2em;
+    z-index: 2;
 }
 .btn {
     font-weight: bold;
