@@ -21,6 +21,13 @@ body {
 .searchbar h1 {
     font-size: 2em;
     margin-bottom: 0;
+    background: linear-gradient(45deg, #C669FF, #6969FF, #4c96e6, #2c74c1);
+    animation: hue-rotate 2s linear infinite alternate;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+@keyframes hue-rotate {
+    to  { filter: hue-rotate(90deg); }
 }
 
 .home {
