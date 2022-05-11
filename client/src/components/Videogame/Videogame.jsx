@@ -1,23 +1,19 @@
 import styles from './Videogame.module.css';
-import Sidebar from '../Sidebar/Sidebar.jsx';
 
 
 export default function Videogame() {
     return (
         <div className={styles.container}>
-            <h2>Create videogame</h2>
-            <div className={styles.sidebar_form}>
-                <Sidebar />
-                <div className={styles.inputs}>
-                    <form>
-                        <input type="text" placeholder='Name*' />
-                        <input type="text" placeholder='Description*' />
-                        <input type="text" placeholder='Platform*' />
-                        <input type="text" placeholder='Genres' />
-                        <input type="text" placeholder='Released date' />
-                        <input type="submit" value='Create' className={styles.btn} />
-                    </form>
-                </div>
+            <div className={styles.createVideogame}>
+                <h2>Create videogame</h2>
+                <form>
+                    <input type="text" placeholder='Name*' className={styles.inputs} />
+                    <textarea type="text" placeholder='Description*' className={styles.inputs} />
+                    <input type="text" placeholder='Platforms*' className={styles.inputs} />
+                    <input type="text" placeholder='Genres' className={styles.inputs} />
+                    <input type="text" placeholder='Released date' className={styles.inputs} />
+                    <input type="submit" value='Create' className={styles.btn} />
+                </form>
             </div>
         </div>
     )

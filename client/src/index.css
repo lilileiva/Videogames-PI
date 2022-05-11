@@ -6,11 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url(./img/bg-videogame.png);
+  /* background-image: url(./img/bg-videogame.png);
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: fixed; */
 }
 
 code {

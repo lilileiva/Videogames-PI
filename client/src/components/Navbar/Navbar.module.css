@@ -37,8 +37,7 @@
 .btn:hover img {
     display: block;
 }
-.btn:hover a,
-.btn a.active {
+.btn:hover a {
     display: flex;
     color: rgb(224, 227, 44);
 }

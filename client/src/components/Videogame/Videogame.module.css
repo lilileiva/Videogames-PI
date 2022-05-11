@@ -2,26 +2,27 @@
 .container {
     color: aliceblue;
     font-size: 15px;
+    display: flex;
+    margin: 4em;
+    justify-content: center;
 }
 .container a {
     color: aliceblue;
 }
 
-.sidebar_form {
-    display: flex;
-    justify-content: center;
-
+.createVideogame {
+    width: 80%;
+    font-size: 1.5em;
+    background-color: black;
+    border-radius: 0.5em;
 }
 
 .inputs {
-    width: 80%;
-}
-
-.inputs input {
     display: flex;
     flex-direction: column;
     font-family: 'VT323';
-    font-size: 2em;
+    font-size: 1.5em;
+    width: 40%;
     border-radius: 0.2em;
     margin-bottom: 0.5em;
     margin-right: auto;
@@ -29,11 +30,14 @@
 }
 
 .btn {
+    font-family: 'VT323';
     font-weight: bold;
+    font-size: 1.5em;
     color: rgb(48, 48, 48);
     background-color: rgb(200, 44, 227);
     border-radius: 0.15em;
     padding: 0.15em;
+    margin-bottom: 1em;
 }
 .btn:hover {
     color: black;

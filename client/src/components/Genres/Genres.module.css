@@ -5,17 +5,9 @@
     margin: 4em;
 }
 
-.videogames {
+.genres {
     width: 80%;
     font-size: 1.5em;
     background-color: black;
     border-radius: 0.5em;
-}
-
-.search input {
-    font-size: 0.7em;
-    margin-top: 0.5em;
-}
-.search button {
-    font-size: 0.6em;
 }
