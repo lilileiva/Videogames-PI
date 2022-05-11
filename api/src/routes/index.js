@@ -9,6 +9,8 @@ const {
     getGenres
 } = require('../controllers');
 
+// const { getVideogames } = require('../controllers/videogames.js');
+
 const router = Router();
 
 // Configurar los routers
@@ -16,7 +18,7 @@ const router = Router();
 
 router.get('/videogames', getVideogames);
 router.post('/videogame', createVideogame);
-router.get('/videogames/:name', getVideogamesByName);
+// router.get('/videogames/:name', getVideogamesByName);
 router.get('/videogame/:id', getVideogameById);
 router.get('/genres', getGenres);
 
