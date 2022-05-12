@@ -9,6 +9,7 @@ const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 
 let games = [];
 let gamesByName = [];
+let gameById = {};
 
 /*------------------------------( /videogames )----------------------------------*/
 
@@ -127,55 +128,68 @@ const getVideogamesByName = async (req, res) => {
             })
 
         } catch (error) {
-            return res.status(404).json({ msg: "Videogames not found" });
+            return res.status(404).json({ msg: "Videogames by name not found" });
         }
     }
 }
 
 /*--------------------------------( /videogames/:id )--------------------------------*/
 
-const getVideogameById = async (req, res) => {
+const apiVideogamesById = async () => {
+    fetch(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+            data.map((game) => {
+                gameById.push({
+                    id: game.id,
+                    name: game.name,
+                    genre: game.genres.map(genre => genre.name),
+                    rating: game.rating,
+                    img: game.background_image
+                })
+            })
+        })
+}
 
+const bdVideogamesById = async () => {
+    const bdVideogame = await Videogame.findByPk(id);
+
+    bdVideogame = bdVideogame.map((game) => {
+        gameById.push({
+            id: game.id,
+            name: game.name,
+            genre: game.genres.map(genre => genre.name),
+            rating: game.rating,
+            img: game.background_image
+        })
+    })
+}
+
+const getVideogameById = async (req, res) => {
     const { id } = req.query;
 
-    try {
-        let json = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-        let gameApi = json.data.results.map(game => {
-            return {
-                id: game.id,
-                name: game.name,
-                genre: game.genres.map(genre => genre.name),
-                rating: game.rating,
-                img: game.background_image
-            }
-        });
+    await apiVideogamesById();
+    await bdVideogamesById();
 
-        let gameBd = await Videogame.findByPk(
-            id,
-            {
-                include: {
-                    model: Genre,
+    if (id) {
+        try {
+            gameById = gameById.map((game) => {
+                return {
+                    id: game.id,
+                    name: game.name,
+                    genre: game.genres.map(genre => genre.name),
+                    rating: game.rating,
+                    img: game.background_image
                 }
-            }
-        );
-        gameBd = gameBd.map(game => {
-            return {
-                id: game.id,
-                name: game.name,
-                genre: game.genres.map(genre => genre.name),
-                rating: game.rating,
-                img: game.img
-            }
-        })
+            })
 
-        if (gameApi.length) return res.json(gameApi);
-        if (gameBd.length) return res.json(gameBd);
-        else return res.json("Game not found");
-
-    } catch (err) {
-        return res.json("Game not found. Invalid ID")
+        } catch (error) {
+            return res.status(404).json({ msg: "Videogames by name not found" });
+        }
     }
 }
+
+/*--------------------------------( /videogame )--------------------------------*/
 
 const createVideogame = async (req, res) => {
 

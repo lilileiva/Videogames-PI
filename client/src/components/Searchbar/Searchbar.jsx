@@ -30,6 +30,7 @@ export default function Searchbar() {
                     <input
                         type='text'
                         placeholder='Type here...'
+                        autoComplete='off'
                         name='name'
                         value={input.name}
                         onChange={e => handleInputChange(e)}
