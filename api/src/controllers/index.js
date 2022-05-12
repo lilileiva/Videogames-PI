@@ -10,6 +10,7 @@ const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 let games = [];
 let gamesByName = [];
 let gameById = {};
+let gamesByGenre = [];
 
 /*------------------------------( /videogames )----------------------------------*/
 
@@ -63,7 +64,6 @@ const getVideogames = async (req, res) => {
             }
         })
         return res.status(200).json(games)
-
     } catch (error) {
         return res.status(404).json({ msg: "Videogames not found" });
     }
@@ -126,7 +126,7 @@ const getVideogamesByName = async (req, res) => {
                     img: game.background_image
                 }
             })
-
+            return res.status(200).json(gamesByName);
         } catch (error) {
             return res.status(404).json({ msg: "Videogames by name not found" });
         }
@@ -166,7 +166,7 @@ const bdVideogamesById = async () => {
 }
 
 const getVideogameById = async (req, res) => {
-    const { id } = req.query;
+    const { id } = req.params;
 
     await apiVideogamesById();
     await bdVideogamesById();
@@ -182,7 +182,7 @@ const getVideogameById = async (req, res) => {
                     img: game.background_image
                 }
             })
-
+            return res.status(200).json(gamesById);
         } catch (error) {
             return res.status(404).json({ msg: "Videogames by name not found" });
         }
@@ -221,20 +221,61 @@ const createVideogame = async (req, res) => {
 
 /*--------------------------------( /genres )--------------------------------*/
 
+const apiGenres = async () => {
+    fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+            data.map((game) => {
+                games.push({
+                    id: game.id,
+                    name: game.name,
+                    genre: game.genres.map(genre => genre.name),
+                    rating: game.rating,
+                    img: game.background_image
+                })
+            })
+        })
+}
+
+const bdGenres = async () => {
+    const bdGenre = await Genre.findAll({
+        include: {
+            model: Genre,
+            attributes: ['name']
+        }
+    })
+
+    bdGenre = bdGenre.map((game) => {
+        gamesByGenre.push({
+            id: game.id,
+            name: game.name,
+            genre: game.genres.map(genre => genre.name),
+            rating: game.rating,
+            img: game.background_image
+        })
+    })
+}
+
 const getGenres = async (req, res) => {
+    await apiGenres();
+    await bdGenres();
 
-    let json = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
-    let genresApi = json.data.results.map(genre => genre.name);
-
-    let genres = await Promise.all(genresApi.map(async genre => {
-        return await Genre.findOrCreate({
-            where: {
-                name: genre.name
+    try {
+        gamesByGenre = gamesByGenre.map((game) => {
+            return {
+                id: game.id,
+                name: game.name,
+                genre: game.genres.map(genre => genre.name),
+                rating: game.rating,
+                img: game.background_image
             }
         })
-    }))
-    return res.json(genres);
+        return res.status(200).json(gamesByGenre);
+    } catch (error) {
+        return res.status(404).json({ msg: "Videogames by genre not found" });
+    }
 }
+
 
 module.exports = {
     getVideogames,
