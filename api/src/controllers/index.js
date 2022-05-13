@@ -10,7 +10,6 @@ const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 
 let genres = [];
 let gamesByName = [];
-let gameById = {};
 
 /*--------------------------( /videogames y /videogames?name="..." )---------------------------*/
 const getVideogames = async (req, res) => {
@@ -25,7 +24,7 @@ const getVideogames = async (req, res) => {
             }
             const apiVideogamesRes = await apiVideogames();
 
-            let bdVideogamesRes = await Videogame.findAll({
+            const bdVideogames = await Videogame.findAll({
                 where: {
                     name: name.toLowerCase()
                 },
@@ -33,7 +32,7 @@ const getVideogames = async (req, res) => {
                     model: Genre
                 }
             })
-            bdVideogamesRes = bdVideogamesRes.map(g => {
+            const bdVideogamesRes = bdVideogames.map(g => {
                 return {
                     id: g.id,
                     name: g.name,
@@ -45,58 +44,48 @@ const getVideogames = async (req, res) => {
 
             games = [...apiVideogamesRes, bdVideogamesRes]
 
-            return res.status(200).json(games)
+            if (games) {
+                return res.status(200).json(games)
+            } else {
+                return res.json('Videogames by name not found.')
+            }
+            
         } catch (error) {
             console.log('Videogames by name not found.')
         }
-    }
-
-
-    let games = [];
-    const apiVideogames = async () => {
-        const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-        return response.data.results;
-    }
-    const apiVideogamesRes = await apiVideogames();
-
-    let bdVideogamesRes = await Videogame.findAll({
-        include: {
-            model: Genre
+    } else {
+        let games = [];
+        const apiVideogames = async () => {
+            const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+            return response.data.results;
         }
-    });
-    bdVideogamesRes = bdVideogamesRes.map(g => {
-        return {
-            id: g.id,
-            name: g.name,
-            genre: g.genres.map(ge => ge.name),
-            img: g.img,
-            rating: g.rating
-        }
-    })
+        const apiVideogamesRes = await apiVideogames();
 
-    games = [...apiVideogamesRes, bdVideogamesRes]
+        const bdVideogames = await Videogame.findAll({
+            include: {
+                model: Genre
+            }
+        });
+        const bdVideogamesRes = bdVideogames.map(g => {
+            return {
+                id: g.id,
+                name: g.name,
+                genre: g.genres.map(ge => ge.name),
+                img: g.img,
+                rating: g.rating
+            }
+        })
 
-    return res.status(200).json(games)
+        games = [...apiVideogamesRes, bdVideogamesRes]
+
+        return res.status(200).json(games)
+    }
 }
 
 /*--------------------------------( /videogames/:id )--------------------------------*/
 const getVideogameById = async (req, res) => {
     const { id } = req.params;
-
-    
-    // const bdVideogamesById = async () => {
-    //     const bdVideogame = await Videogame.findByPk(id);
-
-    //     bdVideogame = bdVideogame.map((game) => {
-    //         gameById.push({
-    //             id: game.id,
-    //             name: game.name,
-    //             genre: game.genres.map(genre => genre.name),
-    //             rating: game.rating,
-    //             img: game.background_image
-    //         })
-    //     })
-    // }
+    let gameById = {};
 
     if (id) {
         try {

@@ -4,6 +4,7 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import { connect } from 'react-redux';
 import { getVideogames } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 
 
 function Videogames(state) {
@@ -13,25 +14,26 @@ function Videogames(state) {
                 <Sidebar />
             </div>
             <div className={styles.videogames}>
-                {/* <h2>Videogames</h2> */}
                 <div className={styles.search}>
                     <Searchbar />
                 </div>
-
-                <ul>
+                <ul className={styles.cards}>
                     {
                         state.videogamesLoaded
                             ? state.videogamesLoaded.map((game) => (
-                                <li>
-                                    <p>{game.name}</p>
+                                <li className={styles.card}>
+                                    <div className={styles.imgContainer}>
+                                        <img src={game.background_image} alt='videogame poster' />
+                                    </div>
+                                    <Link to={`/videogame/${game.id}`}>
+                                        <p className={styles.title}>{game.name}</p>
+                                    </Link>
                                     <p>{game.released}</p>
-                                    <img src={game.background_image} alt='videogame poster' />
                                 </li>
                             ))
                             : null
                     }
                 </ul>
-
             </div>
         </div>
     )

@@ -7,7 +7,8 @@
 
 .videogames {
     width: 80%;
-    font-size: 1.5em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.4em;
     background-color: black;
     border-radius: 0.5em;
 }
@@ -18,4 +19,46 @@
 }
 .search button {
     font-size: 0.6em;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 19em;
+    background-color: rgb(34, 34, 34);
+    border-radius: 1em;
+    margin: 1em;
+}
+.card p {
+    margin: 0.5em;
+}
+.title {
+    font-size: 1.2em;
+    color: aliceblue;
+}
+.title:hover {
+    color: yellow;
+}
+
+.card img {
+    width: inherit;
+    height: 12em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.imgContainer {
+    display: flex;
+    justify-content: center;
+    width: inherit;
+    height: inherit;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
 }

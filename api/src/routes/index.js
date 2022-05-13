@@ -4,7 +4,6 @@ const { Router } = require('express');
 const {
     getVideogames,
     createVideogame,
-    getVideogamesByName,
     getVideogameById,
     getGenres
 } = require('../controllers');

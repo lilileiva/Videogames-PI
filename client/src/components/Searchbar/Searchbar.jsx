@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
 import { getVideogames } from '../../redux/actions';
+import { connect } from "react-redux";
 
 
 export default function Searchbar() {
 
     const dispatch = useDispatch();
-    const [input, setInput] = React.useState({
+    const [input, setInput] = useState({
        name:"",
     });
  
@@ -44,3 +45,20 @@ export default function Searchbar() {
 
     )
 }
+
+// function mapStateToProps(state) {
+//     return {
+//       videogamesLoaded: state.videogamesLoaded
+//     };
+//   };
+  
+//   function mapDispatchToProps(dispatch) {
+//     return {
+//         getVideogames: name => dispatch(getVideogames(name))
+//     };
+//   };
+  
+//   export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+//   )(Searchbar);

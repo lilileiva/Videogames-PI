@@ -6,13 +6,13 @@ import { getVideogameById } from '../../redux/actions';
 
 function GameDetail(state) {
     return (
-        <div>
+        <div className={styles.container}>
             <h2>Game Detail</h2>
 
             <ul>
                     {
-                        state.videogamesLoaded
-                            ? state.videogamesLoaded.map((game) => (
+                        state.videogameDetail
+                            ? state.videogameDetail.map((game) => (
                                 <li>
                                     <p>{game.name}</p>
                                     <p>{game.released}</p>
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getVideogameById: dispatch(getVideogameById())
+        getVideogameById: id => dispatch(getVideogameById(id))
     }
 }
 

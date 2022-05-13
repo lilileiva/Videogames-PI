@@ -2,9 +2,7 @@
     color: aliceblue;
     background-color: black;
     font-size: 10px;
-    /* font-size: 15px; */
     width: 25em;
-    /* width: 20em; */
     border-radius: 0.5em;
     margin-left: 1em;
     margin-right: 1em;
@@ -21,19 +19,23 @@
 }
 
 .btn {
-    display: flex;
-    flex-direction: row;
     font-size: 2.5em;
-}
-.btn img {
-    display: none;
-    width: 1.1em;
-}
-.btn:hover img {
-    display: flex;
-    flex-direction: row;
+    justify-content: center;
 }
 .btn:hover p {
-    display: flex;
     color: rgb(224, 227, 44);
+}
+
+.selectBtn select {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2em;
+    color: aliceblue;
+    background: rgb(34, 34, 34);
+    border-radius: 1em;
+    width: 10em;
+    margin: 1em;
+}
+
+.selectBtn select:hover {
+    color: yellow;
 }
