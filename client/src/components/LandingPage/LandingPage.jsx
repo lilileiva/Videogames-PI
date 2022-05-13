@@ -10,9 +10,9 @@ export default function LandingPage() {
                 <Searchbar />
             </div>
             <div className={styles.home}>
-                <p>Entry to our home:</p>
+                <p className={styles.homeText}>Entry to our home:</p>
                 <Link to='/videogames'>
-                    <a className={styles.btn}>HOME</a>
+                    <button className={styles.btn}>HOME</button>
                 </Link>
             </div>
             <div className={styles.square}>

@@ -16,19 +16,19 @@ export default function Navbar() {
                 <div className={styles.buttons}>
                     <div className={styles.btn}>
                         <NavLink to='/videogames' activeStyle={{color: 'yellow'}} >
-                            <img src={spaceinvaders} alt="image" />
+                            <img src={spaceinvaders} alt="spaceinvaders img" />
                             Home
                         </NavLink>
                     </div>
                     <div className={styles.btn}>
                         <NavLink to='/videogame' activeStyle={{color: 'yellow'}} >
-                            <img src={spaceinvaders} alt="image" />
+                            <img src={spaceinvaders} alt="spaceinvaders img" />
                             Create videogame
                         </NavLink>
                     </div>
                     <div className={styles.btn}>
                         <NavLink to='/about' activeStyle={{color: 'yellow'}}>
-                            <img src={spaceinvaders} alt="image" />
+                            <img src={spaceinvaders} alt="spaceinvaders img" />
                             About
                         </NavLink>
                     </div>

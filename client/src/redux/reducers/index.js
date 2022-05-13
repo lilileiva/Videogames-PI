@@ -38,12 +38,11 @@ const initialState = {
             genresLoaded: action.payload
           }
       }
-    //   else if (action.type === CREATE_VIDEOGAME) {
-    //       return {
-    //           ...state,
-    //           moviesFavorites: state.moviesFavorites.filter(m => m.imdbID !== action.payload)
-    //       }
-    //   }
+      else if (action.type === CREATE_VIDEOGAME) {
+          return {
+              ...state,
+          }
+      }
       return state;
   }
 

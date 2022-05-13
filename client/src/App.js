@@ -13,14 +13,14 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Navbar/>
+      <Navbar />
       <Route exact path='/' component={LandingPage} />
-      <Route exact path='/gamedetail' component={GameDetail} />
+      <Route exact path='/videogame/:id' component={GameDetail} />
       <Route exact path='/videogames' component={Videogames} />
       <Route exact path='/genres' component={Genres} />
       <Route exact path='/videogame' component={Videogame} />
       <Route exact path='/about' component={About} />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

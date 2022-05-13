@@ -12,6 +12,7 @@ export default function Videogame() {
        description: "",
        platforms: "",
        released: "",
+       img: ""
     });
  
    const handleInputChange = (e) => {
@@ -69,6 +70,16 @@ export default function Videogame() {
                         className={styles.inputs}
                         name='released'
                         value={input.released}
+                        onChange={e => handleInputChange(e)}
+                    />
+                    <label for="img">Select image:</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        className={styles.inputs}
+                        id='img'
+                        name='img'
+                        value={input.img}
                         onChange={e => handleInputChange(e)}
                     />
                     <input type="submit" value='Create' className={styles.btn} />

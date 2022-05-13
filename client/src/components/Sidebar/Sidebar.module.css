@@ -11,7 +11,7 @@
     padding: 1.5em;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.container a {
+.container p {
     color: aliceblue;
 }
 
@@ -24,7 +24,6 @@
     display: flex;
     flex-direction: row;
     font-size: 2.5em;
-    margin-bottom: 0.5em;
 }
 .btn img {
     display: none;
@@ -34,11 +33,7 @@
     display: flex;
     flex-direction: row;
 }
-.btn:hover a {
+.btn:hover p {
     display: flex;
     color: rgb(224, 227, 44);
-}
-
-.division {
-    margin-bottom: 1em;
 }
