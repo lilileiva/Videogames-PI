@@ -9,7 +9,6 @@ const fetch = import('node-fetch');
 const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 
 let genres = [];
-let games = [];
 let gamesByName = [];
 let gameById = {};
 
@@ -17,164 +16,96 @@ let gameById = {};
 const getVideogames = async (req, res) => {
     const { name } = req.query;
 
-    //----------videogames by name---------------
     if (name) {
-        const apiVideogamesByName = async () => {
-            fetch(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    data.results.map((game) => {
-                        gamesByName.push({
-                            id: game.id,
-                            name: game.name,
-                            genre: game.genres.map(genre => genre.name),
-                            rating: game.rating,
-                            img: game.background_image
-                        })
-                    })
-                })
-        }
+        try {
+            let games = [];
+            const apiVideogames = async (name) => {
+                const response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+                return response.data.results;
+            }
+            const apiVideogamesRes = await apiVideogames();
 
-        const bdVideogamesByName = async () => {
-            const bdVideogame = await Videogame.findAll({
+            let bdVideogamesRes = await Videogame.findAll({
                 where: {
-                    nombre: name.toLowerCase()
+                    name: name.toLowerCase()
                 },
                 include: {
-                    model: Genre,
-                    attributes: ['name']
+                    model: Genre
                 }
             })
-
-            bdVideogame = bdVideogame.map((game) => {
-                gamesByName.push({
-                    id: game.id,
-                    name: game.name,
-                    genre: game.genres.map(genre => genre.name),
-                    rating: game.rating,
-                    img: game.background_image
-                })
-            })
-        }
-
-        await apiVideogamesByName();
-        await bdVideogamesByName();
-
-        try {
-            gamesByName = gamesByName.map((game) => {
+            bdVideogamesRes = bdVideogamesRes.map(g => {
                 return {
-                    id: game.id,
-                    name: game.name,
-                    genre: game.genres.map(genre => genre.name),
-                    rating: game.rating,
-                    img: game.background_image
+                    id: g.id,
+                    name: g.name,
+                    genre: g.genres.map(ge => ge.name),
+                    img: g.img,
+                    rating: g.rating
                 }
             })
-            return res.status(200).json(gamesByName);
+
+            games = [...apiVideogamesRes, bdVideogamesRes]
+
+            return res.status(200).json(games)
         } catch (error) {
-            return res.status(404).json({ error: "Videogames by name not found" });
+            console.log('Videogames by name not found.')
         }
     }
 
-    //---------------------todos los resultados---------------------------
+
+    let games = [];
     const apiVideogames = async () => {
-        const response = fetch(`https://api.rawg.io/api/games?key=${API_KEY}`)
-        const json = await response.json()
-
-        json.results.map((game) => {
-            return {
-                id: game.id,
-                name: game.name,
-                genre: game.genres.map(genre => genre.name),
-                rating: game.rating,
-                img: game.background_image
-            }
-        })
-
+        const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+        return response.data.results;
     }
+    const apiVideogamesRes = await apiVideogames();
 
-    const bdVideogames = async () => {
-        let bdVideogame = await Videogame.findAll({
-            include: {
-                model: Genre,
-                attributes: ['name']
-            }
-        })
-        bdVideogame = bdVideogame.map((game) => {
-            return {
-                id: game.dataValues.id,
-                name: game.dataValues.name,
-                genre: game.dataValues.genres.map(genre => genre.name),
-                rating: game.dataValues.rating,
-                img: game.dataValues.background_image
-            }
-        })
-    }
+    let bdVideogamesRes = await Videogame.findAll({
+        include: {
+            model: Genre
+        }
+    });
+    bdVideogamesRes = bdVideogamesRes.map(g => {
+        return {
+            id: g.id,
+            name: g.name,
+            genre: g.genres.map(ge => ge.name),
+            img: g.img,
+            rating: g.rating
+        }
+    })
 
-    let apiVideogame = await apiVideogames();
-    let bdVideogame = await bdVideogames();
+    games = [...apiVideogamesRes, bdVideogamesRes]
 
-    try {
-
-        games = games.push(apiVideogame.concat(bdVideogame))
-
-        return res.json(games);
-        // return res.status(200).json(games)
-
-    } catch (error) {
-        return res.status(404).json({ error: "Videogames not found" });
-    }
+    return res.status(200).json(games)
 }
 
 /*--------------------------------( /videogames/:id )--------------------------------*/
 const getVideogameById = async (req, res) => {
     const { id } = req.params;
 
-    const apiVideogamesById = async () => {
-        fetch(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-            .then(res => res.json())
-            .then(data => {
-                data.map((game) => {
-                    gameById.push({
-                        id: game.id,
-                        name: game.name,
-                        genre: game.genres.map(genre => genre.name),
-                        rating: game.rating,
-                        img: game.background_image
-                    })
-                })
-            })
-    }
+    
+    // const bdVideogamesById = async () => {
+    //     const bdVideogame = await Videogame.findByPk(id);
 
-    const bdVideogamesById = async () => {
-        const bdVideogame = await Videogame.findByPk(id);
-
-        bdVideogame = bdVideogame.map((game) => {
-            gameById.push({
-                id: game.id,
-                name: game.name,
-                genre: game.genres.map(genre => genre.name),
-                rating: game.rating,
-                img: game.background_image
-            })
-        })
-    }
-
-    await apiVideogamesById();
-    await bdVideogamesById();
+    //     bdVideogame = bdVideogame.map((game) => {
+    //         gameById.push({
+    //             id: game.id,
+    //             name: game.name,
+    //             genre: game.genres.map(genre => genre.name),
+    //             rating: game.rating,
+    //             img: game.background_image
+    //         })
+    //     })
+    // }
 
     if (id) {
         try {
-            gameById = gameById.map((game) => {
-                return {
-                    id: game.id,
-                    name: game.name,
-                    genre: game.genres.map(genre => genre.name),
-                    rating: game.rating,
-                    img: game.background_image
-                }
-            })
-            return res.status(200).json(gameById);
+            const apiVideogamesById = async (id) => {
+                const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+                return response.data;
+            }
+            const respgame = await apiVideogamesById();
+            return res.status(200).json(respgame)
         } catch (error) {
             return res.status(404).json({ error: "Videogame not found. Invalid ID." });
         }

@@ -5,34 +5,34 @@ export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
 export const GET_GENRES = "GET_GENRES";
 
 
-export function getVideogames() {
+export function getVideogames(name) {
     return async function (dispatch) {
-        // return (
-        // fetch('/videogames')
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         dispatch({
-        //             type: "GET_VIDEOGAMES",
-        //             payload: data
-        //         })
-        //     })
-        // )
-
-        fetch('/videogames')
+        return fetch('http://localhost:3001/videogames')
+            .then(res => res.json())
             .then(data => {
                 dispatch({
                     type: "GET_VIDEOGAMES",
                     payload: data
                 })
             })
-            
-
 
     }
 };
 
 
 export function getVideogameById(id) {
+
+    return async function (dispatch) {
+        return fetch(`/videogame/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                dispatch({
+                    type: "GET_VIDEOGAMES_BY_ID",
+                    payload: data
+                })
+            })
+
+    }
 
     return async function (dispatch) {
         try {
