@@ -24,6 +24,16 @@ const getVideogames = async (req, res) => {
             }
             const apiVideogamesRes = await apiVideogames();
 
+            apiVideogamesRes = apiVideogamesRes.map(g => {
+                return {
+                    id: g.id,
+                    name: g.name,
+                    genre: g.genres.map(ge => ge.name),
+                    img: g.img,
+                    rating: g.rating
+                }
+            })
+
             const bdVideogames = await Videogame.findAll({
                 where: {
                     name: name.toLowerCase()

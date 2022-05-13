@@ -12,18 +12,23 @@ function Genres(state) {
                 <Sidebar />
             </div>
             <div className={styles.genres}>
-                <h2>Genres</h2>
-                 <ul>
+                <select>
+                    <option value='null'>Genres</option>
+                    <option>Action</option>
+                    <option>Terror</option>
+                    <option>Fantasy</option>
+                </select>
+                <ul>
                     {
-                        state.videogamesLoaded
-                            ? state.videogamesLoaded.map((game) => (
+                        state.genresLoaded
+                            ? state.genresLoaded.map((game) => (
                                 <li>
                                     <p>{game.name}</p>
                                     <p>{game.released}</p>
                                     <img src={game.img} alt='videogame poster' />
                                 </li>
                             ))
-                            : null
+                            : <p>No genres...</p>
                     }
                 </ul>
             </div>

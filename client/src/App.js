@@ -7,12 +7,12 @@ import Videogame from './components/Videogame/Videogame.jsx';
 import Genres from './components/Genres/Genres.jsx';
 import About from './components/About/About.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import './App.css';
+import styles from './App.module.css';
 
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
       <Navbar />
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/videogame/:id' component={GameDetail} />

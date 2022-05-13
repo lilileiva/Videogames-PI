@@ -8,24 +8,24 @@ export default function Videogame() {
 
     const dispatch = useDispatch();
     const [input, setInput] = React.useState({
-       name:"",
-       description: "",
-       platforms: "",
-       released: "",
-       img: ""
+        name: "",
+        description: "",
+        platforms: "",
+        released: "",
+        img: ""
     });
- 
-   const handleInputChange = (e) => {
-     setInput({
-       ...input,
-       [e.target.name]: e.target.value
-    });
-   }
- 
-   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(createVideogame(input))
-  }
+
+    const handleInputChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(createVideogame(input))
+    }
 
     return (
         <div className={styles.container}>
@@ -35,7 +35,7 @@ export default function Videogame() {
                     <input
                         type="text"
                         placeholder='Name*'
-                        className={styles.inputs} 
+                        className={styles.inputs}
                         name='name'
                         value={input.name}
                         onChange={e => handleInputChange(e)}
@@ -56,14 +56,20 @@ export default function Videogame() {
                         value={input.platforms}
                         onChange={e => handleInputChange(e)}
                     />
-                    <input
+                    {/* <input
                         type="text"
                         placeholder='Genres'
                         className={styles.inputs}
                         name='genres'
                         value={input.genres}
                         onChange={e => handleInputChange(e)}
-                    />
+                    /> */}
+                    <select>
+                        <option value='null'>Genres</option>
+                        <option>Action</option>
+                        <option>Terror</option>
+                        <option>Fantasy</option>
+                    </select>
                     <input
                         type="date"
                         placeholder='Released date'

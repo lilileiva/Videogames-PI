@@ -20,21 +20,16 @@ export default function Sidebar() {
                         <p>Genres</p>
                     </div>
                 </Link>
-                <div>-------------------------------------------------</div>
-                <div className={styles.selectBtn}>
-                    <select>
-                        <option value='null'>Order by alphabet</option>
-                        <option>A-Z</option>
-                        <option>Z-A</option>
-                    </select>
-                </div>
-                <div className={styles.selectBtn}>
-                    <select>
-                        <option value='null'>Order by rating</option>
-                        <option>Low to high</option>
-                        <option>High to low</option>
-                    </select>
-                </div>
+                <select>
+                    <option value='null'>Order by alphabet</option>
+                    <option>A-Z</option>
+                    <option>Z-A</option>
+                </select>
+                <select>
+                    <option value='null'>Order by rating</option>
+                    <option>Low to high</option>
+                    <option>High to low</option>
+                </select>
             </div>
         </div>
     )

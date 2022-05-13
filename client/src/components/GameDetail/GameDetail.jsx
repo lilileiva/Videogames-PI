@@ -7,9 +7,9 @@ import { getVideogameById } from '../../redux/actions';
 function GameDetail(state) {
     return (
         <div className={styles.container}>
-            <h2>Game Detail</h2>
-
-            <ul>
+            <div className={styles.gameDetail}>
+                <h2>Game Detail</h2>
+                <ul>
                     {
                         state.videogameDetail
                             ? state.videogameDetail.map((game) => (
@@ -22,6 +22,7 @@ function GameDetail(state) {
                             : null
                     }
                 </ul>
+            </div>
         </div>
     )
 }

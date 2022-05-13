@@ -11,3 +11,13 @@
     background-color: black;
     border-radius: 0.5em;
 }
+
+.genres select {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1em;
+    color: aliceblue;
+    background: rgb(34, 34, 34);
+    border-radius: 1em;
+    width: 10em;
+    margin: 1.2em;
+}

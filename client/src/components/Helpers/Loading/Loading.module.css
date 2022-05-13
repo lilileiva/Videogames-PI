@@ -1,0 +1,19 @@
+.container {
+    color: aliceblue;
+    font-size: 15px;
+    display: flex;
+    margin: 4em;
+}
+
+.loader {
+    border: 1em solid #f3f3f3; 
+    border-top: 1em solid rgb(200, 44, 227);
+    border-radius: 20%;
+    width: 4em;
+    height: 4em;
+    animation: spin 2s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

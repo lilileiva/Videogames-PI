@@ -8,7 +8,7 @@
 .videogames {
     width: 80%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 1.4em;
+    font-size: 1.3em;
     background-color: black;
     border-radius: 0.5em;
 }
@@ -37,14 +37,25 @@
     margin: 1em;
 }
 .card p {
-    margin: 0.5em;
+    margin: 0.2em;
+}
+
+.titlee {
+    display: flex;
+    flex-direction: column;
+    height: 3.5em;
+    justify-content: center;
 }
 .title {
-    font-size: 1.2em;
+    font-size: 1.5em;
+    height: 1.3em;
     color: aliceblue;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .title:hover {
-    color: yellow;
+    font-size: 1.7em;
 }
 
 .card img {
@@ -61,4 +72,9 @@
     height: inherit;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
+}
+
+
+body {
+    background-color: aliceblue;
 }

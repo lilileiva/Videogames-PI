@@ -1,0 +1,20 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  font-family: 'VT323', 'Arial';
+  text-align: center;
+  text-decoration: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  background-image: url(./img/bg-videogame.png);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+} 
+
+.app a {
+  text-decoration: none;
+}

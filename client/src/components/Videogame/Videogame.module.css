@@ -43,3 +43,13 @@
     color: black;
     background-color: rgb(155, 32, 176);
 }
+
+.createVideogame select {
+    font-family: 'VT323';
+    font-size: 1.5em;
+    color: rgb(106, 106, 106);
+    background: aliceblue;
+    border-radius: 0.2em;
+    width: 40%;
+    margin-bottom: 0.5em;
+}

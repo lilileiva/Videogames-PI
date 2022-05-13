@@ -1,8 +1,9 @@
 .footer {
     position: fixed;
-    bottom: 10px;
-    font-size: 20px;
+    bottom: 0.2em;
+    font-size: 1.2em;
     color: aliceblue;
     text-shadow: 3px 3px 3px rgb(0, 0, 0);
     width: 100%;
+    justify-content: center;
 }
