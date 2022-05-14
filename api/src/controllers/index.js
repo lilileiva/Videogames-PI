@@ -61,13 +61,13 @@ const getVideogames = async (req, res) => {
 
         const apiVideogames = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
         let apiVideogamesRes = apiVideogames.data.results;
-        apiVideogamesRes = apiVideogamesRes.map(g => {
+        apiVideogamesRes = apiVideogamesRes.map(game => {
             return {
-                id: g.id,
-                name: g.name,
-                genre: g.genres.map(ge => ge.name),
-                img: g.background_image,
-                rating: g.rating
+                id: game.id,
+                name: game.name,
+                genres: game.genres.map(genre => genre.name),
+                img: game.background_image,
+                rating: game.rating
             }
         })
 
@@ -97,18 +97,27 @@ const getVideogameById = async (req, res) => {
     const { id } = req.params;
     let gameById = {};
 
-    if (id) {
-        try {
-            const apiVideogamesById = async (id) => {
-                const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-                return response.data.results;
+    try {
+        const apiVideogame = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+        let apiVideogameRes = apiVideogame.data.results;
+        apiVideogameRes = apiVideogameRes.map(g => {
+            return {
+                id: g.id,
+                name: g.name,
+                genre: g.genres.map(ge => ge.name),
+                img: g.background_image,
+                rating: g.rating
             }
-            const respgame = await apiVideogamesById();
-            return res.status(200).json(respgame)
-        } catch (error) {
-            return res.status(404).json({ error: "Videogame not found. Invalid ID." });
-        }
+        })
+
+        // gameById = [...apiVideogameRes, bdVideogameRes]
+        gameById = apiVideogameRes
+
+        return res.status(200).json(gameById)
+    } catch (error) {
+        return res.status(404).json({ error: "Videogame not found. Invalid ID." });
     }
+
 }
 
 /*--------------------------------( /videogame )--------------------------------*/

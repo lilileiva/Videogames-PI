@@ -30,7 +30,7 @@ function GameDetail(state) {
 
 function mapStateToProps(state) {
     return {
-        videogameDetail: state.videogamesDetail
+        videogameDetail: state.videogameDetail
     }
 }
 
@@ -42,5 +42,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
 )(GameDetail);

@@ -17,9 +17,12 @@ export function getVideogames() {
             })
     }
 };
+
+
 export function getVideogamesByName(name) {
     return async function (dispatch) {
-        return fetch(`http://localhost:3001/videogames?name=${name}`)
+        try {
+            return fetch(`http://localhost:3001/videogames?name=${name}`)
             .then(res => res.json())
             .then(data => {
                 dispatch({
@@ -27,6 +30,9 @@ export function getVideogamesByName(name) {
                     payload: data
                 })
             })
+        } catch (error) {
+            return console.log(error)
+        }
     }
 };
 

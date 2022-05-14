@@ -45,21 +45,3 @@ export default function Searchbar() {
         </div>
     )
 }
-
-
-// function mapStateToProps(state) {
-//     return {
-//         videogamesLoaded: state.videogamesLoaded,
-//     }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         getVideogamesByName: name => dispatch(getVideogamesByName(name))
-//     }
-// }
-
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(Searchbar);

@@ -9,6 +9,7 @@ import {
 
 const initialState = {
     videogamesLoaded: [],
+    videogamesByNameLoaded: [],
     genresLoaded: [],
     videogameDetail: {}
   };
@@ -23,7 +24,7 @@ const initialState = {
       else if (action.type === GET_VIDEOGAMES_BY_NAME) {
           return {
               ...state,
-              videogamesLoaded: action.payload
+              videogamesByNameLoaded: action.payload
           }
       }
       else if (action.type === GET_VIDEOGAME_BY_ID) {
