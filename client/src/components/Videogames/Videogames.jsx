@@ -30,23 +30,21 @@ function Videogames(state, { genre }) {
                 </div>
                 <ul className={styles.cards}>
                     {
-
                         loading
-                            ? <Loading /> :
-
-                            state.videogamesLoaded
+                            ? <Loading />
+                            : state.videogamesLoaded
                                 ? state.videogamesLoaded.map((game) => (
                                     <li key={game.id} className={styles.card}>
-                                        <div className={styles.imgContainer}>
-                                            <img src={game.background_image} alt='videogame poster' />
-                                        </div>
-                                        <Link to={`/videogame/${game.id}`}>
-                                            <div className={styles.titlee}>
+                                        <img className={styles.image} src={game.background_image} alt='videogame poster' />
+                                        <div className={styles.text}>
+                                            <Link to={`/videogames/${game.id}`}>
                                                 <p className={styles.title}>{game.name}</p>
+                                            </Link>
+                                            <div className={styles.description}>
+                                                <span>{`${genre}`}</span>
+                                                <span className={styles.rating}>{game.rating}</span>
                                             </div>
-                                        </Link>
-                                        <p>Rating: {game.rating}</p>
-                                        <p>{`${genre}`}</p>
+                                        </div>
                                     </li>
                                 ))
                                 : null

@@ -3,13 +3,11 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const {
     getVideogames,
-    getVideogamesByName,
-    createVideogame,
     getVideogameById,
+    createVideogame,
     getGenres
 } = require('../controllers');
 
-// const { getVideogames } = require('../controllers/videogames.js');
 
 const router = Router();
 
@@ -17,8 +15,8 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 router.get('/videogames', getVideogames);
+router.get('/videogames/:id', getVideogameById);
 router.post('/videogame', createVideogame);
-router.get('/videogame/:id', getVideogameById);
 router.get('/genres', getGenres);
 
 

@@ -20,7 +20,7 @@ export function getVideogames(name) {
 
 export function getVideogameById(id) {
     return async function (dispatch) {
-        return fetch(`http://localhost:3001/videogame/${id}`)
+        return fetch(`http://localhost:3001/videogames/${id}`)
             .then(res => res.json())
             .then(data => {
                 dispatch({

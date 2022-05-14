@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getVideogameById: id => dispatch(getVideogameById(id))
+        getVideogameById: dispatch(getVideogameById())
     }
 }
 

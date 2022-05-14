@@ -16,20 +16,25 @@
     font-size: 1em;
     border-radius: 0.15em;
 }
+.searchbar img {
+    width: 1em;
+}
 
 .btn {
+    display: inline;
     /* font-family: 'VT323'; */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     /* font-size: 1em; */
     font-size: 0.8em;
     color: rgb(48, 48, 48);
     background-color: rgb(224, 227, 44);
-    border: 0.15em solid rgb(187, 189, 37);
+    border: 0.15em solid rgb(226, 228, 111);
     border-radius: 0.15em;
     cursor: pointer;
 }
 .btn:hover {
     color: black;
-    background-color: rgb(187, 189, 37);
-    border: 0.15em solid rgb(159, 161, 31);
+    font-weight: bold;
+    background-color: rgb(199, 202, 27);
+    border: 0.15em solid rgb(179, 181, 63);
 }

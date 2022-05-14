@@ -33,7 +33,7 @@ const initialState = {
       }
       else if (action.type === CREATE_VIDEOGAME) {
           return {
-              ...state,
+              ...state
           }
       }
       return state;

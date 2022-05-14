@@ -12,8 +12,10 @@
 }
 
 .title {
-    font-family: 'VT323';
-    font-size: 4.5em;  
+    /* font-family: 'VT323'; */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-size: 4.5em;   */
+    font-size: 3.5em;  
     margin: 0;
 }
 .title:hover {
@@ -24,17 +26,18 @@
     display: flex;
     flex-direction: row;
     /* font-size: 2.5em; */
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .btn {
-    display: inline-block;
-    margin: 0 0.5em 0 0.5em;
+    display: flex;
+    flex-direction: row;
+    margin: 0 1.5em 0 1.5em;
 }
 .btn img {
     display: none;
-    width: 1.1em;
+    width: 1.2em;
 }
 .btn:hover img {
     display: block;

@@ -1,6 +1,6 @@
 .container {
     color: aliceblue;
-    background-color: black;
+    background: rgba(0, 0, 0, 0.90);
     font-size: 10px;
     width: 22em;
     border-radius: 0.5em;
@@ -16,12 +16,11 @@
 .buttons {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .btn {
     font-size: 2.5em;
+    text-align: left;
 }
 .btn:hover p {
     color: rgb(224, 227, 44);
@@ -29,14 +28,15 @@
 
 .buttons select {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 2em;
+    font-size: 2.5em;
     color: aliceblue;
-    background: rgb(34, 34, 34);
+    background: rgba(0, 0, 0, 0);
+    border: 0;
     border-radius: 1em;
-    width: 10em;
-    margin: 1.2em;
+    width: 9em;
+    margin: 1.2em 0 1.2em 0;
 }
 
 select:hover {
-    color: yellow;
+    color: rgb(105, 105, 105);
 }

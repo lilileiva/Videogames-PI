@@ -1,6 +1,5 @@
 const { Videogame, Genre } = require("../db.js");
 const axios = require('axios');
-const fetch = import('node-fetch');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -8,8 +7,6 @@ const fetch = import('node-fetch');
 // const { API_KEY } = process.env;
 const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 
-let genres = [];
-let gamesByName = [];
 
 /*--------------------------( /videogames y /videogames?name="..." )---------------------------*/
 const getVideogames = async (req, res) => {
@@ -17,7 +14,8 @@ const getVideogames = async (req, res) => {
 
     if (name) {
         try {
-            let games = [];
+            let gamesByName = [];
+
             const apiVideogames = async (name) => {
                 const response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
                 return response.data.results;
@@ -52,19 +50,19 @@ const getVideogames = async (req, res) => {
                 }
             })
 
-            games = [...apiVideogamesRes, bdVideogamesRes]
+            gamesByName = [...apiVideogamesRes, bdVideogamesRes]
 
-            if (games) {
-                return res.status(200).json(games)
+            if (gamesByName) {
+                return res.status(200).json(gamesByName)
             } else {
                 return res.json('Videogames by name not found.')
             }
-            
         } catch (error) {
             console.log('Videogames by name not found.')
         }
     } else {
         let games = [];
+
         const apiVideogames = async () => {
             const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
             return response.data.results;
@@ -101,7 +99,7 @@ const getVideogameById = async (req, res) => {
         try {
             const apiVideogamesById = async (id) => {
                 const response = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-                return response.data;
+                return response.data.results;
             }
             const respgame = await apiVideogamesById();
             return res.status(200).json(respgame)
@@ -114,7 +112,6 @@ const getVideogameById = async (req, res) => {
 /*--------------------------------( /videogame )--------------------------------*/
 
 const createVideogame = async (req, res) => {
-
     const { name, description, released, rating, platforms, genres, img } = req.body;
 
     if (!name || typeof name !== "string")
@@ -151,6 +148,8 @@ const createVideogame = async (req, res) => {
 
 //modificar
 const getGenres = async (req, res) => {
+    let genres = [];
+
     const apiGenres = async () => {
         fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`)
             .then(res => res.json)
@@ -180,7 +179,7 @@ const getGenres = async (req, res) => {
 
 module.exports = {
     getVideogames,
-    createVideogame,
     getVideogameById,
+    createVideogame,
     getGenres
 }

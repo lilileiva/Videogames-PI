@@ -3,26 +3,26 @@ import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
 import { getVideogames } from '../../redux/actions';
 import { connect } from "react-redux";
-
 import { useHistory } from 'react-router-dom';
+import loupe from '../../img/loupe.png'
 
 
-export default function Searchbar() {
+function Searchbar() {
     const dispatch = useDispatch();
     const [input, setInput] = useState("");
 
     const history = useHistory();
- 
-   const handleInputChange = (e) => {
+
+    const handleInputChange = (e) => {
         setInput(e.target.value)
-   }
- 
-   const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(getVideogames(input))
-    setInput("")
-    history.push('/videogames')
-  }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(getVideogames(input))
+        setInput("")
+        history.push(`/videogames?name=${input}`)
+    }
 
     return (
         <div className={styles.container}>
@@ -30,14 +30,15 @@ export default function Searchbar() {
                 <form onSubmit={e => handleSubmit(e)}>
                     <input
                         type='text'
-                        placeholder='Type here...'
+                        placeholder='search here...'
                         autoComplete='off'
                         name='input'
                         value={input}
                         onChange={e => handleInputChange(e)}
+                        required
                     />
                     <button type='submit' className={styles.btn}>
-                        search
+                        <img src={loupe} />
                     </button>
                 </form>
             </div>
@@ -45,3 +46,21 @@ export default function Searchbar() {
 
     )
 }
+
+
+function mapStateToProps(state) {
+    return {
+        videogamesLoaded: state.videogamesLoaded,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getVideogames: dispatch(getVideogames())
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Searchbar);

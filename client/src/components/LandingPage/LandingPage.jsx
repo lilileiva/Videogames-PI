@@ -6,7 +6,7 @@ export default function LandingPage() {
     return (
         <div className={styles.container}>
             <div className={styles.searchbar}>
-                <h1>SEARCH FOR A GAME</h1>
+                <h1>VIDEOGAMES INFO</h1>
                 <Searchbar />
             </div>
             <div className={styles.home}>
