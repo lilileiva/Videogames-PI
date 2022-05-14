@@ -7,8 +7,9 @@
 }
 
 .gameDetail {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 80%;
     font-size: 1.5em;
-    background-color: black;
+    background: rgba(0, 0, 0, 0.90);
     border-radius: 0.5em;
 }

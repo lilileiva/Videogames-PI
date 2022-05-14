@@ -1,5 +1,6 @@
 import {
     GET_VIDEOGAMES,
+    GET_VIDEOGAMES_BY_NAME,
     GET_VIDEOGAME_BY_ID,
     CREATE_VIDEOGAME,
     GET_GENRES
@@ -18,6 +19,12 @@ const initialState = {
             ...state,
             videogamesLoaded: action.payload
         }
+      }
+      else if (action.type === GET_VIDEOGAMES_BY_NAME) {
+          return {
+              ...state,
+              videogamesLoaded: action.payload
+          }
       }
       else if (action.type === GET_VIDEOGAME_BY_ID) {
           return {

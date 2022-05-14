@@ -3,12 +3,12 @@ import styles from './Videogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import { connect, useSelector } from 'react-redux';
-import { getVideogames } from '../../redux/actions';
+import { getVideogames, getVideogamesByName } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx'
 
 
-function Videogames(state, { genre }) {
+function Videogames(state) {
 
     const [loading, setLoading] = useState(true)
 
@@ -35,13 +35,13 @@ function Videogames(state, { genre }) {
                             : state.videogamesLoaded
                                 ? state.videogamesLoaded.map((game) => (
                                     <li key={game.id} className={styles.card}>
-                                        <img className={styles.image} src={game.background_image} alt='videogame poster' />
+                                        <img className={styles.image} src={game.img} alt='videogame poster' />
                                         <div className={styles.text}>
                                             <Link to={`/videogames/${game.id}`}>
                                                 <p className={styles.title}>{game.name}</p>
                                             </Link>
                                             <div className={styles.description}>
-                                                <span>{`${genre}`}</span>
+                                                {/* <span>{`${genre}`}</span> */}
                                                 <span className={styles.rating}>{game.rating}</span>
                                             </div>
                                         </div>
@@ -58,13 +58,14 @@ function Videogames(state, { genre }) {
 
 function mapStateToProps(state) {
     return {
-        videogamesLoaded: state.videogamesLoaded
+        videogamesLoaded: state.videogamesLoaded,
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getVideogames: dispatch(getVideogames())
+        getVideogames: dispatch(getVideogames()),
+        getVideogamesByName: name => dispatch(getVideogamesByName(name))
     }
 }
 

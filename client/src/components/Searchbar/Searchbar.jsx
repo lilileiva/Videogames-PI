@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
-import { getVideogames } from '../../redux/actions';
+import { getVideogamesByName } from '../../redux/actions';
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import loupe from '../../img/loupe.png'
 
 
-function Searchbar() {
+export default function Searchbar() {
     const dispatch = useDispatch();
-    const [input, setInput] = useState("");
+    const [name, setName] = useState("");
 
     const history = useHistory();
 
-    const handleInputChange = (e) => {
-        setInput(e.target.value)
+    const handleChange = (e) => {
+        setName(e.target.value)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(getVideogames(input))
-        setInput("")
-        history.push(`/videogames?name=${input}`)
+        dispatch(getVideogamesByName(name))
+        setName("")
+        history.push(`/videogames?name=${name}`)
     }
 
     return (
@@ -30,11 +30,11 @@ function Searchbar() {
                 <form onSubmit={e => handleSubmit(e)}>
                     <input
                         type='text'
-                        placeholder='search here...'
+                        placeholder=' search here...'
                         autoComplete='off'
-                        name='input'
-                        value={input}
-                        onChange={e => handleInputChange(e)}
+                        name="name"
+                        value={name}
+                        onChange={e => handleChange(e)}
                         required
                     />
                     <button type='submit' className={styles.btn}>
@@ -43,24 +43,23 @@ function Searchbar() {
                 </form>
             </div>
         </div>
-
     )
 }
 
 
-function mapStateToProps(state) {
-    return {
-        videogamesLoaded: state.videogamesLoaded,
-    }
-}
+// function mapStateToProps(state) {
+//     return {
+//         videogamesLoaded: state.videogamesLoaded,
+//     }
+// }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        getVideogames: dispatch(getVideogames())
-    }
-}
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         getVideogamesByName: name => dispatch(getVideogamesByName(name))
+//     }
+// }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Searchbar);
+// export default connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(Searchbar);

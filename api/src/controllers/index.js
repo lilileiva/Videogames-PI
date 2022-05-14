@@ -16,18 +16,14 @@ const getVideogames = async (req, res) => {
         try {
             let gamesByName = [];
 
-            const apiVideogames = async (name) => {
-                const response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
-                return response.data.results;
-            }
-            const apiVideogamesRes = await apiVideogames();
-
+            const apiVideogames = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
+            let apiVideogamesRes = apiVideogames.data.results;
             apiVideogamesRes = apiVideogamesRes.map(g => {
                 return {
                     id: g.id,
                     name: g.name,
                     genre: g.genres.map(ge => ge.name),
-                    img: g.img,
+                    img: g.background_image,
                     rating: g.rating
                 }
             })
@@ -63,11 +59,17 @@ const getVideogames = async (req, res) => {
     } else {
         let games = [];
 
-        const apiVideogames = async () => {
-            const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-            return response.data.results;
-        }
-        const apiVideogamesRes = await apiVideogames();
+        const apiVideogames = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+        let apiVideogamesRes = apiVideogames.data.results;
+        apiVideogamesRes = apiVideogamesRes.map(g => {
+            return {
+                id: g.id,
+                name: g.name,
+                genre: g.genres.map(ge => ge.name),
+                img: g.background_image,
+                rating: g.rating
+            }
+        })
 
         const bdVideogames = await Videogame.findAll({
             include: {
