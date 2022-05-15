@@ -23,13 +23,13 @@ export function getVideogamesByName(name) {
     return async function (dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames?name=${name}`)
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "GET_VIDEOGAMES_BY_NAME",
-                    payload: data
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_VIDEOGAMES_BY_NAME",
+                        payload: data
+                    })
                 })
-            })
         } catch (error) {
             return console.log(error)
         }
@@ -39,14 +39,18 @@ export function getVideogamesByName(name) {
 
 export function getVideogameById(id) {
     return async function (dispatch) {
-        return fetch(`http://localhost:3001/videogames/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "GET_VIDEOGAME_BY_ID",
-                    payload: data
+        try {
+            return fetch(`http://localhost:3001/videogames/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_VIDEOGAME_BY_ID",
+                        payload: data
+                    })
                 })
-            })
+        } catch (error) {
+            return console.log(error)
+        }
     }
 };
 

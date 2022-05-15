@@ -21,7 +21,7 @@ export default function Searchbar() {
         e.preventDefault()
         dispatch(getVideogamesByName(name))
         setName("")
-        history.push(`/videogames?name=${name}`)
+        history.push(`/videogames`)
     }
 
     return (

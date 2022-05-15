@@ -9,7 +9,6 @@ import Loading from '../Helpers/Loading/Loading.jsx'
 
 
 function Videogames(state) {
-
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(true)
@@ -57,7 +56,7 @@ function Videogames(state) {
                                                 <div className={styles.text}>
                                                     <p className={styles.title}>{game.name}</p>
                                                     <div className={styles.description}>
-                                                        <span>{`${game.genres}`}</span>
+                                                        <span>{game.genres}</span>
                                                         {/* {
                                                             <ul>
                                                                 {game.genres.map(genre => {genre.name})}

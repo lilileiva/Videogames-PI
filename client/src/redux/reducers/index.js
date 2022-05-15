@@ -15,17 +15,17 @@ const initialState = {
   };
 
   function rootReducer(state = initialState, action) {
-      if (action.type === GET_VIDEOGAMES) {
-        return {
-            ...state,
-            videogamesLoaded: action.payload
-        }
-      }
-      else if (action.type === GET_VIDEOGAMES_BY_NAME) {
+      if (action.type === GET_VIDEOGAMES_BY_NAME) {
           return {
               ...state,
               videogamesByNameLoaded: action.payload
           }
+      }
+      else if (action.type === GET_VIDEOGAMES) {
+        return {
+            ...state,
+            videogamesLoaded: action.payload
+        }
       }
       else if (action.type === GET_VIDEOGAME_BY_ID) {
           return {
