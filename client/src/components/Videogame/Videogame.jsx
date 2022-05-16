@@ -10,8 +10,9 @@ export default function Videogame() {
     const [input, setInput] = React.useState({
         name: "",
         description: "",
-        platforms: "",
         released: "",
+        platforms: [],
+        genres: [],
         img: ""
     });
 
@@ -48,27 +49,17 @@ export default function Videogame() {
                         value={input.description}
                         onChange={e => handleInputChange(e)}
                     />
-                    <input
-                        type="text"
-                        placeholder='Platforms*'
-                        className={styles.inputs}
-                        name='platforms'
-                        value={input.platforms}
-                        onChange={e => handleInputChange(e)}
-                    />
-                    {/* <input
-                        type="text"
-                        placeholder='Genres'
-                        className={styles.inputs}
-                        name='genres'
-                        value={input.genres}
-                        onChange={e => handleInputChange(e)}
-                    /> */}
-                    <select>
+                    <select  className={styles.inputs} name='genres' value={input.genres} onChange={e => handleInputChange(e)}>
                         <option value='null'>Genres</option>
                         <option>Action</option>
                         <option>Terror</option>
                         <option>Fantasy</option>
+                    </select>
+                    <select className={styles.inputs} name='platforms' value={input.platforms} onChange={e => handleInputChange(e)}>
+                        <option value='null'>Platforms</option>
+                        <option>Playstation 3</option>
+                        <option>Xbox 360</option>
+                        <option>PC</option>
                     </select>
                     <input
                         type="date"

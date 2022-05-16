@@ -2,23 +2,41 @@
     color: aliceblue;
     font-size: 15px;
     display: flex;
-    margin: 4em;
+    /* margin: 4em 10em 4em 10em; */
+    margin: 4em 10em 4em 10em;
     justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.container a {
+    font-size: 1.5em;
+    text-align: left;
+    margin-left: 1em;
+    margin-bottom: 0.5em;
+    color: aliceblue;
 }
 
+
 .gameDetail {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    width: 80%;
+    width: 100%;
     font-size: 1.3em;
     background: rgba(0, 0, 0, 0.90);
     border-radius: 0.5em;
 }
-
 .gameDetail img {
     width: 30em;
     border-radius: 1em;
+    margin-right: 2em;
+    object-fit: cover;
 }
 
 .card {
-    text-align: center;
+    text-align: left;
+    padding: 1.2em;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
 }

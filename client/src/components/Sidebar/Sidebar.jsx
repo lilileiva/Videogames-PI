@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
+
 export default function Sidebar() {
+
     return (
         <div className={styles.container}>
             <div className={styles.buttons}>
@@ -10,7 +12,7 @@ export default function Sidebar() {
                         <p>All videogames</p>
                     </div>
                 </Link>
-                <Link to='/videogames' >
+                <Link to='/videogames/added'>
                     <div className={styles.btn}>
                         <p>Added videogames</p>
                     </div>

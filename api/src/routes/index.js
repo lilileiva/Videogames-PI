@@ -3,6 +3,7 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const {
     getVideogames,
+    addedVideogames,
     getVideogameById,
     createVideogame,
     getGenres
@@ -15,6 +16,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 router.get('/videogames', getVideogames);
+router.get('/videogames/added', addedVideogames);
 router.get('/videogames/:id', getVideogameById);
 router.post('/videogame', createVideogame);
 router.get('/genres', getGenres);

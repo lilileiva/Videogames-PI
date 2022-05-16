@@ -1,4 +1,5 @@
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
+export const ADDED_VIDEOGAMES = "ADDED_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
 export const GET_VIDEOGAME_BY_ID = "GET_VIDEOGAME_BY_ID";
 export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
@@ -30,6 +31,24 @@ export function getVideogamesByName(name) {
                         payload: data
                     })
                 })
+            } catch (error) {
+            return console.log(error)
+        }
+    }
+};
+
+
+export function addedVideogames() {
+    return async function (dispatch) {
+        try {
+            return fetch(`http://localhost:3001/videogames/added`)
+            .then(res => res.json())
+            .then(data => {
+                dispatch({
+                    type: "ADDED_VIDEOGAMES",
+                    payload: data
+                })
+            })
         } catch (error) {
             return console.log(error)
         }

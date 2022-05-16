@@ -42,7 +42,7 @@ function Videogames(state) {
                                                 <p className={styles.title}>{game.name}</p>
                                             </Link>
                                             <div className={styles.description}>
-                                                {/* <span>{`${genre}`}</span> */}
+                                                <span>{game.genres}</span>
                                                 <span className={styles.rating}>{game.rating}</span>
                                             </div>
                                         </div>
@@ -57,11 +57,6 @@ function Videogames(state) {
                                                     <p className={styles.title}>{game.name}</p>
                                                     <div className={styles.description}>
                                                         <span>{game.genres}</span>
-                                                        {/* {
-                                                            <ul>
-                                                                {game.genres.map(genre => {genre.name})}
-                                                            </ul>
-                                                        } */}
                                                         <span className={styles.rating}>{game.rating}</span>
                                                     </div>
                                                 </div>
@@ -80,7 +75,7 @@ function Videogames(state) {
 function mapStateToProps(state) {
     return {
         videogamesLoaded: state.videogamesLoaded,
-        videogamesByNameLoaded: state.videogamesByNameLoaded
+        videogamesByNameLoaded: state.videogamesByNameLoaded,
     }
 }
 
