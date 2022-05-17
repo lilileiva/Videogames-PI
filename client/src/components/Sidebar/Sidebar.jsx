@@ -17,7 +17,7 @@ export default function Sidebar() {
                         <p>Added videogames</p>
                     </div>
                 </Link>
-                <Link to='/genres' >
+                <Link to='/genres'>
                     <div className={styles.btn}>
                         <p>Genres</p>
                     </div>

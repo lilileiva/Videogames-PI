@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Videogame.module.css';
-import { useDispatch } from 'react-redux';
-import { createVideogame } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { createVideogame, getGenres } from '../../redux/actions';
 
 
 export default function Videogame() {
-
     const dispatch = useDispatch();
+
+    const genres = useSelector((state) => state.genresLoaded);
+
+    useEffect(() => {
+        dispatch(getGenres())
+    });
+
     const [input, setInput] = React.useState({
         name: "",
         description: "",
@@ -49,11 +55,17 @@ export default function Videogame() {
                         value={input.description}
                         onChange={e => handleInputChange(e)}
                     />
-                    <select  className={styles.inputs} name='genres' value={input.genres} onChange={e => handleInputChange(e)}>
+                    <select className={styles.inputs} name='genres' value={input.genres} onChange={e => handleInputChange(e)}>
                         <option value='null'>Genres</option>
-                        <option>Action</option>
-                        <option>Terror</option>
-                        <option>Fantasy</option>
+                        {
+                            genres
+                                ? genres.map((genre) => {
+                                    return (
+                                        <option>{genre.name}</option>
+                                    )
+                                })
+                                : null
+                        }
                     </select>
                     <select className={styles.inputs} name='platforms' value={input.platforms} onChange={e => handleInputChange(e)}>
                         <option value='null'>Platforms</option>

@@ -33,15 +33,14 @@
 }
 
 .card {
-    display: flex;
+    display: flex-end;
     flex-direction: column;
     justify-content: center;
     width: 19em;
     height: 15em;
     margin: 1em;
-    justify-content: end;
+    /* justify-content: end; */
 }
-
 .card:hover {
     transition: 0.2s ease-out;
     transform: scale(105%);

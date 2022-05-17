@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './AddedVideogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 // import Searchbar from '../Searchbar/Searchbar.jsx';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addedVideogames, getVideogameById } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx'
@@ -20,7 +20,7 @@ function AddedVideogames(state) {
         if (loaded.length !== 0) {
             setLoading(false);
         }
-    })
+    }, [dispatch, loaded.length])
 
     return (
         <div className={styles.container}>

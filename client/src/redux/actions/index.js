@@ -7,15 +7,19 @@ export const GET_GENRES = "GET_GENRES";
 
 
 export function getVideogames() {
-    return async function (dispatch) {
-        return fetch(`http://localhost:3001/videogames`)
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "GET_VIDEOGAMES",
-                    payload: data
+    try {
+        return async function (dispatch) {
+            return fetch(`http://localhost:3001/videogames`)
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_VIDEOGAMES",
+                        payload: data
+                    })
                 })
-            })
+        }
+    } catch (error) {
+        console.log(error)
     }
 };
 
@@ -31,7 +35,7 @@ export function getVideogamesByName(name) {
                         payload: data
                     })
                 })
-            } catch (error) {
+        } catch (error) {
             return console.log(error)
         }
     }
@@ -42,13 +46,13 @@ export function addedVideogames() {
     return async function (dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames/added`)
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "ADDED_VIDEOGAMES",
-                    payload: data
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "ADDED_VIDEOGAMES",
+                        payload: data
+                    })
                 })
-            })
         } catch (error) {
             return console.log(error)
         }
@@ -75,37 +79,32 @@ export function getVideogameById(id) {
 
 
 export function createVideogame() {
-    return function (dispatch) {
-        return (
-            fetch(`/videogame`)
-                .then(res => res.json())
-                .then(data => {
-                    dispatch({
-                        type: "CREATE_VIDEOGAME",
-                        payload: data
-                    })
+    return async function (dispatch) {
+        return fetch('/videogame')
+            .then(res => res.json())
+            .then(data => {
+                dispatch({
+                    type: "CREATE_VIDEOGAME",
+                    payload: data
                 })
-        )
+            })
     }
 };
 
 export function getGenres() {
     return async function (dispatch) {
-        // return (
-        //     fetch(`/genres`)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             dispatch({
-        //                 type: "GET_GENRES",
-        //                 payload: data
-        //             })
-        //         })
-        // )
-        let response = fetch('/genres')
-        return dispatch({
-            type: "GET_GENRES",
-            payload: response.data
-        })
+        try {
+            return fetch('http://localhost:3001/genres')
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_GENRES",
+                        payload: data
+                    })
+                })
+        } catch (error) {
+            return console.log(error)
+        }
     }
 };
 

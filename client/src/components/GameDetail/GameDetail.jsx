@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './GameDetail.module.css';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getVideogameById } from '../../redux/actions';
 import { Link, useParams } from "react-router-dom";
 
@@ -27,7 +27,7 @@ export default function GameDetail() {
                             ? (
                                 <div className={styles.card}>
                                     <div className={styles.row}>
-                                        <img src={videogameDetail.img} />
+                                        <img src={videogameDetail.img} alt='videogame' />
                                         <div className={styles.details}>
                                             <h2>{videogameDetail.name}</h2>
                                             {videogameDetail.released ? <p>Released: {videogameDetail.released}</p> : <p>Released: ...</p>}

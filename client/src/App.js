@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import GameDetail from './components/GameDetail/GameDetail.jsx';
@@ -15,13 +15,15 @@ function App() {
   return (
     <div className={styles.app}>
       <Navbar />
-      <Route exact path='/' component={LandingPage} />
-      <Route exact path='/videogames' component={Videogames} />
-      <Route exact path='/videogames/added' component={AddedVideogames} />
-      <Route exact path='/videogames/:id' component={GameDetail} />
-      <Route exact path='/genres' component={Genres} />
-      <Route exact path='/videogame' component={Videogame} />
-      <Route exact path='/about' component={About} />
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/videogames' component={Videogames} />
+        <Route exact path='/videogames/added' component={AddedVideogames} />
+        <Route exact path='/videogames/:id' component={GameDetail} />
+        <Route exact path='/genres' component={Genres} />
+        <Route exact path='/videogame' component={Videogame} />
+        <Route exact path='/about' component={About} />
+      </Switch>
       <Footer />
     </div>
   );

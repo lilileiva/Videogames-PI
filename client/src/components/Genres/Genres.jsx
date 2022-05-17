@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Genres.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getGenres } from '../../redux/actions';
 
 
 function Genres(state) {
+    const dispatch = useDispatch();
+
+    const genres = useSelector((state) => state.genresLoaded)
+
+    useEffect(() => {
+        dispatch(getGenres())
+    },[dispatch])
+
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
@@ -14,14 +22,20 @@ function Genres(state) {
             <div className={styles.genres}>
                 <select>
                     <option value='null'>Genres</option>
-                    <option>Action</option>
-                    <option>Terror</option>
-                    <option>Fantasy</option>
+                    {
+                        genres
+                            ? genres.map((genre) => {
+                                return (
+                                    <option>{genre.name}</option>
+                                )
+                            })
+                            : null
+                    }
                 </select>
                 <ul>
-                    {
-                        state.genresLoaded
-                            ? state.genresLoaded.map((game) => (
+                    {/* {
+                        genres
+                            ? genres.name.map((game) => (
                                 <li>
                                     <p>{game.name}</p>
                                     <p>{game.released}</p>
@@ -29,27 +43,11 @@ function Genres(state) {
                                 </li>
                             ))
                             : <p>No genres...</p>
-                    }
+                    } */}
                 </ul>
             </div>
         </div>
     )
 }
 
-
-function mapStateToProps(state) {
-    return {
-        genresLoaded: state.genresLoaded
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getGenres: dispatch(getGenres())
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Genres);
+export default Genres;

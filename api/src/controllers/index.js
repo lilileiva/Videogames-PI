@@ -54,41 +54,45 @@ const getVideogames = async (req, res) => {
                 return res.json('Videogames by name not found.')
             }
         } catch (error) {
-            console.log({ error: 'Videogames by name not found.' })
+            return res.status(404).json({ error: 'There was an error...' })
         }
     } else {
-        let games = [];
+        try {
+            let games = [];
 
-        const apiVideogames = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-        let apiVideogamesRes = apiVideogames.data.results;
-        apiVideogamesRes = apiVideogamesRes.map(game => {
-            return {
-                id: game.id,
-                name: game.name,
-                genres: game.genres.map(genre => genre.name).join(', '),
-                img: game.background_image,
-                rating: game.rating
-            }
-        })
+            const apiVideogames = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
+            let apiVideogamesRes = apiVideogames.data.results;
+            apiVideogamesRes = apiVideogamesRes.map(game => {
+                return {
+                    id: game.id,
+                    name: game.name,
+                    genres: game.genres.map(genre => genre.name).join(', '),
+                    img: game.background_image,
+                    rating: game.rating
+                }
+            })
 
-        const bdVideogames = await Videogame.findAll({
-            include: {
-                model: Genre
-            }
-        });
-        const bdVideogamesRes = bdVideogames.map(game => {
-            return {
-                id: game.id,
-                name: game.name,
-                genres: game.genres.map(genre => genre.name).join(', '),
-                img: game.img,
-                rating: game.rating
-            }
-        })
+            const bdVideogames = await Videogame.findAll({
+                include: {
+                    model: Genre
+                }
+            });
+            const bdVideogamesRes = bdVideogames.map(game => {
+                return {
+                    id: game.id,
+                    name: game.name,
+                    genres: game.genres.map(genre => genre.name).join(', '),
+                    img: game.img,
+                    rating: game.rating
+                }
+            })
 
-        games = [...apiVideogamesRes, bdVideogamesRes]
+            games = [...apiVideogamesRes, bdVideogamesRes]
 
-        return res.status(200).json(games)
+            return res.status(200).json(games)
+        } catch (error) {
+            return res.status(404).json({ error: 'There was an error...' })
+        }
     }
 }
 
@@ -183,7 +187,7 @@ const createVideogame = async (req, res) => {
     if (!description || typeof description !== "string")
         return { error: "Invalid description" };
     if (!img) {
-        img = 'https://creazilla-store.fra1.digitaloceanspaces.com/emojis/45317/video-game-emoji-clipart-md.png';
+        img = 'https://wallpaperaccess.com/full/2389962.jpg';
     }
 
     try {
@@ -204,40 +208,46 @@ const createVideogame = async (req, res) => {
         await newGame.addGenres(genresNewGame);
         res.send("Videogame created succesfully!");
     } catch (error) {
-        res.status(404).json({ error: "There was an error. Try again." })
+        res.status(404).json({ error: "There was an error..." })
     }
 }
 
 /*--------------------------------( /genres )--------------------------------*/
 
-//modificar
 const getGenres = async (req, res) => {
-    let genres = [];
+    try {
+        const apiGenres = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+        let apiGenresRes = await apiGenres.data.results;
 
-    const apiGenres = async () => {
-        fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-            .then(res => res.json)
-            .then(data => {
-                data.results.map((genre) => {
-                    genres.push({
-                        id: genre.id,
-                        name: genre.name,
-                    })
-                })
+        apiGenresRes.map((genre) => {
+            Genre.findOrCreate({
+                where: {
+                    name: genre.name
+                }
             })
-    }
-
-    await apiGenres();
-
-    let saveGenres = genres.map(async genre => {
-        return await Genre.findOrCreate({
-            where: {
-                id: genre.id,
-                name: genre.name
-            }
         })
-    })
-    return res.json(saveGenres);
+
+        const genres = await Genre.findAll();
+
+        // apiGenresRes.map((genre) => {
+        //         Genre.findOrCreate({
+        //             id: genre.id,
+        //             name: genre.name
+        //         })
+        // })
+
+        // apiGenresRes.forEach(async (genre) =>
+        //     await Genre.findOrCreate({
+        //         where: {
+        //             name: genre.name
+        //         }
+        //     })
+        // );
+
+        return res.status(200).json(genres);
+    } catch (error) {
+        return res.status(404).json({ error: 'There was an error...' });
+    }
 }
 
 
