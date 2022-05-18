@@ -1,17 +1,21 @@
 import React, { useEffect } from 'react';
 import styles from './Videogame.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { createVideogame, getGenres } from '../../redux/actions';
+import { getVideogames, createVideogame, getGenres } from '../../redux/actions';
 
 
 export default function Videogame() {
     const dispatch = useDispatch();
 
-    const genres = useSelector((state) => state.genresLoaded);
+    let platformsList = []
+    const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
+
+    const genresLoaded = useSelector((state) => state.genresLoaded);
 
     useEffect(() => {
         dispatch(getGenres())
-    });
+        dispatch(getVideogames())
+    }, [dispatch]);
 
     const [input, setInput] = React.useState({
         name: "",
@@ -55,24 +59,39 @@ export default function Videogame() {
                         value={input.description}
                         onChange={e => handleInputChange(e)}
                     />
-                    <select className={styles.inputs} name='genres' value={input.genres} onChange={e => handleInputChange(e)}>
+                    <select className={styles.inputs}>
                         <option value='null'>Genres</option>
                         {
-                            genres
-                                ? genres.map((genre) => {
+                            genresLoaded
+                                ? genresLoaded.map((genre) => {
                                     return (
-                                        <option>{genre.name}</option>
+                                        <option name='genres' value={input.genres} onChange={e => handleInputChange(e)}>
+                                            {genre.name}
+                                        </option>
                                     )
                                 })
                                 : null
                         }
                     </select>
-                    <select className={styles.inputs} name='platforms' value={input.platforms} onChange={e => handleInputChange(e)}>
+                    <select className={styles.inputs}>
+                        <option value='null'>Platforms</option>
+                        {
+                            videogamesLoaded.map((game) => {
+                                return (
+                                    <option>
+                                        {game.platforms}
+                                    </option>
+                                )
+                            })
+
+                        }
+                    </select>
+                    {/* <select className={styles.inputs} name='platforms' value={input.platforms} onChange={e => handleInputChange(e)}>
                         <option value='null'>Platforms</option>
                         <option>Playstation 3</option>
                         <option>Xbox 360</option>
                         <option>PC</option>
-                    </select>
+                    </select> */}
                     <input
                         type="date"
                         placeholder='Released date'

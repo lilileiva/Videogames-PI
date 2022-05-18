@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    font-size: 15px;
+    flex-direction: column;
+    color: white;
+    margin: 1em;
+    justify-content: center;
+}
+.container ul, li {
+    list-style: none;
+}
+.container a {
+    font-size: 1.5em;
+    color: black;
+    background: yellow;
+    border-radius: 0.2em;
+    margin: 0 0.5em 0 0.5em;
+    padding: 0.2em;
+    cursor: pointer;
+}
+
+.pages {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+

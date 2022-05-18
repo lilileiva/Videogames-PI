@@ -4,12 +4,15 @@ export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
 export const GET_VIDEOGAME_BY_ID = "GET_VIDEOGAME_BY_ID";
 export const CREATE_VIDEOGAME = "CREATE_VIDEOGAME";
 export const GET_GENRES = "GET_GENRES";
+export const FILTER_GENRES = "FILTER_GENRES";
+export const ORDER_RATING = "ORDER_RATING";
+export const ORDER_ALPHABET = "ORDER_ALPHABET";
 
 
 export function getVideogames() {
     try {
-        return async function (dispatch) {
-            return fetch(`http://localhost:3001/videogames`)
+        return async function(dispatch) {
+            return fetch('http://localhost:3001/videogames')
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
@@ -25,7 +28,7 @@ export function getVideogames() {
 
 
 export function getVideogamesByName(name) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames?name=${name}`)
                 .then(res => res.json())
@@ -43,9 +46,9 @@ export function getVideogamesByName(name) {
 
 
 export function addedVideogames() {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
-            return fetch(`http://localhost:3001/videogames/added`)
+            return fetch('http://localhost:3001/videogames/added')
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
@@ -61,7 +64,7 @@ export function addedVideogames() {
 
 
 export function getVideogameById(id) {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames/${id}`)
                 .then(res => res.json())
@@ -79,8 +82,8 @@ export function getVideogameById(id) {
 
 
 export function createVideogame() {
-    return async function (dispatch) {
-        return fetch('/videogame')
+    return async function(dispatch) {
+        return fetch('http://localhost:3001/videogame')
             .then(res => res.json())
             .then(data => {
                 dispatch({
@@ -92,7 +95,7 @@ export function createVideogame() {
 };
 
 export function getGenres() {
-    return async function (dispatch) {
+    return async function(dispatch) {
         try {
             return fetch('http://localhost:3001/genres')
                 .then(res => res.json())
@@ -108,3 +111,24 @@ export function getGenres() {
     }
 };
 
+
+export function filterGenres(payload) {
+    return {
+        type: "FILTER_GENRES",
+        payload
+    }
+}
+
+export function orderRating(payload) {
+    return {
+        type: "ORDER_RATING",
+        payload
+    }
+}
+
+export function orderAlphabet(payload) {
+    return {
+        type: "ORDER_ALPHABET",
+        payload
+    }
+}

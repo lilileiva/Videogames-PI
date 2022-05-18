@@ -33,7 +33,7 @@ export default function GameDetail() {
                                             {videogameDetail.released ? <p>Released: {videogameDetail.released}</p> : <p>Released: ...</p>}
                                             {videogameDetail.genres ? <p>Genres: {videogameDetail.genres}</p> : <p>Genres: ...</p>}
                                             {videogameDetail.rating ? <p>Rating: {videogameDetail.rating}</p> : <p>Rating: ...</p>}
-                                            <p>Platforms: ${videogameDetail.platforms}</p>
+                                            <p>Platforms: {videogameDetail.platforms}</p>
                                             <p>{videogameDetail.description}</p>
                                         </div>
                                     </div>

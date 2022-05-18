@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Genres.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres } from '../../redux/actions';
+import { getGenres, filterGenres } from '../../redux/actions';
 
 
-function Genres(state) {
+function Genres() {
     const dispatch = useDispatch();
 
-    const genres = useSelector((state) => state.genresLoaded)
+    const genresLoaded = useSelector((state) => state.genresLoaded)
+    const videogamesLoaded = useSelector((state) => state.videogamesLoaded)
 
     useEffect(() => {
-        dispatch(getGenres())
-    },[dispatch])
+        dispatch(filterGenres('action'))
+    }, [dispatch])
 
     return (
         <div className={styles.container}>
@@ -23,8 +25,8 @@ function Genres(state) {
                 <select>
                     <option value='null'>Genres</option>
                     {
-                        genres
-                            ? genres.map((genre) => {
+                        genresLoaded
+                            ? genresLoaded.map((genre) => {
                                 return (
                                     <option>{genre.name}</option>
                                 )
@@ -33,6 +35,29 @@ function Genres(state) {
                     }
                 </select>
                 <ul>
+                    {
+                        videogamesLoaded
+                            ? videogamesLoaded.map((game) => (
+                                <li key={game.id} className={styles.card}>
+                                    {
+                                        game.img
+                                            ? <img className={styles.image} src={game.img} alt='videogame poster' />
+                                            : <img className={styles.image} src='https://wallpaperaccess.com/full/2389962.jpg' alt='videogame poster' />
+                                    }
+                                    <div className={styles.text}>
+                                        <Link to={`/videogames/${game.id}`}>
+                                            <p className={styles.title}>{game.name}</p>
+                                        </Link>
+                                        <div className={styles.description}>
+                                            <span>{game.genres}</span>
+                                            <span className={styles.rating}>{game.rating}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))
+                            : null
+                    }
+
                     {/* {
                         genres
                             ? genres.name.map((game) => (
