@@ -119,10 +119,10 @@ export function filterGenres() {
     }
 }
 
-export function orderRating() {
+export function orderRating(payload) {
     return {
         type: "ORDER_RATING",
-
+        payload
     }
 }
 

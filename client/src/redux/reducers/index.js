@@ -100,7 +100,7 @@ function rootReducer(state = initialState, action) {
         if (action.payload === 'low') {
             state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
-                    return 1;
+                    return 1 ;
                 }
                 if (b.rating > a.rating) {
                     return -1;

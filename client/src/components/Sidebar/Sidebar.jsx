@@ -68,8 +68,8 @@ export default function Sidebar() {
                 </select>
                 <select onChange={(e) => handleRating(e)} >
                     <option value='null'>Order by rating</option>
-                    <option value='low'>Low to high</option>
                     <option value='high'>High to low</option>
+                    <option value='low'>Low to high</option>
                 </select>
             </div>
         </div>
