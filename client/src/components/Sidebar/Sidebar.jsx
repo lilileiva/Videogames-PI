@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterGenres, orderAlphabet, orderRating } from '../../redux/actions';
+import { getGenres, filterGenres, orderAlphabet, orderRating, getVideogames } from '../../redux/actions';
 import { useHistory } from 'react-router-dom';
 
 
@@ -15,14 +15,18 @@ export default function Sidebar() {
         dispatch(getGenres())
     }, [dispatch])
 
+    const history = useHistory()
     const handleGenre = (e) => {
-        dispatch(filterGenres(e.target.value))
+        history.push('/videogames');
+        dispatch(filterGenres(e.target.value));
     }
     const handleAlphabet = (e) => {
-        dispatch(orderAlphabet(e.target.value))
+        history.push('/videogames');
+        dispatch(orderAlphabet(e.target.value));
     }
     const handleRating = (e) => {
-        dispatch(orderRating(e.target.value))
+        history.push('/videogames');
+        dispatch(orderRating(e.target.value));
     }
 
     return (
@@ -43,36 +47,30 @@ export default function Sidebar() {
                         <p>Genres</p>
                     </div>
                 </Link> */}
-                <select onChange={handleGenre}>
+                <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
                         genresLoaded
                             ? genresLoaded.map((genre) => {
                                 return (
-                                    // <Link to='/genres'>
-                                    <option name={genre.name} value={genre.name}>
+                                    <option value={genre.name}>
                                         {genre.name}
                                     </option>
-                                    //</Link>
                                 )
                             })
                             : null
                     }
                 </select>
-                <select onChange={handleAlphabet} >
+                <select onChange={(e) => handleAlphabet(e)} >
                     <option value='null'>Order by alphabet</option>
-                    <option value='A' >A-Z</option>
-                    <option value='Z' >Z-A</option>
+                    <option value='AZ' >A-Z</option>
+                    <option value='ZA' >Z-A</option>
                 </select>
-                {/* <button onClick={() => dispatch(orderAlphabet('Z-A'))}>Z-A</button>
-                <button onClick={() => dispatch(orderAlphabet('A-Z'))}>A-Z</button> */}
                 <select onChange={(e) => handleRating(e)} >
                     <option value='null'>Order by rating</option>
                     <option value='low'>Low to high</option>
                     <option value='high'>High to low</option>
                 </select>
-                {/* <button onClick={(e) => dispatch(orderRating(e, 'Low to high'))}>Low to high</button>
-                <button onClick={(e) => dispatch(orderRating(e, 'High to low'))}>High to low</button> */}
             </div>
         </div>
     )

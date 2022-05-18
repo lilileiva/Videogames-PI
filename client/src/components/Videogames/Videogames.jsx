@@ -34,7 +34,6 @@ function Videogames() {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
-
     
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage, setGamesPerPage] = useState(15);
@@ -53,26 +52,6 @@ function Videogames() {
                     <Searchbar />
                 </div>
                 <ul className={styles.cards}>
-                    {/* {
-                        loading
-                            ? <Loading />
-                            : videogamesLoaded.length !== 0
-                                ? videogamesLoaded.map((game) => (
-                                    <Link to={`/videogames/${game.id}`}>
-                                        <li key={game.id} className={styles.card} onClick={() => dispatch(getVideogameById(`${game.id}`))}>
-                                            <img className={styles.image} src={game.img} alt='videogame poster' />
-                                            <div className={styles.text}>
-                                                <p className={styles.title}>{game.name}</p>
-                                                <div className={styles.description}>
-                                                    <span>{game.genres}</span>
-                                                    <span className={styles.rating}>{game.rating}</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </Link>
-                                ))
-                                : <span>No results...</span>
-                    } */}
                     {
                         loading
                             ? <Loading />

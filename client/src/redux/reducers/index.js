@@ -15,7 +15,8 @@ const initialState = {
     videogamesLoaded: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
-    videogameDetail: {}
+    videogameDetail: {},
+    order: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -55,72 +56,75 @@ function rootReducer(state = initialState, action) {
         }
     }
     else if (action.type === FILTER_GENRES) {
-        const videogamesByGenres = state.videogamesLoaded.filter((game) => game.genres.includes(action.payload))
+        const games = state.videogamesLoaded
+        const videogamesByGenres = games.filter((game) => game.genres.includes(action.payload))
 
         return {
             ...state,
             videogamesLoaded: videogamesByGenres
         }
     }
-    else if (action.type === ORDER_RATING) {
-        // if (action.payload === 'Low to high') {
-        //     const videogamesByRating = state.videogamesLoaded.map((game) => game.rating.sort(function (a, b) {return (a - b)}))
-
-        //     return {
-        //         ...state,
-        //         videogamesLoaded: videogamesByRating
-        //     }
-        // }
-        // else if (action.payload === 'High to low') {
-        //     const videogamesByRating = state.videogamesLoaded.map((game) => game.rating.sort(function (a, b) {return (b - a)}))
-
-        //     return {
-        //         ...state,
-        //         videogamesLoaded: videogamesByRating
-        //     }
-        // }
-
-
-        let videogamesByRating = action.payload === "low"
-          ? state.videogamesLoaded.sort(function (a, b) {
-              if (a.rating > b.rating) {
-                return 1;
-              }
-              if (b.rating > a.rating) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.videogamesLoaded.sort(function (a, b) {
-              if (a.rating > b.rating) {
-                return -1;
-              }
-              if (b.rating > a.rating) {
-                return 1;
-              }
-              return 0;
-            });
-
-      return {
-        ...state,
-        videogamesLoaded: videogamesByRating,
-      };
-    }
     else if (action.type === ORDER_ALPHABET) {
-        if (action.payload === 'A') {
-            const videogamesByAlphabet = state.videogamesLoaded.map((game) => game.name).sort()
-
+        if (action.payload === "AZ") {
+            state.videogamesLoaded.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (b.name > a.name) {
+                    return -1;
+                }
+                return 0;
+            })
             return {
                 ...state,
-                videogamesLoaded: videogamesByAlphabet
+                videogamesLoaded: state.videogamesLoaded
             }
         }
-        else if (action.payload === 'Z') {
-            const videogamesByAlphabet = state.videogamesLoaded.map((game) => game.name).sort().reverse()
-
+        else if (action.payload === "ZA") {
+            state.videogamesLoaded.sort(function (a, b) {
+                if (a.name > b.name) {
+                    return -1;
+                }
+                if (b.name > a.name) {
+                    return 1;
+                }
+                return 0;
+            })
             return {
                 ...state,
-                videogamesLoaded: videogamesByAlphabet
+                videogamesLoaded: state.videogamesLoaded
+            }
+        }
+    }
+    else if (action.type === ORDER_RATING) {
+        if (action.payload === 'low') {
+            state.videogamesLoaded.sort(function (a, b) {
+                if (a.rating > b.rating) {
+                    return 1;
+                }
+                if (b.rating > a.rating) {
+                    return -1;
+                }
+                return 0;
+            })
+            return {
+                ...state,
+                videogamesLoaded: state.videogamesLoaded
+            }
+        }
+        else if (action.payload === 'high') {
+            state.videogamesLoaded.sort(function (a, b) {
+                if (a.rating > b.rating) {
+                    return -1;
+                }
+                if (b.rating > a.rating) {
+                    return 1;
+                }
+                return 0;
+            });
+            return {
+                ...state,
+                videogamesLoaded: state.videogamesLoaded
             }
         }
     }

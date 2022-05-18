@@ -112,17 +112,17 @@ export function getGenres() {
 };
 
 
-export function filterGenres(payload) {
+export function filterGenres() {
     return {
         type: "FILTER_GENRES",
-        payload
+
     }
 }
 
-export function orderRating(payload) {
+export function orderRating() {
     return {
         type: "ORDER_RATING",
-        payload
+
     }
 }
 
