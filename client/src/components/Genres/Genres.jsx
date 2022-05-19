@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Genres.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
@@ -12,9 +12,9 @@ function Genres() {
     const genresLoaded = useSelector((state) => state.genresLoaded)
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded)
 
-    useEffect(() => {
-        dispatch(filterGenres('action'))
-    }, [dispatch])
+    const handleGenre = (e) => {
+        dispatch(filterGenres(e.target.value))
+    }
 
     return (
         <div className={styles.container}>
@@ -22,13 +22,13 @@ function Genres() {
                 <Sidebar />
             </div>
             <div className={styles.genres}>
-                <select>
+                <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
                         genresLoaded
                             ? genresLoaded.map((genre) => {
                                 return (
-                                    <option>{genre.name}</option>
+                                    <option value={genre.name}>{genre.name}</option>
                                 )
                             })
                             : null
@@ -57,18 +57,6 @@ function Genres() {
                             ))
                             : null
                     }
-
-                    {/* {
-                        genres
-                            ? genres.name.map((game) => (
-                                <li>
-                                    <p>{game.name}</p>
-                                    <p>{game.released}</p>
-                                    <img src={game.img} alt='videogame poster' />
-                                </li>
-                            ))
-                            : <p>No genres...</p>
-                    } */}
                 </ul>
             </div>
         </div>

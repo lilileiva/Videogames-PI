@@ -93,9 +93,7 @@ const getVideogames = async (req, res) => {
                     platforms: game.platforms.map((p) => p.platform.name).join(', '),
                 }
             })
-
             games = [...games, bdVideogamesRes]
-
             return res.status(200).json(games)
         } catch (error) {
             return res.status(404).json({ error: 'There was an error...' })
@@ -107,7 +105,7 @@ const getVideogames = async (req, res) => {
 
 const addedVideogames = async (req, res) => {
     try {
-        const bdVideogames = await Videogame.findAll({
+        let bdVideogames = await Videogame.findAll({
             include: [
                 {
                     model: Genre,
@@ -115,19 +113,16 @@ const addedVideogames = async (req, res) => {
                 }
             ]
         });
-        let bdVideogamesRes = bdVideogames.forEach((game) => {
-            return {
-                id: game.id,
-                name: game.name,
-                genres: game.genres.map(genre => genre.name).join(', '),
-                img: game.img,
-                rating: game.rating
-            }
-        })
-
-        // if (bdVideogames.length === 0) return res.json('No videogames added.')
-        // else return res.status(200).json(bdVideogamesRes)
-        if (bdVideogames.length) res.status(200).json(bdVideogamesRes)
+        // let bdVideogamesRes = bdVideogames.forEach((game) => {
+        //     return {
+        //         id: game.id,
+        //         name: game.name,
+        //         genres: game.genres.map(genre => genre.name).join(', '),
+        //         img: game.img,
+        //         rating: game.rating
+        //     }
+        // })
+        if (bdVideogames) return res.status(200).json(bdVideogames)
         else return res.json('No videogames added.')
     } catch (error) {
         return res.status(404).json({ error: 'There was an error...' })
@@ -190,9 +185,9 @@ const createVideogame = async (req, res) => {
     const { name, description, released, rating, platforms, genres, img } = req.body;
 
     if (!name || typeof name !== "string")
-        return { error: "Invalid Name" };
+        return res.json({ error: "Invalid Name" });
     if (!description || typeof description !== "string")
-        return { error: "Invalid description" };
+        return res.json({ error: "Invalid description" });
     if (!img) {
         img = 'https://wallpaperaccess.com/full/2389962.jpg';
     }
@@ -201,7 +196,7 @@ const createVideogame = async (req, res) => {
         let genresNewGame = await Genre.findAll({
             where: {
                 name: genres
-            },
+            }
         });
 
         let newGame = await Videogame.create({

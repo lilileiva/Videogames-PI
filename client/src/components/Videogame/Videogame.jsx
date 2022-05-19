@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Videogame.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideogames, createVideogame, getGenres } from '../../redux/actions';
@@ -6,17 +6,30 @@ import { getVideogames, createVideogame, getGenres } from '../../redux/actions';
 
 export default function Videogame() {
     const dispatch = useDispatch();
-
-    let platformsList = []
-    const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
-
+    /*---------------------------*/
     const genresLoaded = useSelector((state) => state.genresLoaded);
-
+    const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
     useEffect(() => {
-        dispatch(getGenres())
-        dispatch(getVideogames())
+        dispatch(getGenres());
+        dispatch(getVideogames());
     }, [dispatch]);
-
+    /*---------------------------*/
+    let platformsList = [];
+    videogamesLoaded.map((game) => (
+        platformsList.push(game.platforms)
+    ))
+    platformsList = platformsList.toString().split(', ').toString().split(',');
+    function removeDuplicates(arr) {
+        var unique = [];
+        arr.forEach(element => {
+            if (!unique.includes(element)) {
+                unique.push(element);
+            }
+        });
+        return unique;
+    }
+    platformsList = removeDuplicates(platformsList);
+    /*---------------------------*/
     const [input, setInput] = React.useState({
         name: "",
         description: "",
@@ -25,24 +38,56 @@ export default function Videogame() {
         genres: [],
         img: ""
     });
-
+    /*---------------------------*/
+    const validate = (input) => {
+        let errors = {};
+        if (!input.name) {
+            errors.name = 'Name required'
+        }
+        else if (isNaN(input.rating)) {
+            errors.rating = 'Rating must be a number'
+        }
+        if (!input.description) {
+            errors.description = 'Description required'
+        }
+        if (!input.platforms) {
+            errors.platforms = 'PLatform required'
+        }
+        if (!input.genres) {
+            errors.genres = 'Genre required'
+        }
+        return errors
+    }
+    const [errors, setErrors] = useState(validate(input));
+    /*---------------------------*/
     const handleInputChange = (e) => {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         });
     }
-
+    function handleGenres(e) {
+        setInput({
+            ...input,
+            genres: [...input.genres, e.target.value],
+        });
+    }
+    function handlePlataforms(e) {
+        setInput({
+            ...input,
+            platforms: [...input.platforms, e.target.value],
+        });
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createVideogame(input))
     }
-
+    /*---------------------------*/
     return (
         <div className={styles.container}>
             <div className={styles.createVideogame}>
                 <h2>Create videogame</h2>
-                <form onSubmit={e => handleSubmit(e)}>
+                <form>
                     <input
                         type="text"
                         placeholder='Name*'
@@ -76,22 +121,15 @@ export default function Videogame() {
                     <select className={styles.inputs}>
                         <option value='null'>Platforms</option>
                         {
-                            videogamesLoaded.map((game) => {
-                                return (
-                                    <option>
-                                        {game.platforms}
-                                    </option>
-                                )
-                            })
-
+                            platformsList.length < 21
+                                ? <option>Cargando...</option>
+                                : platformsList.length !== 0
+                                    ? platformsList.map((platform) => (
+                                        <option>{platform}</option>
+                                    ))
+                                    : null
                         }
                     </select>
-                    {/* <select className={styles.inputs} name='platforms' value={input.platforms} onChange={e => handleInputChange(e)}>
-                        <option value='null'>Platforms</option>
-                        <option>Playstation 3</option>
-                        <option>Xbox 360</option>
-                        <option>PC</option>
-                    </select> */}
                     <input
                         type="date"
                         placeholder='Released date'
@@ -110,9 +148,9 @@ export default function Videogame() {
                         value={input.img}
                         onChange={e => handleInputChange(e)}
                     />
-                    <input type="submit" value='Create' className={styles.btn} />
+                    <input type="submit" value='Create' className={styles.btn} onSubmit={e => handleSubmit(e)} />
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from './Pagination.module.css';
 import { useSelector } from "react-redux";
 
@@ -18,9 +18,9 @@ function Pagination({gamesPerPage, paginate}) {
                 {
                     pageNumbers.map((number) => (
                         <li key={number} >
-                            <a onClick={() => paginate(number)} className={styles.pageNumber} >
+                            <p onClick={() => paginate(number)} className={styles.pageNumber} >
                                 {number}
-                            </a>
+                            </p>
                         </li>
                     ))
                 }

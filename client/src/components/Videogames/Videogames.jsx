@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Videogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getVideogames, getVideogamesByName, getVideogameById } from '../../redux/actions';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx';
@@ -11,41 +11,40 @@ import Pagination from '../Helpers/Pagination/Pagination.jsx';
 
 function Videogames() {
     const dispatch = useDispatch();
-
     const { name } = useParams();
-
+    /*---------------------------*/
     const videogamesByNameLoaded = useSelector((state) => state.videogamesByNameLoaded)
     useEffect(() => {
         if (name) {
-            if (videogamesByNameLoaded.length !== 0) {
+            if (videogamesByNameLoaded) {
                 dispatch(getVideogamesByName(name))
             }
         }
-    }, [dispatch, name]);
-
+    }, [dispatch, name, videogamesByNameLoaded]);
+    /*---------------------------*/
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch]);
-
+    /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         if (videogamesLoaded.length !== 0) {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
-    
+    /*---------------------------*/
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage, setGamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     const currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+    /*---------------------------*/
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Sidebar />
+                <Sidebar setCurrentPage={setCurrentPage} />
             </div>
             <div className={styles.videogames}>
                 <div className={styles.search}>

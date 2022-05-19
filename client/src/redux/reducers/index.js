@@ -15,8 +15,7 @@ const initialState = {
     videogamesLoaded: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
-    videogameDetail: {},
-    order: []
+    videogameDetail: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -44,25 +43,31 @@ function rootReducer(state = initialState, action) {
             videogameDetail: action.payload
         }
     }
+    else if (action.type === CREATE_VIDEOGAME) {
+        return {
+            ...state,
+            videogamesLoaded: [...state.videogamesLoaded, action.payload],
+            videogameDetail: action.payload
+        }
+    }
     else if (action.type === GET_GENRES) {
         return {
             ...state,
             genresLoaded: action.payload
         }
     }
-    else if (action.type === CREATE_VIDEOGAME) {
-        return {
-            ...state
-        }
-    }
     else if (action.type === FILTER_GENRES) {
-        const games = state.videogamesLoaded
-        const videogamesByGenres = games.filter((game) => game.genres.includes(action.payload))
-
+        state.videogamesLoaded.filter((game) => (game.genres))
         return {
             ...state,
-            videogamesLoaded: videogamesByGenres
+            videogamesLoaded: state.videogamesLoaded
         }
+        // const todosVideogames = state.videogamesLoaded;
+        //   const filteredGen = todosVideogames.filter((e) => (e.genres.includes(action.payload)));
+        //   return {
+        //     ...state,
+        //     videogamesLoaded: filteredGen
+        //   };
     }
     else if (action.type === ORDER_ALPHABET) {
         if (action.payload === "AZ") {
@@ -100,7 +105,7 @@ function rootReducer(state = initialState, action) {
         if (action.payload === 'low') {
             state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
-                    return 1 ;
+                    return 1;
                 }
                 if (b.rating > a.rating) {
                     return -1;

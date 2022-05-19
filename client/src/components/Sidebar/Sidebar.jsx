@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterGenres, orderAlphabet, orderRating, getVideogames } from '../../redux/actions';
+import { getGenres, filterGenres, orderAlphabet, orderRating, addedVideogames } from '../../redux/actions';
 import { useHistory } from 'react-router-dom';
 
 
-export default function Sidebar() {
+export default function Sidebar({setCurrentPage}) {
     const dispatch = useDispatch();
 
     const genresLoaded = useSelector((state) => state.genresLoaded)
@@ -16,44 +16,56 @@ export default function Sidebar() {
     }, [dispatch])
 
     const history = useHistory()
+    const handleAllVideogames = () => {
+        history.push('/videogames');
+        window.location.reload()
+    }
+    const handleAddedVideogames = () => {
+        history.push('/videogames/added');
+        dispatch(addedVideogames());
+        setCurrentPage(1);
+    }
     const handleGenre = (e) => {
         history.push('/videogames');
         dispatch(filterGenres(e.target.value));
+        setCurrentPage(1);
     }
     const handleAlphabet = (e) => {
         history.push('/videogames');
         dispatch(orderAlphabet(e.target.value));
+        setCurrentPage(1);
     }
     const handleRating = (e) => {
         history.push('/videogames');
         dispatch(orderRating(e.target.value));
+        setCurrentPage(1);
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.buttons}>
                 <Link to='/videogames' >
-                    <div className={styles.btn} onClick={() => window.location.reload()}>
+                    <div className={styles.btn} onClick={() => handleAllVideogames()}>
                         <p>All videogames</p>
                     </div>
                 </Link>
-                <Link to='/videogames/added'>
-                    <div className={styles.btn}>
-                        <p>Added videogames</p>
-                    </div>
-                </Link>
-                {/* <Link to='/genres'>
+                <div className={styles.btn} onClick={() => handleAddedVideogames()} >
+                    <p>Added videogames</p>
+                </div>
+
+                <Link to='/genres' >
                     <div className={styles.btn}>
                         <p>Genres</p>
                     </div>
-                </Link> */}
+                </Link>
+
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
                         genresLoaded
                             ? genresLoaded.map((genre) => {
                                 return (
-                                    <option value={genre.name}>
+                                    <option key={genre.id} value={genre.name}>
                                         {genre.name}
                                     </option>
                                 )

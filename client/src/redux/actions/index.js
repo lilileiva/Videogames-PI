@@ -10,25 +10,21 @@ export const ORDER_ALPHABET = "ORDER_ALPHABET";
 
 
 export function getVideogames() {
-    try {
-        return async function(dispatch) {
-            return fetch('http://localhost:3001/videogames')
-                .then(res => res.json())
-                .then(data => {
-                    dispatch({
-                        type: "GET_VIDEOGAMES",
-                        payload: data
-                    })
+    return async function (dispatch) {
+        return fetch('http://localhost:3001/videogames')
+            .then(res => res.json())
+            .then(data => {
+                dispatch({
+                    type: "GET_VIDEOGAMES",
+                    payload: data
                 })
-        }
-    } catch (error) {
-        console.log(error)
+            })
     }
 };
 
 
 export function getVideogamesByName(name) {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames?name=${name}`)
                 .then(res => res.json())
@@ -46,7 +42,7 @@ export function getVideogamesByName(name) {
 
 
 export function addedVideogames() {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             return fetch('http://localhost:3001/videogames/added')
                 .then(res => res.json())
@@ -64,7 +60,7 @@ export function addedVideogames() {
 
 
 export function getVideogameById(id) {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             return fetch(`http://localhost:3001/videogames/${id}`)
                 .then(res => res.json())
@@ -82,7 +78,7 @@ export function getVideogameById(id) {
 
 
 export function createVideogame() {
-    return async function(dispatch) {
+    return async function (dispatch) {
         return fetch('http://localhost:3001/videogame')
             .then(res => res.json())
             .then(data => {
@@ -95,7 +91,7 @@ export function createVideogame() {
 };
 
 export function getGenres() {
-    return async function(dispatch) {
+    return async function (dispatch) {
         try {
             return fetch('http://localhost:3001/genres')
                 .then(res => res.json())
@@ -112,10 +108,10 @@ export function getGenres() {
 };
 
 
-export function filterGenres() {
+export function filterGenres(payload) {
     return {
         type: "FILTER_GENRES",
-
+        payload
     }
 }
 

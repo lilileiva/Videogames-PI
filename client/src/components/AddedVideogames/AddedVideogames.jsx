@@ -1,25 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './AddedVideogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 // import Searchbar from '../Searchbar/Searchbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { addedVideogames, getVideogameById } from '../../redux/actions';
 import { Link } from 'react-router-dom';
-import Loading from '../Helpers/Loading/Loading.jsx'
 
 
 function AddedVideogames() {
     const dispatch = useDispatch()
 
-    // const [loading, setLoading] = useState(true)
-
     const addedVideogamesLoaded = useSelector((state) => state.addedVideogamesLoaded)
-
     useEffect(() => {
         dispatch(addedVideogames());
-        // if (addedVideogamesLoaded.length !== 0) {
-        //     setLoading(false);
-        // }
     }, [dispatch])
 
     return (
@@ -30,9 +23,6 @@ function AddedVideogames() {
             <div className={styles.videogames}>
                 <ul className={styles.cards}>
                     {
-                        // loading
-                        //     ? <Loading />
-                        //     : 
                             addedVideogamesLoaded.length !== 0
                                 ? addedVideogamesLoaded.map((game) => (
                                     <Link to={`/videogames/${game.id}`}>
