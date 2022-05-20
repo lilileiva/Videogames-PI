@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterGenres, orderAlphabet, orderRating, addedVideogames } from '../../redux/actions';
+import { getGenres, filterGenres, orderAlphabet, orderRating, addedVideogames, getVideogames } from '../../redux/actions';
 import { useHistory } from 'react-router-dom';
 
 
@@ -52,13 +52,6 @@ export default function Sidebar({setCurrentPage}) {
                 <div className={styles.btn} onClick={() => handleAddedVideogames()} >
                     <p>Added videogames</p>
                 </div>
-
-                <Link to='/genres' >
-                    <div className={styles.btn}>
-                        <p>Genres</p>
-                    </div>
-                </Link>
-
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {

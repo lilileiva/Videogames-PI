@@ -72,7 +72,7 @@ function Videogames() {
                                 : <span>No results...</span>
                     }
                 </ul>
-                    <Pagination gamesPerPage={gamesPerPage} paginate={paginate} />
+                    <Pagination currentGames={currentGames} gamesPerPage={gamesPerPage} paginate={paginate} />
             </div>
         </div>
     )

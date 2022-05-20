@@ -57,17 +57,13 @@ function rootReducer(state = initialState, action) {
         }
     }
     else if (action.type === FILTER_GENRES) {
-        state.videogamesLoaded.filter((game) => (game.genres))
+        let filtered = [];
+        // state.videogamesLoaded.map(game => [game.genres].map(g => [g].includes(action.payload) ? filtered.unshift(game) : filtered.push(game)) )
+        state.videogamesLoaded.map(game => [game.genres].includes(action.payload) ? filtered.unshift(game) : filtered.push(game))
         return {
             ...state,
-            videogamesLoaded: state.videogamesLoaded
-        }
-        // const todosVideogames = state.videogamesLoaded;
-        //   const filteredGen = todosVideogames.filter((e) => (e.genres.includes(action.payload)));
-        //   return {
-        //     ...state,
-        //     videogamesLoaded: filteredGen
-        //   };
+            videogamesLoaded: filtered
+        };
     }
     else if (action.type === ORDER_ALPHABET) {
         if (action.payload === "AZ") {

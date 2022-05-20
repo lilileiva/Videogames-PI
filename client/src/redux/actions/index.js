@@ -79,14 +79,18 @@ export function getVideogameById(id) {
 
 export function createVideogame() {
     return async function (dispatch) {
-        return fetch('http://localhost:3001/videogame')
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "CREATE_VIDEOGAME",
-                    payload: data
+        try {
+            return fetch('http://localhost:3001/videogame')
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "CREATE_VIDEOGAME",
+                        payload: data
+                    })
                 })
-            })
+        } catch (error) {
+            return console.log(error)
+        }
     }
 };
 

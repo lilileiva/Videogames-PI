@@ -3,7 +3,7 @@ import styles from './Pagination.module.css';
 import { useSelector } from "react-redux";
 
 
-function Pagination({gamesPerPage, paginate}) {
+function Pagination({ currentGames, gamesPerPage, paginate }) {
     const pageNumbers = [];
 
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
