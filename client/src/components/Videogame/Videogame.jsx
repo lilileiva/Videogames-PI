@@ -13,12 +13,8 @@ export default function Videogame() {
         dispatch(getGenres());
         dispatch(getVideogames());
     }, [dispatch]);
-    
+
     let platformsList = [];
-    videogamesLoaded.map((game) => (
-        platformsList.push(game.platforms)
-    ))
-    platformsList = platformsList.toString().split(', ').toString().split(',');
     function removeDuplicates(arr) {
         var unique = [];
         arr.forEach(element => {
@@ -28,8 +24,13 @@ export default function Videogame() {
         });
         return unique;
     }
-    platformsList = removeDuplicates(platformsList);
-    
+    videogamesLoaded.map((game) => (
+        platformsList.push(game.platforms)
+    ))
+    platformsList = platformsList.toString().split(', ').toString().split(',')
+    platformsList = removeDuplicates(platformsList)
+
+
     const [input, setInput] = React.useState({
         name: "",
         description: "",
@@ -38,14 +39,11 @@ export default function Videogame() {
         genres: [],
         img: ""
     });
-    
+
     const validate = (input) => {
         let errors = {};
         if (!input.name) {
             errors.name = 'Name required'
-        }
-        else if (isNaN(input.rating)) {
-            errors.rating = 'Rating must be a number'
         }
         if (!input.description) {
             errors.description = 'Description is required'
@@ -59,7 +57,7 @@ export default function Videogame() {
         return errors
     }
     const [inputErrors, setInputErrors] = useState({})
-    
+
     const handleInputChange = (e) => {
         setInput({
             ...input,
@@ -85,7 +83,7 @@ export default function Videogame() {
         dispatch(createVideogame(input))
         setIsSubmit(true);
     }
-    
+
     useEffect(() => {
         console.log(inputErrors)
         if (Object.keys(inputErrors).length === 0 && isSubmit) {
@@ -117,16 +115,16 @@ export default function Videogame() {
                     />
                     {/* {errors.description && <p className={styles.error}>{errors.description}</p>} */}
                     <div className={styles.genresCheckbox}>
-                        <span>Genres... </span>
+                        <span>Genres*</span>
                         {
                             genresLoaded.length < 15
                                 ? <option>Cargando...</option>
-                                : genresLoaded
+                                : genresLoaded.length !== 0
                                     ? genresLoaded.map((genre) => {
                                         return (
-                                            <label className={styles.check}>
+                                            <label>
                                                 <input
-                                                    //key={genre.id}
+                                                    key={genre.id}
                                                     type='checkbox'
                                                     name='genres'
                                                     value={genre.name}
@@ -141,7 +139,7 @@ export default function Videogame() {
                         {/* {errors.genres && <p className={styles.error}>{errors.genres}</p>} */}
                     </div>
                     <div className={styles.genresCheckbox}>
-                        <span>Platforms... </span>
+                        <span>Platforms*</span>
                         {
                             platformsList.length < 15
                                 ? <option>Cargando...</option>
@@ -150,7 +148,7 @@ export default function Videogame() {
                                         return (
                                             <label>
                                                 <input
-                                                    //key={genre.id}
+                                                    key={platform}
                                                     type='checkbox'
                                                     name='platforms'
                                                     value={platform}
@@ -165,6 +163,15 @@ export default function Videogame() {
                         {/* {errors.platforms && <p className={styles.error}>{errors.platforms}</p>} */}
                     </div>
                     <input
+                        type='number'
+                        placeholder='rating'
+                        min='0'
+                        max='5'
+                        className={styles.inputs}
+                        value={input.rating}
+                        onChange={e => handleInputChange(e)}
+                    />
+                    <input
                         type="date"
                         placeholder='Released date'
                         className={styles.inputs}
@@ -172,16 +179,18 @@ export default function Videogame() {
                         value={input.released}
                         onChange={e => handleInputChange(e)}
                     />
-                    <label htmlFor="img">Select image:</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        className={styles.inputs}
-                        id='img'
-                        name='img'
-                        value={input.img}
-                        onChange={e => handleInputChange(e)}
-                    />
+                    <label>
+                        <span className={styles.inputs}>Select image...</span>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            // className={styles.inputs}
+                            style={{ display: 'none' }}
+                            name='img'
+                            value={input.img}
+                            onChange={e => handleInputChange(e)}
+                        />
+                    </label>
                     <input type="submit" className={styles.btn} />
                 </form>
             </div >

@@ -3,7 +3,7 @@ import styles from './Videogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVideogames, getVideogamesByName, getVideogameById } from '../../redux/actions';
+import { getVideogames, getVideogamesByName, getVideogameById, getGenres } from '../../redux/actions';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx';
 import Pagination from '../Helpers/Pagination/Pagination.jsx';
@@ -26,10 +26,13 @@ function Videogames() {
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch]);
+    useEffect(() => {
+        dispatch(getGenres())
+    }, [dispatch]);
     /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length !== 0) {
+        if (videogamesLoaded.length > 100) {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
@@ -38,7 +41,11 @@ function Videogames() {
     const [gamesPerPage, setGamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
+    // const currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
+    let currentGames;
+    if (!loading) {
+        currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
+    }
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     /*---------------------------*/
     return (

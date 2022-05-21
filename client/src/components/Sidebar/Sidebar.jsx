@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,9 +11,16 @@ export default function Sidebar({setCurrentPage}) {
 
     const genresLoaded = useSelector((state) => state.genresLoaded)
 
+    // useEffect(() => {
+    //     dispatch(getGenres())
+    // }, [dispatch])
+
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        dispatch(getGenres())
-    }, [dispatch])
+        if (genresLoaded.length !== 0) {
+            setLoading(false);
+        }
+    }, [genresLoaded.length]);
 
     const history = useHistory()
     const handleAllVideogames = () => {
@@ -55,7 +62,7 @@ export default function Sidebar({setCurrentPage}) {
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
-                        genresLoaded
+                        !loading
                             ? genresLoaded.map((genre) => {
                                 return (
                                     <option key={genre.id} value={genre.name}>

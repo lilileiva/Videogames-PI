@@ -28,6 +28,11 @@
     margin-bottom: 0.5em;
     margin-right: auto;
     margin-left: auto;
+    background-color: aliceblue;
+    color: black;
+}
+.inputs:hover span {
+    cursor: pointer;
 }
 
 .btn {
