@@ -21,7 +21,6 @@ export default function Sidebar({setCurrentPage}) {
     const history = useHistory()
     const handleAllVideogames = () => {
         history.push('/videogames');
-        setCurrentPage(1);
         window.location.reload()
     }
     const handleAddedVideogames = () => {

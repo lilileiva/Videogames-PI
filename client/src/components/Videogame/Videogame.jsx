@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getVideogames, createVideogame, getGenres } from '../../redux/actions';
 
 
-export default function Videogame() {
+function Videogame() {
     const dispatch = useDispatch();
 
     const genresLoaded = useSelector((state) => state.genresLoaded);
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
     useEffect(() => {
-        dispatch(getGenres());
-        dispatch(getVideogames());
-    }, [dispatch]);
+        if (genresLoaded.length === 0) {
+            dispatch(getGenres());
+        }
+        if (videogamesLoaded.length === 0) {
+                    dispatch(getVideogames());
+                }
+    }, [dispatch, genresLoaded.length, videogamesLoaded.length]);
 
     let platformsList = [];
     function removeDuplicates(arr) {
@@ -24,11 +28,12 @@ export default function Videogame() {
         });
         return unique;
     }
-    while (videogamesLoaded.length < 15) {}
 
-    videogamesLoaded.map((game) => (
-        platformsList.push(game.platforms)
-    ))
+    if (videogamesLoaded.length !== 0) {
+        videogamesLoaded.map((game) => (
+            platformsList.push(game.platforms)
+        ))
+    }
     platformsList = platformsList.toString().split(', ').toString().split(',')
     platformsList = removeDuplicates(platformsList)
 
@@ -199,3 +204,5 @@ export default function Videogame() {
         </div >
     )
 }
+
+export default Videogame;
