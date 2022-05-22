@@ -28,7 +28,6 @@ function Videogame() {
         });
         return unique;
     }
-
     if (videogamesLoaded.length !== 0) {
         videogamesLoaded.map((game) => (
             platformsList.push(game.platforms)
@@ -55,11 +54,11 @@ function Videogame() {
         if (!input.description) {
             errors.description = 'Description is required'
         }
-        if (!input.platforms.length === 0) {
-            errors.platforms = 'At least a platform is required'
-        }
-        if (!input.genres.length === 0) {
+        if (input.genres.length === 0) {
             errors.genres = 'At least a genre is required'
+        }
+        if (input.platforms.length === 0) {
+            errors.platforms = 'At least a platform is required'
         }
         return errors
     }
@@ -111,7 +110,7 @@ function Videogame() {
                         value={input.name}
                         onChange={e => handleInputChange(e)}
                     />
-                    {/* {errors.name && <p className={styles.error}>{errors.name}</p>} */}
+                    {inputErrors.name && <p className={styles.error}>{inputErrors.name}</p>}
                     <textarea
                         type="text"
                         placeholder='Description*'
@@ -120,7 +119,7 @@ function Videogame() {
                         value={input.description}
                         onChange={e => handleInputChange(e)}
                     />
-                    {/* {errors.description && <p className={styles.error}>{errors.description}</p>} */}
+                    {inputErrors.description && <p className={styles.error}>{inputErrors.description}</p>}
                     <div className={styles.genresCheckbox}>
                         <span>Genres*</span>
                         {
@@ -143,7 +142,7 @@ function Videogame() {
                                     })
                                     : null
                         }
-                        {/* {errors.genres && <p className={styles.error}>{errors.genres}</p>} */}
+                        {inputErrors.genres && <p className={styles.error}>{inputErrors.genres}</p>}
                     </div>
                     <div className={styles.genresCheckbox}>
                         <span>Platforms*</span>
@@ -167,7 +166,7 @@ function Videogame() {
                                     })
                                     : null
                         }
-                        {/* {errors.platforms && <p className={styles.error}>{errors.platforms}</p>} */}
+                        {inputErrors.platforms && <p className={styles.error}>{inputErrors.platforms}</p>}
                     </div>
                     <input
                         type='number'

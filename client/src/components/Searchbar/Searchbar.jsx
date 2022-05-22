@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
 import { getVideogamesByName } from '../../redux/actions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import loupe from '../../img/loupe.png'
 
 
@@ -10,7 +10,7 @@ export default function Searchbar() {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setName(e.target.value)
@@ -20,7 +20,7 @@ export default function Searchbar() {
         e.preventDefault()
         dispatch(getVideogamesByName(name))
         setName("")
-        history.push('/videogames')
+        navigate('/videogames')
     }
 
     return (

@@ -19,6 +19,7 @@ export function getVideogames() {
                     payload: data
                 })
             })
+            .catch(error => console.log(error))
     }
 };
 
@@ -77,7 +78,7 @@ export function getVideogameById(id) {
 };
 
 
-export function createVideogame() {
+export function createVideogame(payload) {
     return async function (dispatch) {
         try {
             // return fetch('http://localhost:3001/videogame')
@@ -97,8 +98,9 @@ export function createVideogame() {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
-                    "Content-Type": "application/json;charset=UTF-8",
+                    "Content-Type": "application/json",
                 },
+                body: JSON.stringify(payload)
             };
             fetch(url, options)
                 .then((res) => res.json())

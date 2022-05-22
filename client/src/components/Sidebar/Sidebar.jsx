@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterGenres, orderAlphabet, orderRating, addedVideogames, getVideogames } from '../../redux/actions';
-import { useHistory } from 'react-router-dom';
+import { filterGenres, orderAlphabet, orderRating, addedVideogames } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Sidebar({setCurrentPage}) {
@@ -18,28 +18,28 @@ export default function Sidebar({setCurrentPage}) {
         }
     }, [genresLoaded.length]);
 
-    const history = useHistory()
+    const navigate = useNavigate()
     const handleAllVideogames = () => {
-        history.push('/videogames');
+        navigate('/videogames');
         window.location.reload()
     }
     const handleAddedVideogames = () => {
-        history.push('/videogames/added');
+        navigate('/videogames/added');
         dispatch(addedVideogames());
         setCurrentPage(1);
     }
     const handleGenre = (e) => {
-        history.push('/videogames');
+        navigate('/videogames');
         dispatch(filterGenres(e.target.value));
         setCurrentPage(1);
     }
     const handleAlphabet = (e) => {
-        history.push('/videogames');
+        navigate('/videogames');
         dispatch(orderAlphabet(e.target.value));
         setCurrentPage(1);
     }
     const handleRating = (e) => {
-        history.push('/videogames');
+        navigate('/videogames');
         dispatch(orderRating(e.target.value));
         setCurrentPage(1);
     }

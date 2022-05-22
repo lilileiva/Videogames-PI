@@ -184,7 +184,7 @@ const getVideogameById = async (req, res, next) => {
 const createVideogame = async (req, res) => {
     const { name, description, released, rating, platforms, genres, img } = req.body;
 
-    if (!name) {
+    if (!name || typeof name !== "string") {
         return res.json({ error: "Invalid Name" });
     } 
     if (!description || typeof description !== "string") {
