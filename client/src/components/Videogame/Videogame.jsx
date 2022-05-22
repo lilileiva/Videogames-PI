@@ -14,8 +14,8 @@ function Videogame() {
             dispatch(getGenres());
         }
         if (videogamesLoaded.length === 0) {
-                    dispatch(getVideogames());
-                }
+            dispatch(getVideogames());
+        }
     }, [dispatch, genresLoaded.length, videogamesLoaded.length]);
 
     let platformsList = [];
@@ -28,7 +28,7 @@ function Videogame() {
         });
         return unique;
     }
-    if (videogamesLoaded.length !== 0) {
+    if (videogamesLoaded.length >= 18) {
         videogamesLoaded.map((game) => (
             platformsList.push(game.platforms)
         ))
@@ -123,7 +123,7 @@ function Videogame() {
                     <div className={styles.genresCheckbox}>
                         <span>Genres*</span>
                         {
-                            genresLoaded.length < 15
+                            genresLoaded.length < 18
                                 ? <option>Cargando...</option>
                                 : genresLoaded.length !== 0
                                     ? genresLoaded.map((genre) => {

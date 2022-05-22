@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const ADDED_VIDEOGAMES = "ADDED_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
@@ -81,35 +83,30 @@ export function getVideogameById(id) {
 export function createVideogame(payload) {
     return async function (dispatch) {
         try {
-            // return fetch('http://localhost:3001/videogame')
-            //     .then(res => res.json())
-            //     .then(data => {
+            const response = await axios.post("http://localhost:3001/videogame", payload);
+            // return response;
+            dispatch({
+                type: "CREATE_VIDEOGAME",
+                payload: response.data
+            })
+
+            // const url = "http://localhost:3001/videogame";
+            // const options = {
+            //     method: "POST",
+            //     headers: {
+            //         Accept: "application/json",
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // };
+            // fetch(url, options)
+            //     .then((res) => res.json())
+            //     .then((data) => {
             //         dispatch({
             //             type: "CREATE_VIDEOGAME",
             //             payload: data
             //         })
-            //     })
-
-            // const response = await axios.post("http://localhost:3001/videogame", payload);
-            // return response;
-
-            const url = "http://localhost:3001/videogame";
-            const options = {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            };
-            fetch(url, options)
-                .then((res) => res.json())
-                .then((data) => {
-                    dispatch({
-                        type: "CREATE_VIDEOGAME",
-                        payload: data
-                    })
-                });
+            //     });
 
         } catch (error) {
             return console.log(error)

@@ -22,7 +22,7 @@ function Videogames() {
     /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length !== 0) {
+        if (videogamesLoaded.length >= 100) {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);

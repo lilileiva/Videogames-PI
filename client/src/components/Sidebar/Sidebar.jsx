@@ -6,17 +6,17 @@ import { filterGenres, orderAlphabet, orderRating, addedVideogames } from '../..
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Sidebar({setCurrentPage}) {
+export default function Sidebar({ setCurrentPage }) {
     const dispatch = useDispatch();
 
     const genresLoaded = useSelector((state) => state.genresLoaded)
 
-    const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        if (genresLoaded.length !== 0) {
-            setLoading(false);
-        }
-    }, [genresLoaded.length]);
+    // const [loading, setLoading] = useState(true)
+    // useEffect(() => {
+    //     if (genresLoaded.length > 20) {
+    //         setLoading(false);
+    //     }
+    // }, [genresLoaded.length]);
 
     const navigate = useNavigate()
     const handleAllVideogames = () => {
@@ -58,15 +58,16 @@ export default function Sidebar({setCurrentPage}) {
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
-                        !loading
-                            ? genresLoaded.map((genre) => {
-                                return (
-                                    <option key={genre.id} value={genre.name}>
-                                        {genre.name}
-                                    </option>
-                                )
-                            })
-                            : null
+                        genresLoaded.length < 18                            ? <option value='null'>Cargando...</option>
+                            : genresLoaded.length !== 0
+                                ? genresLoaded.map((genre) => {
+                                    return (
+                                        <option key={genre.id} value={genre.name}>
+                                            {genre.name}
+                                        </option>
+                                    )
+                                })
+                                : null
                     }
                 </select>
                 <select onChange={(e) => handleAlphabet(e)} >
