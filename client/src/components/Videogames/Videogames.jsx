@@ -11,18 +11,8 @@ import Pagination from '../Helpers/Pagination/Pagination.jsx';
 
 function Videogames() {
     const dispatch = useDispatch();
-    const { name } = useParams();
     /*---------------------------*/
-    const videogamesByNameLoaded = useSelector((state) => state.videogamesByNameLoaded)
-    useEffect(() => {
-        if (name) {
-            if (videogamesByNameLoaded) {
-                dispatch(getVideogamesByName(name))
-            }
-        }
-    }, [dispatch, name, videogamesByNameLoaded]);
-    /*---------------------------*/
-    const videogamesLoaded = useSelector((state) => state.videogamesLoaded)
+    let videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch]);
@@ -32,7 +22,7 @@ function Videogames() {
     /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length > 100) {
+        if (videogamesLoaded.length !== 0) {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
@@ -41,7 +31,6 @@ function Videogames() {
     const [gamesPerPage, setGamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    // const currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
     let currentGames;
     if (!loading) {
         currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);

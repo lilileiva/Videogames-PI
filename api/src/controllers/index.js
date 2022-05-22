@@ -184,10 +184,12 @@ const getVideogameById = async (req, res, next) => {
 const createVideogame = async (req, res) => {
     const { name, description, released, rating, platforms, genres, img } = req.body;
 
-    if (!name || typeof name !== "string")
+    if (name.length === 0) {
         return res.json({ error: "Invalid Name" });
-    if (!description || typeof description !== "string")
+    } 
+    if (!description || typeof description !== "string") {
         return res.json({ error: "Invalid description" });
+    } 
     if (!img) {
         img = 'https://wallpaperaccess.com/full/2389962.jpg';
     }

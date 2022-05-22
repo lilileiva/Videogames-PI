@@ -11,10 +11,6 @@ export default function Sidebar({setCurrentPage}) {
 
     const genresLoaded = useSelector((state) => state.genresLoaded)
 
-    // useEffect(() => {
-    //     dispatch(getGenres())
-    // }, [dispatch])
-
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         if (genresLoaded.length !== 0) {
@@ -25,6 +21,7 @@ export default function Sidebar({setCurrentPage}) {
     const history = useHistory()
     const handleAllVideogames = () => {
         history.push('/videogames');
+        setCurrentPage(1);
         window.location.reload()
     }
     const handleAddedVideogames = () => {

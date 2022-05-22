@@ -80,14 +80,35 @@ export function getVideogameById(id) {
 export function createVideogame() {
     return async function (dispatch) {
         try {
-            return fetch('http://localhost:3001/videogame')
-                .then(res => res.json())
-                .then(data => {
+            // return fetch('http://localhost:3001/videogame')
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         dispatch({
+            //             type: "CREATE_VIDEOGAME",
+            //             payload: data
+            //         })
+            //     })
+
+            // const response = await axios.post("http://localhost:3001/videogame", payload);
+            // return response;
+
+            const url = "http://localhost:3001/videogame";
+            const options = {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                },
+            };
+            fetch(url, options)
+                .then((res) => res.json())
+                .then((data) => {
                     dispatch({
                         type: "CREATE_VIDEOGAME",
                         payload: data
                     })
-                })
+                });
+
         } catch (error) {
             return console.log(error)
         }

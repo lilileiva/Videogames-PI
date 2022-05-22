@@ -24,6 +24,8 @@ export default function Videogame() {
         });
         return unique;
     }
+    while (videogamesLoaded.length < 15) {}
+
     videogamesLoaded.map((game) => (
         platformsList.push(game.platforms)
     ))
