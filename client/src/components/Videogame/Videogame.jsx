@@ -10,7 +10,7 @@ function Videogame() {
     const genresLoaded = useSelector((state) => state.genresLoaded);
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
     useEffect(() => {
-        if (genresLoaded.length === 0) {
+        if (genresLoaded.length < 18) {
             dispatch(getGenres());
         }
         if (videogamesLoaded.length === 0) {
@@ -36,96 +36,93 @@ function Videogame() {
     platformsList = platformsList.toString().split(', ').toString().split(',')
     platformsList = removeDuplicates(platformsList)
 
-
-    const [input, setInput] = React.useState({
+    const [form, setForm] = React.useState({
         name: "",
         description: "",
+        platforms: '',
+        genres: '',
+        // platforms: [],
+        // genres: [],
         released: "",
-        platforms: [],
-        genres: [],
         img: ""
     });
 
-    const validate = (input) => {
+    const validate = (form) => {
         let errors = {};
-        if (!input.name) {
-            errors.name = 'Name required'
+        if (!form.name) {
+            errors.name = 'Name is required'
         }
-        if (!input.description) {
+        if (!form.description) {
             errors.description = 'Description is required'
         }
-        if (input.genres.length === 0) {
-            errors.genres = 'At least a genre is required'
-        }
-        if (input.platforms.length === 0) {
+        if (form.platforms.length === 0) {
             errors.platforms = 'At least a platform is required'
         }
         return errors
     }
-    const [inputErrors, setInputErrors] = useState({})
+    const [formErrors, setFormErrors] = useState({})
 
-    const handleInputChange = (e) => {
-        setInput({
-            ...input,
+    const handleChange = (e) => {
+        setForm({
+            ...form,
             [e.target.name]: e.target.value
         });
     }
     function handleGenres(e) {
-        setInput({
-            ...input,
-            genres: [...input.genres.filter(p => p !== e.target.value), e.target.value],
+        setForm({
+            ...form,
+            genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
         });
     }
     function handlePlatforms(e) {
-        setInput({
-            ...input,
-            platforms: [...input.platforms, e.target.value],
+        setForm({
+            ...form,
+            platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
         });
     }
-    const [isSubmit, setIsSubmit] = useState(false)
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setInputErrors(validate(input))
-        dispatch(createVideogame(input))
-        setIsSubmit(true);
+        setFormErrors(validate(form))
+        dispatch(createVideogame(form))
     }
 
     useEffect(() => {
-        console.log(inputErrors)
-        if (Object.keys(inputErrors).length === 0 && isSubmit) {
-            console.log(input)
+        console.log(formErrors)
+        if (Object.keys(formErrors).length === 0) {
+            console.log(form)
         }
-    }, [inputErrors])
+    }, [formErrors])
 
     return (
         <div className={styles.container}>
             <div className={styles.createVideogame}>
                 <h2>Create videogame</h2>
-                <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={handleSubmit}>
                     <input
                         type="text"
                         placeholder='Name*'
                         className={styles.inputs}
                         name='name'
-                        value={input.name}
-                        onChange={e => handleInputChange(e)}
+                        value={form.name}
+                        onChange={handleChange}
                     />
-                    {inputErrors.name && <p className={styles.error}>{inputErrors.name}</p>}
+                    {formErrors.name && <p className={styles.error}>{formErrors.name}</p>}
                     <textarea
                         type="text"
                         placeholder='Description*'
                         className={styles.inputs}
                         name='description'
-                        value={input.description}
-                        onChange={e => handleInputChange(e)}
+                        value={form.description}
+                        onChange={handleChange}
                     />
-                    {inputErrors.description && <p className={styles.error}>{inputErrors.description}</p>}
-                    <div className={styles.genresCheckbox}>
+                    {formErrors.description && <p className={styles.error}>{formErrors.description}</p>}
+                    {/* <div className={styles.genresCheckbox}>
                         <span>Genres*</span>
                         {
                             genresLoaded.length < 18
                                 ? <option>Cargando...</option>
-                                : genresLoaded.length !== 0
+                                : genresLoaded.length >= 18
                                     ? genresLoaded.map((genre) => {
                                         return (
                                             <label>
@@ -134,7 +131,7 @@ function Videogame() {
                                                     type='checkbox'
                                                     name='genres'
                                                     value={genre.name}
-                                                    onChange={e => handleGenres(e)}
+                                                    onChange={handleGenres}
                                                 />
                                                 {genre.name}
                                             </label>
@@ -142,9 +139,17 @@ function Videogame() {
                                     })
                                     : null
                         }
-                        {inputErrors.genres && <p className={styles.error}>{inputErrors.genres}</p>}
-                    </div>
-                    <div className={styles.genresCheckbox}>
+                    </div> */}
+
+                    <input
+                        type="text"
+                        placeholder='genres'
+                        className={styles.inputs}
+                        name='genres'
+                        value={form.genres}
+                        onChange={handleChange}
+                    />
+                    {/* <div className={styles.genresCheckbox}>
                         <span>Platforms*</span>
                         {
                             platformsList.length < 15
@@ -158,7 +163,7 @@ function Videogame() {
                                                     type='checkbox'
                                                     name='platforms'
                                                     value={platform}
-                                                    onChange={e => handlePlatforms(e)}
+                                                    onChange={handlePlatforms}
                                                 />
                                                 {platform}
                                             </label>
@@ -166,35 +171,43 @@ function Videogame() {
                                     })
                                     : null
                         }
-                        {inputErrors.platforms && <p className={styles.error}>{inputErrors.platforms}</p>}
-                    </div>
+                    </div> */}
+
+                    <input
+                        type="text"
+                        placeholder='platform*'
+                        className={styles.inputs}
+                        name='platforms'
+                        value={form.platforms}
+                        onChange={handleChange}
+                    />
+                    {formErrors.platforms && <p className={styles.error}>{formErrors.platforms}</p>}
                     <input
                         type='number'
                         placeholder='rating'
                         min='0'
                         max='5'
                         className={styles.inputs}
-                        value={input.rating}
-                        onChange={e => handleInputChange(e)}
+                        value={form.rating}
+                        onChange={handleChange}
                     />
                     <input
                         type="date"
                         placeholder='Released date'
                         className={styles.inputs}
                         name='released'
-                        value={input.released}
-                        onChange={e => handleInputChange(e)}
+                        value={form.released}
+                        onChange={handleChange}
                     />
                     <label>
                         <span className={styles.inputs}>Select image...</span>
                         <input
                             type="file"
                             accept="image/*"
-                            // className={styles.inputs}
                             style={{ display: 'none' }}
                             name='img'
-                            value={input.img}
-                            onChange={e => handleInputChange(e)}
+                            value={form.img}
+                            onChange={handleChange}
                         />
                     </label>
                     <input type="submit" className={styles.btn} />
@@ -203,5 +216,6 @@ function Videogame() {
         </div >
     )
 }
+
 
 export default Videogame;

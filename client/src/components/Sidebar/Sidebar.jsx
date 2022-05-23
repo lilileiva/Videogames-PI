@@ -26,7 +26,7 @@ export default function Sidebar({ setCurrentPage }) {
     const handleAddedVideogames = () => {
         navigate('/videogames/added');
         dispatch(addedVideogames());
-        setCurrentPage(1);
+        // setCurrentPage(1);
     }
     const handleGenre = (e) => {
         navigate('/videogames');
@@ -58,8 +58,9 @@ export default function Sidebar({ setCurrentPage }) {
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
-                        genresLoaded.length < 18                            ? <option value='null'>Cargando...</option>
-                            : genresLoaded.length !== 0
+                        genresLoaded.length < 18
+                            ? <option value='null'>Cargando...</option>
+                            : genresLoaded.length >= 18
                                 ? genresLoaded.map((genre) => {
                                     return (
                                         <option key={genre.id} value={genre.name}>

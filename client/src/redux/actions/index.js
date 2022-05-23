@@ -1,4 +1,5 @@
-const axios = require('axios');
+// const axios = require('axios');
+// import axios from 'axios';
 
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const ADDED_VIDEOGAMES = "ADDED_VIDEOGAMES";
@@ -13,15 +14,18 @@ export const ORDER_ALPHABET = "ORDER_ALPHABET";
 
 export function getVideogames() {
     return async function (dispatch) {
-        return fetch('http://localhost:3001/videogames')
-            .then(res => res.json())
-            .then(data => {
-                dispatch({
-                    type: "GET_VIDEOGAMES",
-                    payload: data
+        try {
+            return fetch('http://localhost:3001/videogames')
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_VIDEOGAMES",
+                        payload: data
+                    })
                 })
-            })
-            .catch(error => console.log(error))
+        } catch (error) {
+            console.log(error)
+        }
     }
 };
 
@@ -80,34 +84,29 @@ export function getVideogameById(id) {
 };
 
 
-export function createVideogame(payload) {
+export function createVideogame(form) {
     return async function (dispatch) {
         try {
-            const response = await axios.post("http://localhost:3001/videogame", payload);
-            // return response;
-            dispatch({
-                type: "CREATE_VIDEOGAME",
-                payload: response.data
+            // const response = await axios.post("http://localhost:3001/videogame", form);
+            // dispatch({
+            //     type: "CREATE_VIDEOGAME",
+            //     payload: response.data
+            // })
+            return fetch('http://localhost:3001/videogame', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(form)
             })
-
-            // const url = "http://localhost:3001/videogame";
-            // const options = {
-            //     method: "POST",
-            //     headers: {
-            //         Accept: "application/json",
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify(payload)
-            // };
-            // fetch(url, options)
-            //     .then((res) => res.json())
-            //     .then((data) => {
-            //         dispatch({
-            //             type: "CREATE_VIDEOGAME",
-            //             payload: data
-            //         })
-            //     });
-
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log('response', data)
+                    dispatch({
+                        type: "CREATE_VIDEOGAME",
+                        payload: data
+                    })
+                });
         } catch (error) {
             return console.log(error)
         }

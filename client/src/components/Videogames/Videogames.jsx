@@ -22,7 +22,7 @@ function Videogames() {
     /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length >= 100) {
+        if (videogamesLoaded.length >= 100) { //
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
@@ -33,7 +33,7 @@ function Videogames() {
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     let currentGames;
     if (!loading) {
-        currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame);
+        currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame)
     }
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     /*---------------------------*/
@@ -65,7 +65,8 @@ function Videogames() {
                                         </li>
                                     </Link>
                                 ))
-                                : <span>No results...</span>
+                                : currentGames.length === 0
+                                    ? <span>No results...</span> : null
                     }
                 </ul>
                     <Pagination currentGames={currentGames} gamesPerPage={gamesPerPage} paginate={paginate} />
