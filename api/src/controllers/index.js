@@ -62,7 +62,7 @@ const getVideogames = async (req, res) => {
         try {
             let games = [];
 
-            let pages = 10;
+            let pages = 8;
             for (let i = 1; i < pages; i++) {
                 const apiVideogames = await axios.get(`https://api.rawg.io/api/games?page=${i}&key=${API_KEY}`)
                 let apiVideogamesRes = apiVideogames.data.results;
@@ -88,8 +88,8 @@ const getVideogames = async (req, res) => {
                     id: game.id,
                     name: game.name,
                     genres: game.genres ? game.genres.map(genre => genre.name).join(', ') : null,
-                    img: game.img ? game.img : null,
-                    rating: game.rating ? game.rating : null,
+                    img: game.img,
+                    rating: game.rating,
                     platforms: game.platforms.map((p) => p.platform.name).join(', '),
                 }
             })
@@ -98,36 +98,6 @@ const getVideogames = async (req, res) => {
         } catch (error) {
             return res.status(404).json({ error: 'There was an error...' })
         }
-    }
-}
-
-/*--------------------------------( /videogames/added )--------------------------------*/
-const addedVideogames = async (req, res) => {
-    try {
-        let bdVideogames = await Videogame.findAll({
-            include: [
-                {
-                    model: Genre,
-                    attributes: ["id", "name"]
-                }
-            ]
-        });
-        let bdVideogamesRes = bdVideogames.forEach((game) => {
-            return {
-                id: game.id,
-                name: game.name,
-                // genres: game.genres.map(genre => genre.name).join(', '),
-                genres: game.genres,
-                img: game.img,
-                // platforms: game.platforms.map(platform => platform),
-                platforms: game.platforms,
-                rating: game.rating
-            }
-        })
-        if (bdVideogames) return res.status(200).json(bdVideogames)
-        else return res.json('No videogames added.')
-    } catch (error) {
-        return res.status(404).json({ error: 'There was an error...' })
     }
 }
 
@@ -183,24 +153,54 @@ const getVideogameById = async (req, res, next) => {
     }
 }
 
+/*--------------------------------( /videogames/added )--------------------------------*/
+const addedVideogames = async (req, res) => {
+    try {
+        let bdVideogames = await Videogame.findAll({
+            include: [
+                {
+                    model: Genre,
+                    attributes: ["id", "name"]
+                }
+            ]
+        });
+        bdVideogames.forEach((game) => {
+            return {
+                id: game.id,
+                name: game.name,
+                // genres: game.genres.map(genre => genre.name).join(', '),
+                genres: game.genres,
+                img: game.img,
+                // platforms: game.platforms.map(platform => platform),
+                platforms: game.platforms,
+                rating: game.rating
+            }
+        })
+        if (bdVideogames) return res.status(200).json(bdVideogames)
+        else return res.json('No videogames added.')
+    } catch (error) {
+        return res.status(404).json({ error: 'There was an error...' })
+    }
+}
+
 /*--------------------------------( /videogame )--------------------------------*/
 const createVideogame = async (req, res) => {
     let { name, description, released, rating, platforms, genres, img } = req.body;
+    platforms = platforms.toString()
+    let genre = genres.toString()
 
     if (!name || typeof name !== "string") {
         return res.json({ error: "Invalid Name" });
-    } 
+    }
     if (!description || typeof description !== "string") {
         return res.json({ error: "Invalid description" });
-    } 
+    }
     if (!platforms || typeof platforms !== "string") {
         return res.json({ error: "Invalid platforms" });
     }
     if (!rating) {
         rating = 0;
     }
-    // genres = genres.map(g => g)
-    // platforms = platforms.map(p => p)
 
     try {
         let newGame = await Videogame.create({
@@ -212,27 +212,28 @@ const createVideogame = async (req, res) => {
             img
         })
 
-        // let genresNewGame = await Genre.findAll({
-        //     where: {
-        //         name: genres
-        //     },
-        //     include: [
-        //         {
-        //             model: Genre,
-        //             attributes: ["id", "name"],
-        //             through: {
-        //                 attributes: [],
-        //             },
-        //         },
-        //     ],
-        // });
-        // await newGame.setGenres(genresNewGame);
+        let genresNewGame = await Genre.findAll({
+            where: {
+                name: genre
+            }
+            // ,
+            // include: [
+            //     {
+            //         model: Genre,
+            //         attributes: ["id", "name"],
+            //         through: {
+            //             attributes: [],
+            //         },
+            //     },
+            // ],
+        });
+        await newGame.setGenres(genresNewGame);
         res.status(200).send("Videogame created succesfully!");
     } catch (error) {
-        res.status(404).json({ error: "There was an error..." })
+        // res.status(404).json({ error: "There was an error..." })
+        console.error(error)
     }
 }
-
 
 /*--------------------------------( /genres )--------------------------------*/
 const getGenres = async (req, res) => {
@@ -247,7 +248,6 @@ const getGenres = async (req, res) => {
                 }
             })
         })
-
         const genres = await Genre.findAll();
 
         return res.status(200).json(genres);
