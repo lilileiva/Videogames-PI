@@ -27,7 +27,7 @@ const getVideogames = async (req, res) => {
                     genres: game.genres ? game.genres.map((genre) => genre.name).join(', ') : null,
                     img: game.background_image,
                     rating: game.rating,
-                    platforms:  game.platforms ? game.platforms.map((p) => p.platform.name).join(', ') : null
+                    platforms: game.platforms ? game.platforms.map((p) => p.platform.name).join(', ') : null
                 }
             })
 
@@ -39,14 +39,16 @@ const getVideogames = async (req, res) => {
                     model: Genre
                 }
             })
-            let bdVideogamesRes =  bdVideogames.map(game => {
+            let bdVideogamesRes = bdVideogames.map(game => {
                 return {
                     id: game.id,
                     name: game.name,
-                    genres: game.genres.map(genre => genre.name).join(', '),
+                    // genres: game.genres.map((genre) => genre.name).join(', '),
+                    genres: game.genres,
                     img: game.img,
                     rating: game.rating,
-                    platforms: game.platforms.map((p) => p.platform.name).join(', ')
+                    // platforms: game.platforms.map((p) => p.platform.name).join(', ')
+                    platforms: game.platforms
                 }
             })
 
@@ -74,7 +76,7 @@ const getVideogames = async (req, res) => {
                     games.push({
                         id: game.id,
                         name: game.name,
-                        genres: game.genres.map(genre => genre.name).join(', '),
+                        genres: game.genres.map((genre) => genre.name).join(', '),
                         img: game.background_image,
                         rating: game.rating,
                         platforms: game.platforms.map((p) => p.platform.name).join(', ')
@@ -90,69 +92,67 @@ const getVideogames = async (req, res) => {
                 return {
                     id: game.id,
                     name: game.name,
-                    genres: game.genres ? game.genres.map(genre => genre.name).join(', ') : null,
+                    // genres: [game.genres].map((genre) => genre.name).join(', '), //
+                    genres: game.genres,
                     img: game.img,
                     rating: game.rating,
-                    // platforms: game.platforms.map((p) => p.platform.name).join(', '),
                     platforms: game.platforms
                 }
             })
             games = [...games, bdVideogamesRes]
             return res.status(200).json(games)
         } catch (error) {
-            // return res.status(404).json({ error: 'There was an error...' })
             console.log(error)
+            return res.status(404).json({ error: 'There was an error...' })
         }
     }
 }
 
 /*--------------------------------( /videogames/:id )--------------------------------*/
-const getVideogameById = async (req, res, next) => {
+const getVideogameById = async (req, res) => {
     const { id } = req.params;
 
-    if (id) {
+    if (id.length < 36) {
         try {
-            // const apiVideogame = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-            // let apiVideogameRes = apiVideogame.data;
+            const apiVideogame = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+            let apiVideogameRes = apiVideogame.data;
 
-            // if (apiVideogameRes.length !== 0) {
-            //     apiVideogameRes = {
-            //         name: apiVideogameRes.name,
-            //         description: apiVideogameRes.description_raw,
-            //         released: apiVideogameRes.released,
-            //         genres: apiVideogameRes.genres.map((genre) => genre.name).join(', '),
-            //         img: apiVideogameRes.background_image,
-            //         rating: apiVideogameRes.rating,
-            //         platforms: apiVideogameRes.platforms.map((e) => e.platform.name).join(', ')
-            //     };
-
-            //     return res.status(200).json(apiVideogameRes);
-            // } else {
-            //     next();
-            // }
-
+            apiVideogameRes = {
+                name: apiVideogameRes.name,
+                description: apiVideogameRes.description_raw,
+                released: apiVideogameRes.released,
+                genres: apiVideogameRes.genres.map((genre) => genre.name).join(', '),
+                img: apiVideogameRes.background_image,
+                rating: apiVideogameRes.rating,
+                platforms: apiVideogameRes.platforms.map((e) => e.platform.name).join(', ')
+            };
+            return res.status(200).json(apiVideogameRes);
+        } catch (error) {
+            console.log(error)
+            return res.status(404).json({ error: "Videogame not found. Invalid ID." });
+        }
+    } else {
+        try {
             let bdVideogame = await Videogame.findOne({
                 where: {
                     id: id,
                 },
                 include: {
                     model: Genre,
-                    attributes: ["id","name"],
+                    attributes: ["id", "name"],
                     through: { attributes: [] },
                 },
             });
             let bdVideogameRes = {
-                img: bdVideogame.img,
+                img: bdVideogame.img ? bdVideogame.img : null,
                 name: bdVideogame.name,
-                // genres: bdVideogame.genres.map((genre) => genre.name).join(', '),
-                genres: bdVideogame.genres,
+                // genres: [bdVideogame.genres].map((genre) => genre.name).join(', '), //
+                // genres: bdVideogame.genres,
                 description: bdVideogame.description,
                 released: bdVideogame.released,
                 rating: bdVideogame.rating,
-                // platforms: bdVideogame.platforms.map((platform) => platform).join(', '),
                 platforms: bdVideogame.platforms,
             };
-
             return res.status(200).json(bdVideogameRes);
         } catch (error) {
             console.log(error)
@@ -239,11 +239,11 @@ const createVideogame = async (req, res) => {
         // })
 
         let genresNewGame = await Genre.findAll({
-                where: {
-                    name: genres
-                    // name: { [Sequelize.Op.iLike]: `${genres}` }
-                }
-            });
+            where: {
+                name: genres
+                // name: { [Sequelize.Op.iLike]: `${genres}` }
+            }
+        });
 
         await newGame.setGenres(genresNewGame);
         res.status(200).send("Videogame created succesfully!");
