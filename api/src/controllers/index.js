@@ -147,7 +147,6 @@ const getVideogameById = async (req, res) => {
                 img: bdVideogame.img ? bdVideogame.img : null,
                 name: bdVideogame.name,
                 genres: bdVideogame.Genres.map((genre) => genre.name).join(', '), //
-                // genres: bdVideogame.genres,
                 description: bdVideogame.description,
                 released: bdVideogame.released,
                 rating: bdVideogame.rating,
@@ -182,6 +181,19 @@ const addedVideogames = async (req, res) => {
                 rating: game.rating
             }
         })
+
+        // let bdVideogameRes = bdVideogames.map(game => {
+        //     return {
+        //         img: game.img ? game.img : null,
+        //         name: game.name,
+        //         genres: game.Genres.map((genre) => genre.name).join(', '), //
+        //         description: game.description,
+        //         released: game.released,
+        //         rating: game.rating,
+        //         platforms: game.platforms,
+        //     }
+        // });
+
         if (bdVideogames) return res.status(200).json(bdVideogames)
         else return res.json('No videogames added.')
     } catch (error) {
