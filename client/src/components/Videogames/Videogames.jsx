@@ -62,6 +62,12 @@ function Videogames() {
                                                 <p className={styles.title}>{game.name}</p>
                                                 <div className={styles.description}>
                                                     <span>{game.genres}</span>
+
+                                                    {
+                                                        game.Genres
+                                                            ? game.Genres.map(genre => <span>{genre.name}</span>) : null
+                                                    }
+
                                                     <span className={styles.rating}>{game.rating}</span>
                                                 </div>
                                             </div>

@@ -146,7 +146,7 @@ const getVideogameById = async (req, res) => {
             let bdVideogameRes = {
                 img: bdVideogame.img ? bdVideogame.img : null,
                 name: bdVideogame.name,
-                // genres: [bdVideogame.genres].map((genre) => genre.name).join(', '), //
+                genres: bdVideogame.Genres.map((genre) => genre.name).join(', '), //
                 // genres: bdVideogame.genres,
                 description: bdVideogame.description,
                 released: bdVideogame.released,
@@ -176,10 +176,8 @@ const addedVideogames = async (req, res) => {
             return {
                 id: game.id,
                 name: game.name,
-                // genres: game.genres.map(genre => genre.name).join(', '),
-                genres: game.genres,
+                genres: game.Genres.map(genre => genre.name).join(', '),
                 img: game.img,
-                // platforms: game.platforms.map(platform => platform),
                 platforms: game.platforms,
                 rating: game.rating
             }
