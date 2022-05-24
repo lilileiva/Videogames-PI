@@ -14,7 +14,7 @@ import {
 
 const initialState = {
     videogamesLoaded: [],
-    AllVideogames: [],
+    allVideogames: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
     videogameDetail: {}
@@ -30,14 +30,14 @@ function rootReducer(state = initialState, action) {
     else if (action.type === GET_ALL_VIDEOGAMES) {
         return {
             ...state,
-            videogamesLoaded: state.AllVideogames
+            videogamesLoaded: state.allVideogames
         }
     }
     else if (action.type === GET_VIDEOGAMES) {
         return {
             ...state,
             videogamesLoaded: action.payload,
-            AllVideogames: action.payload
+            allVideogames: action.payload
         }
     }
     else if (action.type === ADDED_VIDEOGAMES) {
@@ -75,8 +75,9 @@ function rootReducer(state = initialState, action) {
     }
     else if (action.type === ORDER_ALPHABET) {
         let filtered = [];
+        let videogamesLoaded = [...state.videogamesLoaded]
         if (action.payload === "AZ") {
-            state.videogamesLoaded.sort(function (a, b) {
+            let filterAlphabet = videogamesLoaded.sort(function (a, b) {
                 if (a.name > b.name) {
                     return 1;
                 }
@@ -85,10 +86,10 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
-            filtered = [...state.videogamesLoaded]
+            filtered = [...filterAlphabet]
         }
         else if (action.payload === "ZA") {
-            state.videogamesLoaded.sort(function (a, b) {
+            let filterAlphabet = videogamesLoaded.sort(function (a, b) {
                 if (a.name > b.name) {
                     return -1;
                 }
@@ -97,17 +98,19 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
-            filtered = [...state.videogamesLoaded]
+            filtered = [...filterAlphabet]
         }
         return {
             ...state,
-            videogamesLoaded: filtered
+            videogamesLoaded: filtered,
+            allVideogames: state.allVideogames
         }
     }
     else if (action.type === ORDER_RATING) {
         let filtered = [];
+        let videogamesLoaded = [...state.videogamesLoaded]
         if (action.payload === 'low') {
-            state.videogamesLoaded.sort(function (a, b) {
+            let filterRating = videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return 1;
                 }
@@ -116,10 +119,10 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
-            filtered = [...state.videogamesLoaded]
+            filtered = [...filterRating]
         }
         else if (action.payload === 'high') {
-            state.videogamesLoaded.sort(function (a, b) {
+            let filterRating = videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return -1;
                 }
@@ -128,11 +131,12 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             });
-            filtered = [...state.videogamesLoaded]
+            filtered = [...filterRating]
         }
         return {
             ...state,
-            videogamesLoaded: filtered
+            videogamesLoaded: filtered,
+            allVideogames: state.allVideogames
         }
     }
     return state;

@@ -10,13 +10,11 @@ function Videogame() {
     const genresLoaded = useSelector((state) => state.genresLoaded);
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
     useEffect(() => {
+        dispatch(getVideogames());
         if (genresLoaded.length < 18) {
             dispatch(getGenres());
         }
-        if (videogamesLoaded.length === 0) {
-            dispatch(getVideogames());
-        }
-    }, [dispatch, genresLoaded.length, videogamesLoaded.length]);
+    }, [dispatch, genresLoaded.length]);
 
     let platformsList = [];
     function removeDuplicates(arr) {
