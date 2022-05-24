@@ -1,12 +1,10 @@
 const { Videogame, Genre } = require("../db.js");
 const axios = require('axios');
-const { Sequelize, Op } = require("sequelize");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
 // const { API_KEY } = process.env;
-// const API_KEY = 'a6c41594b31847f4a1ccae2383e45fee';
 const API_KEY = '6bcb2db2bdaa45649f761187d112082d';
 
 
@@ -20,15 +18,15 @@ const getVideogames = async (req, res) => {
 
             const apiVideogames = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
             let apiVideogamesRes = apiVideogames.data.results;
-            apiVideogamesRes = apiVideogamesRes.map((game) => {
-                return {
+            apiVideogamesRes.map((game) => {
+                gamesByName.push({
                     id: game.id,
                     name: game.name,
                     genres: game.genres ? game.genres.map((genre) => genre.name).join(', ') : null,
                     img: game.background_image,
                     rating: game.rating,
                     platforms: game.platforms ? game.platforms.map((p) => p.platform.name).join(', ') : null
-                }
+                })
             })
 
             const bdVideogames = await Videogame.findAll({
@@ -39,20 +37,8 @@ const getVideogames = async (req, res) => {
                     model: Genre
                 }
             })
-            // let bdVideogamesRes = bdVideogames.map(game => {
-            //     return {
-            //         id: game.id,
-            //         name: game.name,
-            //         // genres: game.genres.map((genre) => genre.name).join(', '),
-            //         genres: game.genres,
-            //         img: game.img,
-            //         rating: game.rating,
-            //         // platforms: game.platforms.map((p) => p.platform.name).join(', ')
-            //         platforms: game.platforms
-            //     }
-            // })
-            let bdVideogamesRes = bdVideogames.map(game => {
-                return {
+            bdVideogames.map(game => {
+                gamesByName.unshift({
                     id: game.id,
                     img: game.img ? game.img : null,
                     name: game.name,
@@ -61,15 +47,11 @@ const getVideogames = async (req, res) => {
                     released: game.released,
                     rating: game.rating,
                     platforms: game.platforms,
-                }
+                })
             });
-
-            gamesByName = [...apiVideogamesRes, bdVideogamesRes]
 
             if (gamesByName) {
                 return res.status(200).json(gamesByName)
-            } else {
-                return res.json('Videogames by name not found.')
             }
         } catch (error) {
             console.log(error)
@@ -83,7 +65,7 @@ const getVideogames = async (req, res) => {
                 const apiVideogames = await axios.get(`https://api.rawg.io/api/games?page=${i}&key=${API_KEY}`)
                 let apiVideogamesRes = apiVideogames.data.results;
 
-                apiVideogamesRes = apiVideogamesRes.map(game => {
+                apiVideogamesRes.map(game => {
                     games.push({
                         id: game.id,
                         name: game.name,
@@ -100,8 +82,8 @@ const getVideogames = async (req, res) => {
                     model: Genre
                 }
             });
-            let bdVideogamesRes = bdVideogames.map(game => {
-                return {
+            bdVideogames.map(game => {
+                games.unshift({
                     id: game.id,
                     img: game.img ? game.img : null,
                     name: game.name,
@@ -110,10 +92,11 @@ const getVideogames = async (req, res) => {
                     released: game.released,
                     rating: game.rating,
                     platforms: game.platforms,
-                }
+                })
             });
-            games = [...games, bdVideogamesRes]
-            return res.status(200).json(games)
+            if (games) {
+                return res.status(200).json(games)
+            }
         } catch (error) {
             console.log(error)
             return res.status(404).json({ error: 'There was an error...' })
@@ -261,7 +244,6 @@ const getGenres = async (req, res) => {
     try {
         const apiGenres = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
         let apiGenresRes = await apiGenres.data.results;
-
         apiGenresRes.map((genre) => {
             Genre.findOrCreate({
                 where: {
