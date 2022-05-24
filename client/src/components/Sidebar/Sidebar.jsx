@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres, getVideogames } from '../../redux/actions';
+import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,13 +13,6 @@ export default function Sidebar({ setCurrentPage }) {
        useEffect(() => {
             dispatch(getGenres())
     }, [dispatch])
-
-    // const [loading, setLoading] = useState(true)
-    // useEffect(() => {
-    //     if (genresLoaded.length > 20) {
-    //         setLoading(false);
-    //     }
-    // }, [genresLoaded.length]);
 
     const navigate = useNavigate()
     const handleAllVideogames = () => {

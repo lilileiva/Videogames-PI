@@ -3,7 +3,7 @@ import styles from './Videogames.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVideogames, getVideogamesByName, getVideogameById, getGenres } from '../../redux/actions';
+import { getVideogames, getVideogamesByName, getVideogameById } from '../../redux/actions';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx';
 import Pagination from '../Helpers/Pagination/Pagination.jsx';
@@ -12,7 +12,7 @@ import joystick from '../../img/joystick.jpg'
 
 function Videogames() {
     const dispatch = useDispatch();
-    const { name } = useParams()
+    // const { name } = useParams()
 
     // if (name) {
     //     dispatch(getVideogamesByName(name))

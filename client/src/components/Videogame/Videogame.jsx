@@ -71,14 +71,12 @@ function Videogame() {
         setForm({
             ...form,
             genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
-            // genres: [...form.genres, e.target.value],
         });
     }
     function handlePlatforms(e) {
         setForm({
             ...form,
             platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
-            // platforms: [...form.platforms, e.target.value],
         });
     }
     function handleGenresDelete(genre) {
@@ -107,7 +105,7 @@ function Videogame() {
         if (Object.keys(formErrors).length === 0) {
             console.log(form)
         }
-    }, [formErrors])
+    }, [formErrors, form])
 
     return (
         <div className={styles.container}>
@@ -155,7 +153,6 @@ function Videogame() {
                                     : null
                         }
                     </div>
-
                     <div className={styles.added}>
                         {
                             form.genres ? form.genres.map(genre => (
@@ -166,7 +163,6 @@ function Videogame() {
                             )) : null
                         }
                     </div>
-
                     <div className={styles.genresCheckbox}>
                         <span>Platforms*</span>
                         {
@@ -190,7 +186,6 @@ function Videogame() {
                                     : null
                         }
                     </div>
-
                     <div className={styles.added}>
                         {
                             form.platforms ? form.platforms.map(platform => (
@@ -201,7 +196,6 @@ function Videogame() {
                             )) : null
                         }
                     </div>
-
                     {formErrors.platforms && <p className={styles.error}>{formErrors.platforms}</p>}
                     <input
                         type='number'
@@ -221,17 +215,6 @@ function Videogame() {
                         value={form.released}
                         onChange={handleChange}
                     />
-                    {/* <label>
-                        <span className={styles.inputs}>Select image...</span>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            name='img'
-                            value={form.img}
-                            onChange={handleChange}
-                        />
-                    </label> */}
                     <input
                         type="text"
                         placeholder='Insert image URL'

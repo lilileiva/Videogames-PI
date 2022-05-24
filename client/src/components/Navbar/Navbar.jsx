@@ -4,6 +4,9 @@ import styles from './Navbar.module.css';
 
 
 export default function Navbar() {
+    let activeStyle = {
+        color: 'yellow'
+      };
 
     return (
         <nav>
@@ -17,19 +20,19 @@ export default function Navbar() {
                     </Link>
                 <div className={styles.buttons}>
                     <div className={styles.btn}>
-                        <NavLink to='/videogames' /*activeStyle={{color: 'yellow'}}*/ >
+                        <NavLink exact to='/videogames' style={({ isActive }) => isActive ? activeStyle : null} >
                             <img src={spaceinvaders} alt="spaceinvaders img" />
                             HOME
                         </NavLink>
                     </div>
                     <div className={styles.btn}>
-                        <NavLink to='/videogame' /*activeStyle={{color: 'yellow'}}*/ >
+                        <NavLink to='/videogame' style={({ isActive }) => isActive ? activeStyle : null}>
                             <img src={spaceinvaders} alt="spaceinvaders img" />
                             CREATE GAME
                         </NavLink>
                     </div>
                     <div className={styles.btn}>
-                        <NavLink to='/about' /*activeStyle={{color: 'yellow'}}*/>
+                        <NavLink to='/about' style={({ isActive }) => isActive ? activeStyle : null}>
                             <img src={spaceinvaders} alt="spaceinvaders img" />
                             ABOUT
                         </NavLink>
@@ -39,3 +42,4 @@ export default function Navbar() {
         </nav>
     )
 }
+//activeStyle={{color: 'yellow'}}

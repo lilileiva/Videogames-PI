@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Genres.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterGenres } from '../../redux/actions';
+import { filterGenres } from '../../redux/actions';
 
 
 function Genres() {
