@@ -20,7 +20,9 @@ function Videogames() {
     /*---------------------------*/
     let videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
-        dispatch(getVideogames())
+        if (videogamesLoaded.length === 0) { //
+            dispatch(getVideogames())
+        }
     }, [dispatch]);
     /*---------------------------*/
     const [loading, setLoading] = useState(true)

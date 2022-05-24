@@ -223,7 +223,7 @@ function Videogame() {
                         value={form.img}
                         onChange={handleChange}
                     />
-                    <input type="submit" className={styles.btn} />
+                    <input type="submit" value='Create' className={styles.btn} />
                 </form>
                 {
                     isSubmit ? <span>Videogame created.</span> : null

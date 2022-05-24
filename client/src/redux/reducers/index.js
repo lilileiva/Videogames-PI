@@ -77,10 +77,6 @@ function rootReducer(state = initialState, action) {
                 return 0;
             })
             filtered = [...state.videogamesLoaded]
-            return {
-                ...state,
-                videogamesLoaded: filtered
-            }
         }
         else if (action.payload === "ZA") {
             state.videogamesLoaded.sort(function (a, b) {
@@ -93,10 +89,10 @@ function rootReducer(state = initialState, action) {
                 return 0;
             })
             filtered = [...state.videogamesLoaded]
-            return {
-                ...state,
-                videogamesLoaded: filtered
-            }
+        }
+        return {
+            ...state,
+            videogamesLoaded: filtered
         }
     }
     else if (action.type === ORDER_RATING) {
@@ -112,10 +108,6 @@ function rootReducer(state = initialState, action) {
                 return 0;
             })
             filtered = [...state.videogamesLoaded]
-            return {
-                ...state,
-                videogamesLoaded: filtered
-            }
         }
         else if (action.payload === 'high') {
             let orderRating = state.videogamesLoaded.sort(function (a, b) {
@@ -128,10 +120,10 @@ function rootReducer(state = initialState, action) {
                 return 0;
             });
             filtered = [...state.videogamesLoaded]
-            return {
-                ...state,
-                videogamesLoaded: filtered
-            }
+        }
+        return {
+            ...state,
+            videogamesLoaded: filtered
         }
     }
     return state;
