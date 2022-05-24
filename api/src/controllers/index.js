@@ -1,5 +1,6 @@
 const { Videogame, Genre } = require("../db.js");
 const axios = require('axios');
+const { Sequelize, Op } = require("sequelize");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -194,26 +195,28 @@ const addedVideogames = async (req, res) => {
 const createVideogame = async (req, res) => {
     let { name, description, released, rating, platforms, genres, img } = req.body;
     platforms = platforms.toString()
-    let genre = genres.map(genre => genre)
     rating = Number(rating)
 
     if (!name || typeof name !== "string") {
-        return res.json({ error: "Invalid Name" });
+        return res.status(404).json({ error: "Invalid Name" });
     }
     if (!description || typeof description !== "string") {
-        return res.json({ error: "Invalid description" });
+        return res.status(404).json({ error: "Invalid description" });
     }
     if (!platforms || typeof platforms !== "string") {
-        return res.json({ error: "Invalid platforms" });
+        return res.status(404).json({ error: "Invalid platforms" });
+    }
+    if (!genres || typeof genres !== "object") {
+        return res.json({ error: "Invalid genres" });
     }
     if (rating) {
         if (typeof rating !== "number") {
-            return res.json({ error: "Invalid rating" });
+            return res.status(404).json({ error: "Invalid rating" });
         }
     }
     if (img) {
         if (typeof img !== "string") {
-            return res.json({ error: "Invalid image" });
+            return res.status(404).json({ error: "Invalid image" });
         }
     }
 
@@ -226,11 +229,22 @@ const createVideogame = async (req, res) => {
             platforms,
             img
         })
+        // let genresNewGame = genres.map(async (genre) => {
+        //     return (await Genre.findAll({
+        //         where: {
+        //             // name: genre
+        //             name: { [Sequelize.Op.iLike]: `${genre}` }
+        //         }
+        //     }))
+        // })
+
         let genresNewGame = await Genre.findAll({
                 where: {
-                    name: genre
+                    name: genres
+                    // name: { [Sequelize.Op.iLike]: `${genres}` }
                 }
             });
+
         await newGame.setGenres(genresNewGame);
         res.status(200).send("Videogame created succesfully!");
     } catch (error) {

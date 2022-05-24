@@ -74,6 +74,13 @@ function Videogame() {
             genres: [...form.genres, e.target.value],
         });
     }
+    function handleDeleteGenres(e) {
+        setForm({
+            ...form,
+            // genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
+            genres: [...form.genres, e.target.value],
+        });
+    }
     function handlePlatforms(e) {
         setForm({
             ...form,
@@ -82,10 +89,12 @@ function Videogame() {
         });
     }
 
+    const [isSubmit, setIsSubmit] = useState(false)
     const handleSubmit = async (e) => {
         e.preventDefault()
         setFormErrors(validate(form))
         dispatch(createVideogame(form))
+        setIsSubmit(true)
     }
 
     useEffect(() => {
@@ -204,6 +213,9 @@ function Videogame() {
                     />
                     <input type="submit" className={styles.btn} />
                 </form>
+                    {
+                        isSubmit ? <span>Videogame created.</span> : null
+                    }
             </div >
         </div >
     )
