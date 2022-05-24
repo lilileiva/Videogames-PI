@@ -7,22 +7,25 @@ import { getVideogames, getVideogamesByName, getVideogameById, getGenres } from 
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../Helpers/Loading/Loading.jsx';
 import Pagination from '../Helpers/Pagination/Pagination.jsx';
+import joystick from '../../img/joystick.jpg'
 
 
 function Videogames() {
     const dispatch = useDispatch();
+    const { name } = useParams()
+
+    // if (name) {
+    //     dispatch(getVideogamesByName(name))
+    // }
     /*---------------------------*/
     let videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
         dispatch(getVideogames())
     }, [dispatch]);
-    useEffect(() => {
-        dispatch(getGenres())
-    }, [dispatch]);
     /*---------------------------*/
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length >= 100) { //
+        if (videogamesLoaded.length !== 0) { //
             setLoading(false);
         }
     }, [videogamesLoaded.length]);
@@ -40,7 +43,7 @@ function Videogames() {
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Sidebar setCurrentPage={setCurrentPage} />
+                <Sidebar setCurrentPage={setCurrentPage} currentGames={currentGames} />
             </div>
             <div className={styles.videogames}>
                 <div className={styles.search}>
@@ -54,7 +57,7 @@ function Videogames() {
                                 ? currentGames.map((game) => (
                                     <Link to={`/videogames/${game.id}`}>
                                         <li key={game.id} className={styles.card} onClick={() => dispatch(getVideogameById(`${game.id}`))}>
-                                            <img className={styles.image} src={game.img} alt='videogame poster' />
+                                            {game.img ? <img className={styles.image} src={game.img} alt='videogame poster' /> : <img className={styles.image} src={joystick} alt='videogame poster' />}
                                             <div className={styles.text}>
                                                 <p className={styles.title}>{game.name}</p>
                                                 <div className={styles.description}>
@@ -69,7 +72,7 @@ function Videogames() {
                                     ? <span>No results...</span> : null
                     }
                 </ul>
-                    <Pagination currentGames={currentGames} gamesPerPage={gamesPerPage} paginate={paginate} />
+                <Pagination currentGames={currentGames} gamesPerPage={gamesPerPage} paginate={paginate} />
             </div>
         </div>
     )

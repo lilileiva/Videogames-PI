@@ -18,6 +18,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<LandingPage />} />
         <Route exact path='/videogames' element={<Videogames />} />
+        <Route exact path='/videogames?name' element={<Videogames />} />
         <Route exact path='/videogames/added' element={<AddedVideogames />} />
         <Route exact path='/videogames/:id' element={<GameDetail />} />
         <Route exact path='/genres' element={<Genres />} />

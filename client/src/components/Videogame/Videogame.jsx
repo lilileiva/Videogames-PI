@@ -39,10 +39,9 @@ function Videogame() {
     const [form, setForm] = React.useState({
         name: "",
         description: "",
-        platforms: '',
-        genres: '',
-        // platforms: [],
-        // genres: [],
+        platforms: [],
+        genres: [],
+        rating: "",
         released: "",
         img: ""
     });
@@ -71,13 +70,15 @@ function Videogame() {
     function handleGenres(e) {
         setForm({
             ...form,
-            genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
+            // genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
+            genres: [...form.genres, e.target.value],
         });
     }
     function handlePlatforms(e) {
         setForm({
             ...form,
-            platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
+            // platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
+            platforms: [...form.platforms, e.target.value],
         });
     }
 
@@ -117,8 +118,8 @@ function Videogame() {
                         onChange={handleChange}
                     />
                     {formErrors.description && <p className={styles.error}>{formErrors.description}</p>}
-                    {/* <div className={styles.genresCheckbox}>
-                        <span>Genres*</span>
+                    <div className={styles.genresCheckbox}>
+                        <span>Genres</span>
                         {
                             genresLoaded.length < 18
                                 ? <option>Cargando...</option>
@@ -139,17 +140,8 @@ function Videogame() {
                                     })
                                     : null
                         }
-                    </div> */}
-
-                    <input
-                        type="text"
-                        placeholder='genres'
-                        className={styles.inputs}
-                        name='genres'
-                        value={form.genres}
-                        onChange={handleChange}
-                    />
-                    {/* <div className={styles.genresCheckbox}>
+                    </div>
+                    <div className={styles.genresCheckbox}>
                         <span>Platforms*</span>
                         {
                             platformsList.length < 15
@@ -171,16 +163,7 @@ function Videogame() {
                                     })
                                     : null
                         }
-                    </div> */}
-
-                    <input
-                        type="text"
-                        placeholder='platform*'
-                        className={styles.inputs}
-                        name='platforms'
-                        value={form.platforms}
-                        onChange={handleChange}
-                    />
+                    </div>
                     {formErrors.platforms && <p className={styles.error}>{formErrors.platforms}</p>}
                     <input
                         type='number'
@@ -188,6 +171,7 @@ function Videogame() {
                         min='0'
                         max='5'
                         className={styles.inputs}
+                        name='rating'
                         value={form.rating}
                         onChange={handleChange}
                     />
@@ -199,7 +183,7 @@ function Videogame() {
                         value={form.released}
                         onChange={handleChange}
                     />
-                    <label>
+                    {/* <label>
                         <span className={styles.inputs}>Select image...</span>
                         <input
                             type="file"
@@ -209,7 +193,15 @@ function Videogame() {
                             value={form.img}
                             onChange={handleChange}
                         />
-                    </label>
+                    </label> */}
+                    <input
+                        type="text"
+                        placeholder='Insert image URL'
+                        className={styles.inputs}
+                        name='img'
+                        value={form.img}
+                        onChange={handleChange}
+                    />
                     <input type="submit" className={styles.btn} />
                 </form>
             </div >

@@ -3,7 +3,7 @@ import styles from './GameDetail.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getVideogameById } from '../../redux/actions';
 import { Link, useParams } from "react-router-dom";
-import joystickCargando from '../../img/joystick-cargando.png';
+import joystick from '../../img/joystick.jpg';
 
 
 export default function GameDetail() {
@@ -28,10 +28,9 @@ export default function GameDetail() {
                         ? (
                             <div className={styles.card}>
                                 <div className={styles.row}>
-                                    {/* <img src={videogameDetail.img} alt='videogame' /> */}
                                     {videogameDetail.img
                                         ? <img src={videogameDetail.img} alt='videogame' />
-                                        : <img src={joystickCargando} alt='videogame' />}
+                                        : <img src={joystick} alt='videogame' />}
                                     <div className={styles.details}>
                                         <h2>{videogameDetail.name}</h2>
                                         <p>{videogameDetail.description}</p>

@@ -1,6 +1,3 @@
-// const axios = require('axios');
-// import axios from 'axios';
-
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
 export const ADDED_VIDEOGAMES = "ADDED_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
@@ -15,7 +12,7 @@ export const ORDER_ALPHABET = "ORDER_ALPHABET";
 export function getVideogames() {
     return async function (dispatch) {
         try {
-            return fetch('http://localhost:3001/videogames')
+            return await fetch('http://localhost:3001/videogames')
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
@@ -33,12 +30,12 @@ export function getVideogames() {
 export function getVideogamesByName(name) {
     return async function (dispatch) {
         try {
-            return fetch(`http://localhost:3001/videogames?name=${name}`)
+            return await fetch(`http://localhost:3001/videogames?name=${name}`)
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
                         type: "GET_VIDEOGAMES_BY_NAME",
-                        payload: data
+                        payload: data.length >= 15 ? data.slice(0, 15) : data
                     })
                 })
         } catch (error) {
@@ -51,7 +48,7 @@ export function getVideogamesByName(name) {
 export function addedVideogames() {
     return async function (dispatch) {
         try {
-            return fetch('http://localhost:3001/videogames/added')
+            return await fetch('http://localhost:3001/videogames/added')
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
@@ -69,7 +66,7 @@ export function addedVideogames() {
 export function getVideogameById(id) {
     return async function (dispatch) {
         try {
-            return fetch(`http://localhost:3001/videogames/${id}`)
+            return await fetch(`http://localhost:3001/videogames/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     dispatch({
@@ -87,12 +84,7 @@ export function getVideogameById(id) {
 export function createVideogame(form) {
     return async function (dispatch) {
         try {
-            // const response = await axios.post("http://localhost:3001/videogame", form);
-            // dispatch({
-            //     type: "CREATE_VIDEOGAME",
-            //     payload: response.data
-            // })
-            return fetch('http://localhost:3001/videogame', {
+            return await fetch('http://localhost:3001/videogame', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +108,7 @@ export function createVideogame(form) {
 export function getGenres() {
     return async function (dispatch) {
         try {
-            return fetch('http://localhost:3001/genres')
+            return await fetch('http://localhost:3001/genres')
                 .then(res => res.json())
                 .then(data => {
                     dispatch({

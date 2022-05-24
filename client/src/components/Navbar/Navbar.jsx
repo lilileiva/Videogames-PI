@@ -2,7 +2,9 @@ import { Link, NavLink } from 'react-router-dom';
 import spaceinvaders from '../../img/spaceinvaders.png'
 import styles from './Navbar.module.css';
 
+
 export default function Navbar() {
+
     return (
         <nav>
             <div className={styles.container}>

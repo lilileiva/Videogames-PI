@@ -34,7 +34,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ADDED_VIDEOGAMES) {
         return {
             ...state,
-            addedVideogamesLoaded: action.payload
+            videogamesLoaded: action.payload
         }
     }
     else if (action.type === GET_VIDEOGAME_BY_ID) {

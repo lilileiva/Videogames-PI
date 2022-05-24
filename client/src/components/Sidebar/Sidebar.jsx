@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenres, orderAlphabet, orderRating, addedVideogames } from '../../redux/actions';
+import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres, getVideogames } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -10,6 +10,9 @@ export default function Sidebar({ setCurrentPage }) {
     const dispatch = useDispatch();
 
     const genresLoaded = useSelector((state) => state.genresLoaded)
+       useEffect(() => {
+            dispatch(getGenres())
+    }, [dispatch])
 
     // const [loading, setLoading] = useState(true)
     // useEffect(() => {
@@ -22,9 +25,10 @@ export default function Sidebar({ setCurrentPage }) {
     const handleAllVideogames = () => {
         navigate('/videogames');
         window.location.reload()
+        // dispatch(getVideogames())
     }
     const handleAddedVideogames = () => {
-        navigate('/videogames/added');
+        navigate('/videogames');
         dispatch(addedVideogames());
         // setCurrentPage(1);
     }
@@ -58,9 +62,9 @@ export default function Sidebar({ setCurrentPage }) {
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
-                        genresLoaded.length < 18
+                        genresLoaded.length === 0
                             ? <option value='null'>Cargando...</option>
-                            : genresLoaded.length >= 18
+                            : genresLoaded.length !== 0
                                 ? genresLoaded.map((genre) => {
                                     return (
                                         <option key={genre.id} value={genre.name}>
