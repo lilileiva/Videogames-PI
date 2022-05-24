@@ -70,22 +70,27 @@ function Videogame() {
     function handleGenres(e) {
         setForm({
             ...form,
-            // genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
-            genres: [...form.genres, e.target.value],
-        });
-    }
-    function handleDeleteGenres(e) {
-        setForm({
-            ...form,
-            // genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
-            genres: [...form.genres, e.target.value],
+            genres: [...form.genres.filter(g => g !== e.target.value), e.target.value],
+            // genres: [...form.genres, e.target.value],
         });
     }
     function handlePlatforms(e) {
         setForm({
             ...form,
-            // platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
-            platforms: [...form.platforms, e.target.value],
+            platforms: [...form.platforms.filter(p => p !== e.target.value), e.target.value],
+            // platforms: [...form.platforms, e.target.value],
+        });
+    }
+    function handleGenresDelete(genre) {
+        setForm({
+            ...form,
+            genres: form.genres.filter(g => g !== genre)
+        });
+    }
+    function handlePlatformsDelete(platform) {
+        setForm({
+            ...form,
+            platforms: form.platforms.filter(p => p !== platform)
         });
     }
 
@@ -132,13 +137,13 @@ function Videogame() {
                         {
                             genresLoaded.length < 18
                                 ? <option>Cargando...</option>
-                                : genresLoaded.length >= 18
+                                : genresLoaded.length !== 0
                                     ? genresLoaded.map((genre) => {
                                         return (
                                             <label>
                                                 <input
                                                     key={genre.id}
-                                                    type='checkbox'
+                                                    type='radio'
                                                     name='genres'
                                                     value={genre.name}
                                                     onChange={handleGenres}
@@ -150,6 +155,18 @@ function Videogame() {
                                     : null
                         }
                     </div>
+
+                    <div className={styles.added}>
+                        {
+                            form.genres ? form.genres.map(genre => (
+                                <span className={styles.added}>
+                                    {genre}
+                                    <button onClick={() => handleGenresDelete(genre)}>X</button>
+                                </span>
+                            )) : null
+                        }
+                    </div>
+
                     <div className={styles.genresCheckbox}>
                         <span>Platforms*</span>
                         {
@@ -161,7 +178,7 @@ function Videogame() {
                                             <label>
                                                 <input
                                                     key={platform}
-                                                    type='checkbox'
+                                                    type='radio'
                                                     name='platforms'
                                                     value={platform}
                                                     onChange={handlePlatforms}
@@ -173,6 +190,18 @@ function Videogame() {
                                     : null
                         }
                     </div>
+
+                    <div className={styles.added}>
+                        {
+                            form.platforms ? form.platforms.map(platform => (
+                                <span className={styles.added}>
+                                    {platform}
+                                    <button onClick={() => handlePlatformsDelete(platform)}>X</button>
+                                </span>
+                            )) : null
+                        }
+                    </div>
+
                     {formErrors.platforms && <p className={styles.error}>{formErrors.platforms}</p>}
                     <input
                         type='number'
@@ -213,9 +242,9 @@ function Videogame() {
                     />
                     <input type="submit" className={styles.btn} />
                 </form>
-                    {
-                        isSubmit ? <span>Videogame created.</span> : null
-                    }
+                {
+                    isSubmit ? <span>Videogame created.</span> : null
+                }
             </div >
         </div >
     )
