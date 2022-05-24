@@ -39,18 +39,30 @@ const getVideogames = async (req, res) => {
                     model: Genre
                 }
             })
+            // let bdVideogamesRes = bdVideogames.map(game => {
+            //     return {
+            //         id: game.id,
+            //         name: game.name,
+            //         // genres: game.genres.map((genre) => genre.name).join(', '),
+            //         genres: game.genres,
+            //         img: game.img,
+            //         rating: game.rating,
+            //         // platforms: game.platforms.map((p) => p.platform.name).join(', ')
+            //         platforms: game.platforms
+            //     }
+            // })
             let bdVideogamesRes = bdVideogames.map(game => {
                 return {
                     id: game.id,
+                    img: game.img ? game.img : null,
                     name: game.name,
-                    // genres: game.genres.map((genre) => genre.name).join(', '),
-                    genres: game.genres,
-                    img: game.img,
+                    genres: game.Genres.map((genre) => genre.name).join(', '),
+                    description: game.description,
+                    released: game.released,
                     rating: game.rating,
-                    // platforms: game.platforms.map((p) => p.platform.name).join(', ')
-                    platforms: game.platforms
+                    platforms: game.platforms,
                 }
-            })
+            });
 
             gamesByName = [...apiVideogamesRes, bdVideogamesRes]
 
@@ -66,7 +78,6 @@ const getVideogames = async (req, res) => {
     } else {
         try {
             let games = [];
-
             let pages = 8;
             for (let i = 1; i < pages; i++) {
                 const apiVideogames = await axios.get(`https://api.rawg.io/api/games?page=${i}&key=${API_KEY}`)
@@ -83,22 +94,24 @@ const getVideogames = async (req, res) => {
                     })
                 })
             }
+
             const bdVideogames = await Videogame.findAll({
                 include: {
                     model: Genre
                 }
             });
-            const bdVideogamesRes = bdVideogames.map(game => {
+            let bdVideogamesRes = bdVideogames.map(game => {
                 return {
                     id: game.id,
+                    img: game.img ? game.img : null,
                     name: game.name,
-                    // genres: [game.genres].map((genre) => genre.name).join(', '), //
-                    genres: game.genres,
-                    img: game.img,
+                    genres: game.Genres.map((genre) => genre.name).join(', '),
+                    description: game.description,
+                    released: game.released,
                     rating: game.rating,
-                    platforms: game.platforms
+                    platforms: game.platforms,
                 }
-            })
+            });
             games = [...games, bdVideogamesRes]
             return res.status(200).json(games)
         } catch (error) {
@@ -118,6 +131,7 @@ const getVideogameById = async (req, res) => {
             let apiVideogameRes = apiVideogame.data;
 
             apiVideogameRes = {
+                id: apiVideogameRes.id,
                 name: apiVideogameRes.name,
                 description: apiVideogameRes.description_raw,
                 released: apiVideogameRes.released,
@@ -144,9 +158,10 @@ const getVideogameById = async (req, res) => {
                 },
             });
             let bdVideogameRes = {
+                id: bdVideogame.id,
                 img: bdVideogame.img ? bdVideogame.img : null,
                 name: bdVideogame.name,
-                genres: bdVideogame.Genres.map((genre) => genre.name).join(', '), //
+                genres: bdVideogame.Genres.map((genre) => genre.name).join(', '),
                 description: bdVideogame.description,
                 released: bdVideogame.released,
                 rating: bdVideogame.rating,
@@ -171,30 +186,19 @@ const addedVideogames = async (req, res) => {
                 }
             ]
         });
-        bdVideogames.forEach((game) => {
+        let bdVideogamesRes = bdVideogames.map(game => {
             return {
                 id: game.id,
+                img: game.img ? game.img : null,
                 name: game.name,
-                genres: game.Genres.map(genre => genre.name).join(', '),
-                img: game.img,
+                genres: game.Genres.map((genre) => genre.name).join(', '),
+                description: game.description,
+                released: game.released,
+                rating: game.rating,
                 platforms: game.platforms,
-                rating: game.rating
             }
-        })
-
-        // let bdVideogameRes = bdVideogames.map(game => {
-        //     return {
-        //         img: game.img ? game.img : null,
-        //         name: game.name,
-        //         genres: game.Genres.map((genre) => genre.name).join(', '), //
-        //         description: game.description,
-        //         released: game.released,
-        //         rating: game.rating,
-        //         platforms: game.platforms,
-        //     }
-        // });
-
-        if (bdVideogames) return res.status(200).json(bdVideogames)
+        });
+        if (bdVideogames) return res.status(200).json(bdVideogamesRes)
         else return res.json('No videogames added.')
     } catch (error) {
         return res.status(404).json({ error: 'There was an error...' })
@@ -239,22 +243,11 @@ const createVideogame = async (req, res) => {
             platforms,
             img
         })
-        // let genresNewGame = genres.map(async (genre) => {
-        //     return (await Genre.findAll({
-        //         where: {
-        //             // name: genre
-        //             name: { [Sequelize.Op.iLike]: `${genre}` }
-        //         }
-        //     }))
-        // })
-
         let genresNewGame = await Genre.findAll({
             where: {
                 name: genres
-                // name: { [Sequelize.Op.iLike]: `${genres}` }
             }
         });
-
         await newGame.setGenres(genresNewGame);
         res.status(200).send("Videogame created succesfully!");
     } catch (error) {

@@ -12,9 +12,6 @@ import joystick from '../../img/joystick.jpg'
 
 function Videogames() {
     const dispatch = useDispatch();
-
-    let genres = []
-
     // const { name } = useParams()
 
     // if (name) {
@@ -58,10 +55,6 @@ function Videogames() {
                             ? <Loading />
                             : currentGames.length !== 0
                                 ? currentGames.map((game) => (
-
-                                    (game.Genres
-                                        ? game.Genres.map(genre => genres.push(genre.name)) : null),
-
                                     <Link to={`/videogames/${game.id}`}>
                                         <li key={game.id} className={styles.card} onClick={() => dispatch(getVideogameById(`${game.id}`))}>
                                             {game.img ? <img className={styles.image} src={game.img} alt='videogame poster' /> : <img className={styles.image} src={joystick} alt='videogame poster' />}
@@ -69,10 +62,6 @@ function Videogames() {
                                                 <p className={styles.title}>{game.name}</p>
                                                 <div className={styles.description}>
                                                     <span>{game.genres}</span>
-                                                    {
-                                                        genres.length !== 0
-                                                            ? <span>{genres.join(', ')}</span> : null
-                                                    }
                                                     <span className={styles.rating}>{game.rating}</span>
                                                 </div>
                                             </div>

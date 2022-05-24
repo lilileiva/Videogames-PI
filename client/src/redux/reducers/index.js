@@ -65,6 +65,7 @@ function rootReducer(state = initialState, action) {
         };
     }
     else if (action.type === ORDER_ALPHABET) {
+        let filtered = [];
         if (action.payload === "AZ") {
             state.videogamesLoaded.sort(function (a, b) {
                 if (a.name > b.name) {
@@ -75,9 +76,10 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
+            filtered = [...state.videogamesLoaded]
             return {
                 ...state,
-                videogamesLoaded: state.videogamesLoaded
+                videogamesLoaded: filtered
             }
         }
         else if (action.payload === "ZA") {
@@ -90,15 +92,17 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
+            filtered = [...state.videogamesLoaded]
             return {
                 ...state,
-                videogamesLoaded: state.videogamesLoaded
+                videogamesLoaded: filtered
             }
         }
     }
     else if (action.type === ORDER_RATING) {
+        let filtered = [];
         if (action.payload === 'low') {
-            state.videogamesLoaded.sort(function (a, b) {
+            let orderRating = state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return 1;
                 }
@@ -107,13 +111,14 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             })
+            filtered = [...state.videogamesLoaded]
             return {
                 ...state,
-                videogamesLoaded: state.videogamesLoaded
+                videogamesLoaded: filtered
             }
         }
         else if (action.payload === 'high') {
-            state.videogamesLoaded.sort(function (a, b) {
+            let orderRating = state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return -1;
                 }
@@ -122,9 +127,10 @@ function rootReducer(state = initialState, action) {
                 }
                 return 0;
             });
+            filtered = [...state.videogamesLoaded]
             return {
                 ...state,
-                videogamesLoaded: state.videogamesLoaded
+                videogamesLoaded: filtered
             }
         }
     }

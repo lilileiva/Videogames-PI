@@ -23,7 +23,7 @@ export default function Sidebar({ setCurrentPage }) {
     const handleAddedVideogames = () => {
         navigate('/videogames');
         dispatch(addedVideogames());
-        // setCurrentPage(1);
+        setCurrentPage(1);
     }
     const handleGenre = (e) => {
         navigate('/videogames');
