@@ -7,12 +7,14 @@ import {
     GET_GENRES,
     FILTER_GENRES,
     ORDER_RATING,
-    ORDER_ALPHABET
+    ORDER_ALPHABET,
+    GET_ALL_VIDEOGAMES
 } from '../actions';
 
 
 const initialState = {
     videogamesLoaded: [],
+    AllVideogames: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
     videogameDetail: {}
@@ -25,10 +27,17 @@ function rootReducer(state = initialState, action) {
             videogamesLoaded: action.payload,
         }
     }
+    else if (action.type === GET_ALL_VIDEOGAMES) {
+        return {
+            ...state,
+            videogamesLoaded: state.AllVideogames
+        }
+    }
     else if (action.type === GET_VIDEOGAMES) {
         return {
             ...state,
-            videogamesLoaded: action.payload
+            videogamesLoaded: action.payload,
+            AllVideogames: action.payload
         }
     }
     else if (action.type === ADDED_VIDEOGAMES) {
@@ -98,7 +107,7 @@ function rootReducer(state = initialState, action) {
     else if (action.type === ORDER_RATING) {
         let filtered = [];
         if (action.payload === 'low') {
-            let orderRating = state.videogamesLoaded.sort(function (a, b) {
+            state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return 1;
                 }
@@ -110,7 +119,7 @@ function rootReducer(state = initialState, action) {
             filtered = [...state.videogamesLoaded]
         }
         else if (action.payload === 'high') {
-            let orderRating = state.videogamesLoaded.sort(function (a, b) {
+            state.videogamesLoaded.sort(function (a, b) {
                 if (a.rating > b.rating) {
                     return -1;
                 }

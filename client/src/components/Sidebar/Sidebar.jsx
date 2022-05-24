@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres } from '../../redux/actions';
+import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres, getAllVideogames } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,8 +17,7 @@ export default function Sidebar({ setCurrentPage }) {
     const navigate = useNavigate()
     const handleAllVideogames = () => {
         navigate('/videogames');
-        window.location.reload()
-        // dispatch(getVideogames())
+        dispatch(getAllVideogames());
     }
     const handleAddedVideogames = () => {
         navigate('/videogames');
