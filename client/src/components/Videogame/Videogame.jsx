@@ -49,6 +49,9 @@ function Videogame() {
         if (!form.name) {
             errors.name = 'Name is required'
         }
+        if (form.name && form.name.length > 255) {
+            errors.name = 'Name must be shorted'
+        }
         if (!form.description) {
             errors.description = 'Description is required'
         }
