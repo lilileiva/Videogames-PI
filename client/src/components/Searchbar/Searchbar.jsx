@@ -3,7 +3,7 @@ import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
 import { getVideogamesByName } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
-import loupe from '../../img/loupe.png'
+import loupe from '../../img/loupe.png';
 
 
 function Searchbar() {
@@ -21,7 +21,7 @@ function Searchbar() {
         setName("")
         navigate('/home')
     }
-
+    
     return (
         <div className={styles.container}>
             <div className={styles.searchbar}>

@@ -12,7 +12,7 @@ function Videogames({ currentGames }) {
     return (
         <ul className={styles.cards}>
             {
-                currentGames.length !== 0
+                currentGames.length >= 1
                     ? currentGames.map((game) => (
                         <Link to={`/videogame/${game.id}`}>
                             <li key={game.id} className={styles.card} onClick={() => dispatch(getVideogameById(`${game.id}`))}>

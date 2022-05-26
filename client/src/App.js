@@ -1,11 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
-
 import Home from './components/Home/Home.jsx';
-
 import GameDetail from './components/GameDetail/GameDetail.jsx';
-// import Videogames from './components/Videogames/Videogames.jsx';
 import Videogame from './components/Videogame/Videogame.jsx';
 import Genres from './components/Genres/Genres.jsx';
 import About from './components/About/About.jsx';

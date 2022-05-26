@@ -34,7 +34,7 @@ function Videogame() {
     platformsList = platformsList.toString().split(', ').toString().split(',')
     platformsList = removeDuplicates(platformsList)
 
-    const [form, setForm] = React.useState({
+    const [form, setForm] = useState({
         name: "",
         description: "",
         platforms: [],
@@ -103,10 +103,13 @@ function Videogame() {
         setIsSubmit(true)
     }
 
+    const [isCreated, setIsCreated] = useState(false);
     useEffect(() => {
         console.log(formErrors)
-        if (Object.keys(formErrors).length === 0) {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
             console.log(form)
+            setIsCreated(true)
+            setForm({})
         }
     }, [formErrors, form])
 
@@ -133,28 +136,23 @@ function Videogame() {
                         onChange={handleChange}
                     />
                     {formErrors.description && <p className={styles.error}>{formErrors.description}</p>}
-                    <div className={styles.genresCheckbox}>
-                        <span>Genres</span>
-                        {
-                            genresLoaded.length < 18
-                                ? <option>Cargando...</option>
-                                : genresLoaded.length !== 0
-                                    ? genresLoaded.map((genre) => {
-                                        return (
-                                            <label>
-                                                <input
-                                                    key={genre.id}
-                                                    type='radio'
-                                                    name='genres'
-                                                    value={genre.name}
-                                                    onChange={handleGenres}
-                                                />
-                                                {genre.name}
-                                            </label>
-                                        )
-                                    })
-                                    : null
-                        }
+                    <div>
+                        <select onChange={handleGenres}>
+                            <option value='null'>Genres</option>
+                            {
+                                genresLoaded.length < 18
+                                    ? <option>Cargando...</option>
+                                    : genresLoaded.length >= 1
+                                        ? genresLoaded.map((genre) => {
+                                            return (
+                                                <option key={genre.id} name='genres' value={genre.name} >
+                                                    {genre.name}
+                                                </option>
+                                            )
+                                        })
+                                        : null
+                            }
+                        </select>
                     </div>
                     <div className={styles.added}>
                         {
@@ -166,28 +164,23 @@ function Videogame() {
                             )) : null
                         }
                     </div>
-                    <div className={styles.genresCheckbox}>
-                        <span>Platforms*</span>
-                        {
-                            platformsList.length < 15
-                                ? <option>Cargando...</option>
-                                : platformsList.length !== 0
-                                    ? platformsList.map((platform) => {
-                                        return (
-                                            <label>
-                                                <input
-                                                    key={platform}
-                                                    type='radio'
-                                                    name='platforms'
-                                                    value={platform}
-                                                    onChange={handlePlatforms}
-                                                />
-                                                {platform}
-                                            </label>
-                                        )
-                                    })
-                                    : null
-                        }
+                    <div>
+                        <select onChange={handlePlatforms}>
+                            <option value='null'>Platforms*</option>
+                            {
+                                platformsList.length < 18
+                                    ? <option>Cargando...</option>
+                                    : platformsList.length >= 1
+                                        ? platformsList.map((platform) => {
+                                            return (
+                                                <option key={platform} name='platforms' value={platform} >
+                                                    {platform}
+                                                </option>
+                                            )
+                                        })
+                                        : null
+                            }
+                        </select>
                     </div>
                     <div className={styles.added}>
                         {
@@ -230,7 +223,7 @@ function Videogame() {
                     <input type="submit" value='Create' className={styles.btn} />
                 </form>
                 {
-                    isSubmit ? <span>Videogame created.</span> : null
+                    isCreated ? <span className={styles.created}>✔ Videogame created!</span> : null
                 }
             </div >
         </div >

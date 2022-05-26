@@ -25,3 +25,7 @@
     justify-content: center;
 }
 
+.pageNumber:hover {
+    transition: 0.1s ease-out;
+    transform: scale(110%);
+}

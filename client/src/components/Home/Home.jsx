@@ -31,8 +31,9 @@ function Home() {
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     let currentGames;
+
     if (!loading) {
-        currentGames = videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame)
+        currentGames = videogamesLoaded.length >= 1 ? videogamesLoaded.slice(indexOfFirstGame, indexOfLastGame) : videogamesLoaded
     }
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -43,16 +44,16 @@ function Home() {
             </div>
             <div className={styles.videogames}>
                 <div className={styles.search}>
-                    <Searchbar />
+                    <Searchbar/>
                 </div>
                 <div className={styles.cards}>
                     {
                         loading
                             ? <Loading />
-                            : <Videogames currentGames={currentGames} />
+                            : <Videogames currentGames={currentGames} /> 
                     }
                 </div>
-                <Pagination currentGames={currentGames} gamesPerPage={gamesPerPage} paginate={paginate} />
+                <Pagination gamesPerPage={gamesPerPage} paginate={paginate} />
             </div>
         </div >
     )
