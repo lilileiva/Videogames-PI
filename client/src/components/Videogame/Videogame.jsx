@@ -11,7 +11,7 @@ function Videogame() {
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
     useEffect(() => {
         dispatch(getVideogames());
-        if (genresLoaded.length < 18) {
+        if (genresLoaded.length === 0) {
             dispatch(getGenres());
         }
     }, [dispatch, genresLoaded.length]);
@@ -54,6 +54,11 @@ function Videogame() {
         }
         if (form.platforms.length === 0) {
             errors.platforms = 'At least a platform is required'
+        }
+        if (form.img) {
+            if (!((form.img).match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))) {
+                errors.img = 'Image URL not valid'
+            }
         }
         return errors
     }
@@ -221,6 +226,7 @@ function Videogame() {
                         value={form.img}
                         onChange={handleChange}
                     />
+                    {formErrors.img && <p className={styles.error}>{formErrors.img}</p>}
                     <input type="submit" value='Create' className={styles.btn} />
                 </form>
                 {

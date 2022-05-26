@@ -1,5 +1,6 @@
 const { Videogame, Genre } = require("../db.js");
 const axios = require('axios');
+const { Sequelize } = require('sequelize');
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -31,7 +32,7 @@ const getVideogames = async (req, res) => {
 
             const bdVideogames = await Videogame.findAll({
                 where: {
-                    name: name.toLowerCase()
+                    name: {[Sequelize.Op.iLike]: `%${name}%`}
                 },
                 include: {
                     model: Genre

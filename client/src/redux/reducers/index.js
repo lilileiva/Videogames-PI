@@ -56,7 +56,6 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             videogamesLoaded: [...state.videogamesLoaded, action.payload],
-            videogameDetail: action.payload
         }
     }
     else if (action.type === GET_GENRES) {
@@ -67,7 +66,8 @@ function rootReducer(state = initialState, action) {
     }
     else if (action.type === FILTER_GENRES) {
         let filtered = [];
-        state.videogamesLoaded.map(game => [game.genres].toString().split(', ').toString().split(',').includes(action.payload) ? filtered.unshift(game) : filtered.push(game))
+        let videogamesLoaded = [...state.allVideogames]
+        videogamesLoaded.map(game => [game.genres].toString().split(', ').toString().split(',').includes(action.payload) ? filtered.push(game) : null)
         return {
             ...state,
             videogamesLoaded: filtered
