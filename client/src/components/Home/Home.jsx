@@ -21,7 +21,7 @@ function Home() {
 
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        if (videogamesLoaded.length !== 0) {
+        if (videogamesLoaded.length >= 1) {
             setLoading(false);
         }
     }, [videogamesLoaded.length]);

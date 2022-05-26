@@ -6,21 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import loupe from '../../img/loupe.png'
 
 
-export default function Searchbar() {
+function Searchbar() {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
-
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setName(e.target.value)
     }
-
+    
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(getVideogamesByName(name))
         setName("")
-        navigate('/videogames')
+        navigate('/home')
     }
 
     return (
@@ -44,3 +43,5 @@ export default function Searchbar() {
         </div>
     )
 }
+
+export default Searchbar;

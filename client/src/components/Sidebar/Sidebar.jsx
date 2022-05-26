@@ -57,7 +57,7 @@ export default function Sidebar({ setCurrentPage }) {
                     {
                         genresLoaded.length === 0
                             ? <option value='null'>Cargando...</option>
-                            : genresLoaded.length !== 0
+                            : genresLoaded.length >= 1
                                 ? genresLoaded.map((genre) => {
                                     return (
                                         <option key={genre.id} value={genre.name}>

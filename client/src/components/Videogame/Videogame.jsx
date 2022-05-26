@@ -26,7 +26,7 @@ function Videogame() {
         });
         return unique;
     }
-    if (videogamesLoaded.length >= 18) {
+    if (videogamesLoaded.length >= 1) {
         videogamesLoaded.map((game) => (
             platformsList.push(game.platforms)
         ))
