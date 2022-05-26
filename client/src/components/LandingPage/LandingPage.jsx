@@ -13,7 +13,7 @@ export default function LandingPage() {
             </div>
             <div className={styles.home}>
                 <p className={styles.homeText}>Entry to our home:</p>
-                <Link to='/videogames'>
+                <Link to='/home'>
                     <button className={styles.btn}>HOME</button>
                 </Link>
             </div>

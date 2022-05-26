@@ -16,26 +16,27 @@ export default function Sidebar({ setCurrentPage }) {
 
     const navigate = useNavigate()
     const handleAllVideogames = () => {
-        navigate('/videogames');
+        navigate('/home');
         dispatch(getAllVideogames());
+        setCurrentPage(1);
     }
     const handleAddedVideogames = () => {
-        navigate('/videogames');
+        navigate('/home');
         dispatch(addedVideogames());
         setCurrentPage(1);
     }
     const handleGenre = (e) => {
-        navigate('/videogames');
+        navigate('/home');
         dispatch(filterGenres(e.target.value));
         setCurrentPage(1);
     }
     const handleAlphabet = (e) => {
-        navigate('/videogames');
+        navigate('/home');
         dispatch(orderAlphabet(e.target.value));
         setCurrentPage(1);
     }
     const handleRating = (e) => {
-        navigate('/videogames');
+        navigate('/home');
         dispatch(orderRating(e.target.value));
         setCurrentPage(1);
     }
@@ -43,7 +44,7 @@ export default function Sidebar({ setCurrentPage }) {
     return (
         <div className={styles.container}>
             <div className={styles.buttons}>
-                <Link to='/videogames' >
+                <Link to='/home' >
                     <div className={styles.btn} onClick={() => handleAllVideogames()}>
                         <p>All videogames</p>
                     </div>

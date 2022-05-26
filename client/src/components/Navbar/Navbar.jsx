@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <nav>
             <div className={styles.container}>
-                    <Link to='/videogames'>
+                    <Link to='/home'>
                         <h1 className={styles.title}>
                             VIDEO
                             <br/>
@@ -20,13 +20,13 @@ export default function Navbar() {
                     </Link>
                 <div className={styles.buttons}>
                     <div className={styles.btn}>
-                        <NavLink exact to='/videogames' style={({ isActive }) => isActive ? activeStyle : null} >
+                        <NavLink exact to='/home' style={({ isActive }) => isActive ? activeStyle : null} >
                             <img src={spaceinvaders} alt="spaceinvaders img" />
                             HOME
                         </NavLink>
                     </div>
                     <div className={styles.btn}>
-                        <NavLink to='/videogame' style={({ isActive }) => isActive ? activeStyle : null}>
+                        <NavLink to='/createvideogame' style={({ isActive }) => isActive ? activeStyle : null}>
                             <img src={spaceinvaders} alt="spaceinvaders img" />
                             CREATE GAME
                         </NavLink>

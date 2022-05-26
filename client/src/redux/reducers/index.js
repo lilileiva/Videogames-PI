@@ -56,6 +56,7 @@ function rootReducer(state = initialState, action) {
         return {
             ...state,
             videogamesLoaded: [...state.videogamesLoaded, action.payload],
+            allVideogames: [...state.allVideogames, action.payload]
         }
     }
     else if (action.type === GET_GENRES) {

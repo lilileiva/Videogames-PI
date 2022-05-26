@@ -101,7 +101,6 @@ export function createVideogame(form) {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log('response', data)
                     dispatch({
                         type: "CREATE_VIDEOGAME",
                         payload: data

@@ -16,10 +16,9 @@
     color: aliceblue;
 }
 
-
 .gameDetail {
     width: 100%;
-    font-size: 1.3em;
+    font-size: 1.4em;
     background: rgba(0, 0, 0, 0.90);
     border-radius: 0.5em;
     margin-bottom: 4em;
@@ -29,6 +28,10 @@
     border-radius: 1em;
     margin-right: 2em;
     object-fit: cover;
+}
+
+.details {
+    color: rgb(176, 176, 176);
 }
 
 .card {

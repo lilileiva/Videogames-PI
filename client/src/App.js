@@ -1,8 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
+
+import Home from './components/Home/Home.jsx';
+
 import GameDetail from './components/GameDetail/GameDetail.jsx';
-import Videogames from './components/Videogames/Videogames.jsx';
+// import Videogames from './components/Videogames/Videogames.jsx';
 import Videogame from './components/Videogame/Videogame.jsx';
 import Genres from './components/Genres/Genres.jsx';
 import About from './components/About/About.jsx';
@@ -16,11 +19,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path='/' element={<LandingPage />} />
-        <Route exact path='/videogames' element={<Videogames />} />
-        <Route exact path='/videogames?name' element={<Videogames />} />      
-        <Route exact path='/videogames/:id' element={<GameDetail />} />
+        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/videogame/:id' element={<GameDetail />} />
         <Route exact path='/genres' element={<Genres />} />
-        <Route exact path='/videogame' element={<Videogame />} />
+        <Route exact path='/createvideogame' element={<Videogame />} />
         <Route exact path='/about' element={<About />} />
       </Routes>
       <Footer />

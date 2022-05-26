@@ -19,7 +19,7 @@ export default function GameDetail() {
 
     return (
         <div className={styles.container}>
-            <Link to='/videogames'>
+            <Link to='/home'>
                 <span>← Return</span>
             </Link>
             <div className={styles.gameDetail}>
@@ -31,22 +31,35 @@ export default function GameDetail() {
                                     {videogameDetail.img
                                         ? <img src={videogameDetail.img} alt='videogame' />
                                         : <img src={joystick} alt='videogame' />}
-                                    <div className={styles.details}>
+                                    <div>
                                         <h2>{videogameDetail.name}</h2>
-                                        <p>{videogameDetail.description}</p>
-                                        {videogameDetail.released
-                                            ? <p>Released: {videogameDetail.released}</p>
-                                            : <p>Released: ...</p>}
-                                        {videogameDetail.genres
-                                            ? <p>Genres: {videogameDetail.genres}</p>
-                                            : <p>Genres: ...</p>}
-                                        {videogameDetail.rating
-                                            ? <p>Rating: {videogameDetail.rating}</p>
-                                            : <p>Rating: ...</p>}
-                                        {videogameDetail.platforms
-                                            ? <p>Platforms: {videogameDetail.platforms}</p>
-                                            : <p>Platforms: ...</p>}
-
+                                        {
+                                            videogameDetail.description
+                                                ? <p>{videogameDetail.description}</p>
+                                                : <p>Description: ...</p>
+                                        }
+                                        <div className={styles.details}>
+                                            {
+                                                videogameDetail.released
+                                                    ? <p>Released: {videogameDetail.released}</p>
+                                                    : <p>Released: ...</p>
+                                            }
+                                            {
+                                                videogameDetail.genres
+                                                    ? <p>Genres: {videogameDetail.genres}</p>
+                                                    : <p>Genres: ...</p>
+                                            }
+                                            {
+                                                videogameDetail.rating
+                                                    ? <p>Rating: {videogameDetail.rating}</p>
+                                                    : <p>Rating: ...</p>
+                                            }
+                                            {
+                                                videogameDetail.platforms
+                                                    ? <p>Platforms: {videogameDetail.platforms}</p>
+                                                    : <p>Platforms: ...</p>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
