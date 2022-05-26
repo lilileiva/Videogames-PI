@@ -114,7 +114,7 @@ function Videogame() {
             setIsCreated(true)
             setForm({})
         }
-    }, [formErrors, form])
+    }, [formErrors, form, isSubmit])
 
     return (
         <div className={styles.container}>
