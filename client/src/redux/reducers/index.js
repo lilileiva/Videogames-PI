@@ -8,7 +8,8 @@ import {
     FILTER_GENRES,
     ORDER_RATING,
     ORDER_ALPHABET,
-    GET_ALL_VIDEOGAMES
+    GET_ALL_VIDEOGAMES,
+    RESET
 } from '../actions';
 
 
@@ -17,8 +18,7 @@ const initialState = {
     allVideogames: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
-    videogameDetail: {},
-    favoriteVideogames: [],
+    videogameDetail: {}
 };
 
 function rootReducer(state = initialState, action) {
@@ -139,6 +139,12 @@ function rootReducer(state = initialState, action) {
             ...state,
             videogamesLoaded: filtered,
             allVideogames: state.allVideogames
+        }
+    }
+    else if (action.type === RESET) {
+        return {
+            ...state,
+            videogameDetail: {}
         }
     }
     return state;

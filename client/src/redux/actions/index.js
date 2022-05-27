@@ -8,6 +8,7 @@ export const GET_GENRES = "GET_GENRES";
 export const FILTER_GENRES = "FILTER_GENRES";
 export const ORDER_RATING = "ORDER_RATING";
 export const ORDER_ALPHABET = "ORDER_ALPHABET";
+export const RESET = "RESET";
 
 
 export function getVideogames() {
@@ -150,4 +151,12 @@ export function orderAlphabet(payload) {
         payload
     }
 }
+
+
+export function reset() {
+    return {
+        type: "RESET"
+    }
+}
+
 

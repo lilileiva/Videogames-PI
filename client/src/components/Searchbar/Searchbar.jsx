@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Searchbar.module.css';
 import { useDispatch } from 'react-redux';
-import { getVideogamesByName } from '../../redux/actions';
+import { getVideogamesByName, resetLoaded } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import loupe from '../../img/loupe.png';
 

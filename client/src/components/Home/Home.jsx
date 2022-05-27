@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 import Sidebar from '../Sidebar/Sidebar.jsx';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVideogames } from '../../redux/actions';
+import { getVideogames, reset } from '../../redux/actions';
 import Loading from '../Helpers/Loading/Loading.jsx';
 import Pagination from '../Helpers/Pagination/Pagination.jsx';
 import Videogames from '../Videogames/Videogames.jsx';
@@ -11,6 +11,10 @@ import Videogames from '../Videogames/Videogames.jsx';
 
 function Home() {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(reset())
+    }, [dispatch])
 
     let videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
