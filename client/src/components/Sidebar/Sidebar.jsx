@@ -2,31 +2,40 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres, getAllVideogames } from '../../redux/actions';
+import { allVideogames, filterGenres, orderAlphabet, orderRating, addedVideogames, getGenres, reset, getVideogamesLoaded } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 
 
 export default function Sidebar({ setCurrentPage }) {
     const dispatch = useDispatch();
 
+    const allVideogamesLoaded = useSelector((state) => state.allVideogames)
+
     const genresLoaded = useSelector((state) => state.genresLoaded)
-       useEffect(() => {
-            dispatch(getGenres())
+    useEffect(() => {
+        dispatch(getGenres())
     }, [dispatch])
 
     const navigate = useNavigate()
     const handleAllVideogames = () => {
         navigate('/home');
-        dispatch(getAllVideogames());
+        dispatch(reset());
+        if (allVideogamesLoaded.length === 0) {
+            dispatch(getVideogamesLoaded())
+        } else {
+            dispatch(allVideogames())
+        }
         setCurrentPage(1);
     }
     const handleAddedVideogames = () => {
         navigate('/home');
+        dispatch(reset());
         dispatch(addedVideogames());
         setCurrentPage(1);
     }
     const handleGenre = (e) => {
         navigate('/home');
+        dispatch(reset());
         dispatch(filterGenres(e.target.value));
         setCurrentPage(1);
     }
@@ -46,16 +55,16 @@ export default function Sidebar({ setCurrentPage }) {
             <div className={styles.buttons}>
                 <Link to='/home' >
                     <div className={styles.btn} onClick={() => handleAllVideogames()}>
-                        <p>All videogames</p>
+                        <p>All games</p>
                     </div>
                 </Link>
                 <div className={styles.btn} onClick={() => handleAddedVideogames()} >
-                    <p>Added videogames</p>
+                    <p>Added games</p>
                 </div>
                 <select onChange={(e) => handleGenre(e)}>
                     <option value='null'>Genres</option>
                     {
-                        genresLoaded.length === 0
+                        genresLoaded.length === 0 || allVideogamesLoaded.length === 0
                             ? <option value='null'>Cargando...</option>
                             : genresLoaded.length >= 1
                                 ? genresLoaded.map((genre) => {

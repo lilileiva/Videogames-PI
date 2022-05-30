@@ -4,11 +4,10 @@ import LandingPage from './components/LandingPage/LandingPage.jsx';
 import Home from './components/Home/Home.jsx';
 import GameDetail from './components/GameDetail/GameDetail.jsx';
 import Videogame from './components/Videogame/Videogame.jsx';
-import Genres from './components/Genres/Genres.jsx';
 import About from './components/About/About.jsx';
 import Footer from './components/Footer/Footer.jsx';
-import styles from './App.module.css';
 import NotFound from './components/NotFound/NotFound.jsx';
+import styles from './App.module.css';
 
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
         <Route exact path='/' element={<LandingPage />} />
         <Route exact path='/home' element={<Home />} />
         <Route exact path='/videogame/:id' element={<GameDetail />} />
-        <Route exact path='/genres' element={<Genres />} />
         <Route exact path='/createvideogame' element={<Videogame />} />
         <Route exact path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />

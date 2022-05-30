@@ -80,3 +80,27 @@ select {
 select:hover {
     color: rgb(105, 105, 105);
 }
+
+
+
+@media (max-width: 1400px) {
+    .inputs {
+        width: 60%;
+    }
+    .createVideogame select{
+        width: 60%;
+    }
+}
+@media (max-width: 700px) {
+    .container {
+        width: 255%;
+        margin: 0;
+    }
+    .createVideogame {
+        font-size: 3em;
+    }
+    .createVideogame {
+        margin-top: 10%;
+        width: 80%;
+    }
+}

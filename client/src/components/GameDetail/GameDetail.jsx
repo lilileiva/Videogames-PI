@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './GameDetail.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVideogameById, reset } from '../../redux/actions';
+import { getVideogameById } from '../../redux/actions';
 import { Link, useParams } from "react-router-dom";
 import joystick from '../../img/joystick.jpg';
 import Loading from '../Helpers/Loading/Loading.jsx'
@@ -13,15 +13,6 @@ export default function GameDetail() {
     const dispatch = useDispatch();
 
     const videogameDetail = useSelector((state) => state.videogameDetail)
-
-
-    // const [loading, setLoading] = useState(true)
-    // useEffect(() => {
-    //     if (videogameDetail) {
-    //         setLoading(false);
-    //     }
-    // }, [videogameDetail]);
-
 
     useEffect(() => {
         dispatch(getVideogameById(id));
@@ -35,8 +26,6 @@ export default function GameDetail() {
             </Link>
             <div className={styles.gameDetail}>
                 {
-                    // videogameDetail
-                    //     ? 
                     (!videogameDetail.platforms && !videogameDetail.rating && !videogameDetail.released && !videogameDetail.description && !videogameDetail.img)
                         ? <Loading />
                         : (
@@ -78,14 +67,7 @@ export default function GameDetail() {
                                 </div>
                             </div>
                         )
- 
                 }
-                {/* {
-                    (!videogameDetail.platforms && !videogameDetail.rating && !videogameDetail.released && !videogameDetail.description && !videogameDetail.img)
-                        ? <Loading />
-                        : null
-                } */}
-
             </div>
         </div>
     )

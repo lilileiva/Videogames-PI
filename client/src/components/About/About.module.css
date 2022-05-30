@@ -12,4 +12,27 @@
     font-size: 1.5em;
     background: rgba(0, 0, 0, 0.90);
     border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.about a {
+    text-align: center;
+    color: black;
+    background-color: yellow;
+    width: 10em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+}
+
+@media (max-width: 700px) {
+    .container {
+        width: 140%;
+    }
+}
+@media (max-width: 400px) {
+    .container {
+        width: 250%;
+    }
 }

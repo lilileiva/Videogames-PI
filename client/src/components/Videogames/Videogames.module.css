@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    font-size: 1em;
 }
 
 .card {
@@ -20,6 +21,7 @@
 }
 
 .image {
+    position: absolute;
     width: inherit;
     height: inherit;
     border-radius: 1em;
@@ -29,10 +31,11 @@
 }
 
 .text {
+    position: relative;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     z-index: 2;
-    position: relative;
     background-color: rgb(34, 34, 34);
     opacity: 0.7;
     border-bottom-left-radius: 1em;
@@ -57,8 +60,43 @@
     display: inline-flex;
     justify-content: space-between;
 }
+.genres {
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .rating {
     border: 0.1em solid aliceblue;
     border-radius: 0.2em;
     padding: 0.1em;
+}
+
+@media (max-width: 1010px) {
+    .card {
+        width: 16em;
+        height: 12em;
+    }
+    .text span {
+        margin: 0.2em;
+    }
+    .description {
+       font-size: 1.4em;
+    }
+}
+@media (max-width: 700px) {
+    .description {
+       font-size: 1.5em;
+    }
+}
+@media (max-width: 400px) {
+    .card {
+        font-size: 1.5em;
+    }
+    .text span {
+        margin: 0.2em;
+    }
+    .description {
+       font-size: 1.2em;
+    }
 }

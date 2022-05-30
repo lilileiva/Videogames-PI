@@ -1,5 +1,6 @@
 import {
     GET_VIDEOGAMES,
+    GET_VIDEOGAMES_LOADED,
     ADDED_VIDEOGAMES,
     GET_VIDEOGAMES_BY_NAME,
     GET_VIDEOGAME_BY_ID,
@@ -8,7 +9,8 @@ import {
     FILTER_GENRES,
     ORDER_RATING,
     ORDER_ALPHABET,
-    GET_ALL_VIDEOGAMES,
+    ALL_VIDEOGAMES,
+    SEARCH_NAME,
     RESET
 } from '../actions';
 
@@ -18,7 +20,8 @@ const initialState = {
     allVideogames: [],
     addedVideogamesLoaded: [],
     genresLoaded: [],
-    videogameDetail: {}
+    videogameDetail: {},
+    searchName: ''
 };
 
 function rootReducer(state = initialState, action) {
@@ -28,17 +31,23 @@ function rootReducer(state = initialState, action) {
             videogamesLoaded: action.payload
         }
     }
-    else if (action.type === GET_ALL_VIDEOGAMES) {
+    else if (action.type === GET_VIDEOGAMES_LOADED) {
         return {
             ...state,
-            videogamesLoaded: state.allVideogames
+            videogamesLoaded: action.payload,
+            allVideogames: action.payload
         }
     }
     else if (action.type === GET_VIDEOGAMES) {
         return {
             ...state,
-            videogamesLoaded: action.payload,
             allVideogames: action.payload
+        }
+    }
+    else if (action.type === ALL_VIDEOGAMES) {
+        return {
+            ...state,
+            videogamesLoaded: state.allVideogames
         }
     }
     else if (action.type === ADDED_VIDEOGAMES) {
@@ -141,10 +150,18 @@ function rootReducer(state = initialState, action) {
             allVideogames: state.allVideogames
         }
     }
+    else if (action.type === SEARCH_NAME) {
+        return {
+            ...state,
+            searchName: action.payload,
+        }
+    }
     else if (action.type === RESET) {
         return {
             ...state,
-            videogameDetail: {}
+            videogameDetail: {},
+            videogamesLoaded: [],
+            searchName: ''
         }
     }
     return state;

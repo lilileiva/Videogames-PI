@@ -29,3 +29,14 @@
     transition: 0.1s ease-out;
     transform: scale(110%);
 }
+
+@media (max-width: 700px) {
+    .container {
+        font-size: 150%;
+    }
+}
+@media (max-width: 400px) {
+    .container {
+        font-size: 200%;
+    }
+}

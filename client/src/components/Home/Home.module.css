@@ -13,7 +13,8 @@
     border-radius: 0.5em;
     margin-bottom: 4em;
 }
-.videogames a{
+
+.videogames a {
     color: aliceblue;
 }
 
@@ -31,4 +32,45 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+.tryAgain {
+    margin-top: 3em;
+    font-size: 1.5em;
+}
+
+
+@media (max-width: 1600px) {
+    .container {
+        font-size: 0.7em;
+    }
+}
+@media (max-width: 1010px) {
+    .container {
+        font-size: 0.5em;
+    }
+    .search input {
+        font-size: 0.5em;
+    }
+    .search button {
+        font-size: 0.4em;
+    }
+}
+@media (max-width: 700px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 150%;
+        font-size: 0.7em;
+    }
+    .videogames {
+        width: 93%;
+    }
+}
+@media (max-width: 400px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 280%;
+        font-size: 0.7em;
+    }
 }

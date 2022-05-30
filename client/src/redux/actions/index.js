@@ -1,5 +1,6 @@
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
-export const GET_ALL_VIDEOGAMES = "GET_ALL_VIDEOGAMES";
+export const GET_VIDEOGAMES_LOADED = "GET_VIDEOGAMES_LOADED";
+export const ALL_VIDEOGAMES = "ALL_VIDEOGAMES";
 export const ADDED_VIDEOGAMES = "ADDED_VIDEOGAMES";
 export const GET_VIDEOGAMES_BY_NAME = "GET_VIDEOGAMES_BY_NAME";
 export const GET_VIDEOGAME_BY_ID = "GET_VIDEOGAME_BY_ID";
@@ -9,8 +10,25 @@ export const FILTER_GENRES = "FILTER_GENRES";
 export const ORDER_RATING = "ORDER_RATING";
 export const ORDER_ALPHABET = "ORDER_ALPHABET";
 export const RESET = "RESET";
+export const SEARCH_NAME = "SEARCH_NAME";
 
 
+export function getVideogamesLoaded() {
+    return async function (dispatch) {
+        try {
+            return await fetch('http://localhost:3001/videogames')
+                .then(res => res.json())
+                .then(data => {
+                    dispatch({
+                        type: "GET_VIDEOGAMES_LOADED",
+                        payload: data
+                    })
+                })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+};
 export function getVideogames() {
     return async function (dispatch) {
         try {
@@ -29,9 +47,9 @@ export function getVideogames() {
 };
 
 
-export function getAllVideogames() {
+export function allVideogames() {
     return {
-        type: "GET_ALL_VIDEOGAMES"
+        type: "ALL_VIDEOGAMES"
     }
 }
 
@@ -156,6 +174,13 @@ export function orderAlphabet(payload) {
 export function reset() {
     return {
         type: "RESET"
+    }
+}
+
+export function searchName(payload) {
+    return {
+        type: "SEARCH_NAME",
+        payload
     }
 }
 

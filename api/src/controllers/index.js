@@ -32,7 +32,7 @@ const getVideogames = async (req, res) => {
 
             const bdVideogames = await Videogame.findAll({
                 where: {
-                    name: {[Sequelize.Op.iLike]: `%${name}%`}
+                    name: { [Sequelize.Op.iLike]: `%${name}%` }
                 },
                 include: {
                     model: Genre
@@ -196,7 +196,7 @@ const createVideogame = async (req, res) => {
     rating = Number(rating)
 
     if (!name || typeof name !== "string") {
-        return res.status(404).json({ error: "Invalid Name" });
+        return res.status(404).json({ error: "Invalid name" });
     }
     if (!description || typeof description !== "string") {
         return res.status(404).json({ error: "Invalid description" });
@@ -213,9 +213,7 @@ const createVideogame = async (req, res) => {
         }
     }
     if (img && !(img.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))) {
-        // if (typeof img !== "string") {
-            return res.status(404).json({ error: "Invalid image" });
-        // }
+        return res.status(404).json({ error: "Invalid image" });
     }
 
     try {
