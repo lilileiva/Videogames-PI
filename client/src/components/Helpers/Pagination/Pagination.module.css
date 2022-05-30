@@ -32,11 +32,11 @@
 
 @media (max-width: 700px) {
     .container {
-        font-size: 150%;
+        font-size: 100%;
     }
 }
 @media (max-width: 400px) {
     .container {
-        font-size: 200%;
+        font-size: 150%;
     }
 }

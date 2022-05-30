@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './GameDetail.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVideogameById } from '../../redux/actions';
+import { getVideogameById, reset } from '../../redux/actions';
 import { Link, useParams } from "react-router-dom";
 import joystick from '../../img/joystick.jpg';
 import Loading from '../Helpers/Loading/Loading.jsx'
 
 
-export default function GameDetail() {
+function GameDetail() {
     const { id } = useParams();
 
     const dispatch = useDispatch();
@@ -16,13 +16,12 @@ export default function GameDetail() {
 
     useEffect(() => {
         dispatch(getVideogameById(id));
-        return console.log('hola')
     }, [dispatch, id])
 
     return (
         <div className={styles.container}>
             <Link to='/home'>
-                <span>← Return</span>
+                <span onClick={() => dispatch(reset('cleanDetail'))}>← Return</span>
             </Link>
             <div className={styles.gameDetail}>
                 {
@@ -72,3 +71,5 @@ export default function GameDetail() {
         </div>
     )
 }
+
+export default GameDetail;

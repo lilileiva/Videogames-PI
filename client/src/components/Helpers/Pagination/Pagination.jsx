@@ -3,7 +3,8 @@ import styles from './Pagination.module.css';
 import { useSelector } from "react-redux";
 
 
-function Pagination({ gamesPerPage, paginate }) {
+
+function Pagination({ gamesPerPage, paginate, setCurrentPage, currentPage }) {
     const pageNumbers = [];
 
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded);
@@ -14,17 +15,28 @@ function Pagination({ gamesPerPage, paginate }) {
 
     return (
         <div className={styles.container}>
-            <ul className={styles.pages}>
-                {
-                    pageNumbers.map((number) => (
-                        <li key={number} >
-                            <p onClick={() => paginate(number)} className={styles.pageNumber} >
-                                {number}
-                            </p>
-                        </li>
-                    ))
-                }
-            </ul>
+            {
+                videogamesLoaded.length === 0
+                    ? null
+                    : <ul className={styles.pages}>
+                        <p onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage)}>
+                            Back
+                        </p>
+                        {
+                            pageNumbers.map((number) => (
+                                <li key={number} >
+                                    <p onClick={() => paginate(number)} className={styles.pageNumber} >
+                                        {number}
+                                    </p>
+                                </li>
+                            ))
+                        }
+                        <p onClick={() => setCurrentPage(currentPage < pageNumbers.length ? currentPage + 1 : currentPage)}>
+                            Next
+                        </p>
+                    </ul>
+            }
+
         </div>
     )
 }

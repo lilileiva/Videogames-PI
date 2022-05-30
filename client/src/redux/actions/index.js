@@ -171,9 +171,10 @@ export function orderAlphabet(payload) {
 }
 
 
-export function reset() {
+export function reset(payload) {
     return {
-        type: "RESET"
+        type: "RESET",
+        payload
     }
 }
 

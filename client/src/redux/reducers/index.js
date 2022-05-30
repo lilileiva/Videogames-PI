@@ -157,11 +157,18 @@ function rootReducer(state = initialState, action) {
         }
     }
     else if (action.type === RESET) {
-        return {
-            ...state,
-            videogameDetail: {},
-            videogamesLoaded: [],
-            searchName: ''
+        if (action.payload === 'cleanDetail') {
+            return {
+                ...state,
+                videogameDetail: {}
+            }
+        } else {
+            return {
+                ...state,
+                videogameDetail: {},
+                videogamesLoaded: [],
+                searchName: ''
+            }
         }
     }
     return state;

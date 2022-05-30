@@ -16,12 +16,12 @@ function Home() {
     const allVideogames = useSelector((state) => state.allVideogames)
     const videogamesLoaded = useSelector((state) => state.videogamesLoaded)
     useEffect(() => {
+        if (allVideogames.length === 0 && searchName.length === 0) {
+            dispatch(reset())        
+            dispatch(getVideogamesLoaded())
+        }
         if (allVideogames.length === 0) {
             dispatch(getVideogames())
-        }
-        if (allVideogames.length === 0 && searchName.length === 0) {
-            dispatch(reset())
-            dispatch(getVideogamesLoaded())
         }
     }, [dispatch, allVideogames.length]);
 
@@ -53,7 +53,7 @@ function Home() {
                                 : <p className={styles.tryAgain}>Try again...</p>
                     }
                 </div>
-                <Pagination gamesPerPage={gamesPerPage} paginate={paginate} />
+                <Pagination gamesPerPage={gamesPerPage} paginate={paginate} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
         </div >
     )
