@@ -38,7 +38,7 @@ function Home() {
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
-                <Sidebar setCurrentPage={setCurrentPage} currentGames={currentGames} />
+                <Sidebar setCurrentPage={setCurrentPage} />
             </div>
             <div className={styles.videogames}>
                 <div className={styles.search}>
