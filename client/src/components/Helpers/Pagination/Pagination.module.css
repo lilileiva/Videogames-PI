@@ -45,12 +45,7 @@
     padding: 0.2em;
     cursor: pointer;
     transform: scale(115%);
-    /* animation: bounce 1s infinite ease-in-out; */
 }
-/* @keyframes bounce {
-    33% { transform: translateY(-10px); }
-    66% { transform: translateY(0px); }
-} */
 
 
 @media (max-width: 700px) {
