@@ -5,8 +5,7 @@ const { Sequelize } = require('sequelize');
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-// const { API_KEY } = process.env;
-const API_KEY = '6bcb2db2bdaa45649f761187d112082d';
+const { API_KEY } = process.env;
 
 
 /*--------------------------( /videogames y /videogames?name="..." )---------------------------*/
