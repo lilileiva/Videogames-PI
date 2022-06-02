@@ -9,13 +9,13 @@
  <li>Order alphabetically</li>
  <li>Order by rating</li>
  
-This project uses APIs from [https://openweathermap.org/](https://rawg.io/)
+This project uses APIs from https://rawg.io/
 
 ---
 
 ### Visit this project
 #### (Vercel and Heroku deploy)
-LINK: [https://weather-app-vercel-zeta.vercel.app/](https://videogames-pi-vc.vercel.app/)
+LINK: https://videogames-pi-vc.vercel.app/
 
 ---
 
